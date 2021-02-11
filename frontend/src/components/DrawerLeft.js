@@ -1,5 +1,6 @@
 import React from "react";
 import { BiMenuAltLeft } from "react-icons/bi";
+import { MdCheckCircle, MdSettings } from "react-icons/md";
 import {
   Drawer,
   DrawerBody,
@@ -12,10 +13,12 @@ import {
   Flex,
   Text,
   Divider,
-  Input,
   Heading,
   Icon,
   Image,
+  List,
+  ListItem,
+  ListIcon,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -67,14 +70,54 @@ function DrawerLeft() {
               </Flex>
             </DrawerHeader>
             <DrawerBody>
-              <Input placeholder="Type here..." />
+              <List spacing={3}>
+                <ListItem
+                  _hover={{
+                    background: "gray.200",
+                    color: "teal.500",
+                    pointer: "pointer",
+                  }}
+                  my="1rem"
+                  py=".5rem"
+                  px="1rem"
+                >
+                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  Orders
+                </ListItem>
+                <ListItem
+                  _hover={{
+                    background: "gray.200",
+                    color: "teal.500",
+                    pointer: "pointer",
+                  }}
+                  my="1rem"
+                  py=".5rem"
+                  px="1rem"
+                >
+                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  History
+                </ListItem>
+
+                <ListItem
+                  _hover={{
+                    background: "gray.200",
+                    color: "teal.500",
+                    pointer: "pointer",
+                  }}
+                  my="1rem"
+                  py=".5rem"
+                  px="1rem"
+                >
+                  <ListIcon as={MdSettings} color="green.500" />
+                  Setting
+                </ListItem>
+              </List>
             </DrawerBody>
 
-            <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button color="blue">Save</Button>
+            <DrawerFooter justifyContent="center" alignItems="center">
+              <Text fontSize="sm" color="gray.400">
+                &copy; 2021 - <a href='https://bigiltech.com'>Bigil Technologies</a>
+              </Text>
             </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>
