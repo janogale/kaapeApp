@@ -3,6 +3,7 @@ import {
   Text,
   Code,
   List,
+  Flex,
   ListIcon,
   ListItem,
   Heading,
@@ -11,13 +12,12 @@ import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 
 const Index = () => (
   <Container minH="100vh">
+    <Header />
     <Main bg="gray.300">
-      <Heading as="h1" mt={4} textAlign="center">
-        KaapeApp
-      </Heading>
       <Text>
         Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code>.
       </Text>

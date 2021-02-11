@@ -6,7 +6,7 @@ export const Footer = (props) => (
     as="footer"
     w="100%"
     maxWidth="48rem"
-    py=".8rem"
+    py=".5rem"
     flexShrink={0}
     justify="space-around"
     bg="gray.200"
