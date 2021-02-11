@@ -1,50 +1,28 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  Flex,
-  ListIcon,
-  ListItem,
-  Heading,
-} from "@chakra-ui/react";
-import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
+import React from "react";
+import { Text } from "@chakra-ui/react";
 import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import QrReader from "../components/QrReader";
 
-const Index = () => (
-  <Container minH="100vh">
-    <Header />
-    <Main bg="gray.300">
-      <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code>.
-      </Text>
+const Index = () => {
+  const [active, setActive] = React.useState(null);
+  React.useEffect(function () {
+    setActive(true);
+  });
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+  return (
+    <Container minH="100vh">
+      <Header />
+      <Main bg="gray.300">
+        <Text>Scan Menu</Text>
+        {active && <QrReader />}
+      </Main>
 
-    <Footer />
-  </Container>
-);
+      <Footer />
+    </Container>
+  );
+};
 
 export default Index;

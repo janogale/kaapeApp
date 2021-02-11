@@ -1,5 +1,5 @@
 import React from "react";
-import { BiMenuAltLeft } from "react-icons/bi";
+import { BiMenuAltLeft, BiFoodMenu } from "react-icons/bi";
 import { MdCheckCircle, MdSettings } from "react-icons/md";
 import {
   Drawer,
@@ -14,7 +14,7 @@ import {
   Text,
   Divider,
   Heading,
-  Icon,
+  IconButton,
   Image,
   List,
   ListItem,
@@ -31,7 +31,14 @@ function DrawerLeft() {
       {/* <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
         Open
       </Button> */}
-      <Icon ref={btnRef} onClick={onOpen} as={BiMenuAltLeft} w={8} h={8} />
+
+      <IconButton
+        bg="transparent"
+        ref={btnRef}
+        fontSize="1.5rem"
+        onClick={onOpen}
+        icon={<BiMenuAltLeft />}
+      />
       <Drawer
         isOpen={isOpen}
         placement="left"
@@ -81,7 +88,7 @@ function DrawerLeft() {
                   py=".5rem"
                   px="1rem"
                 >
-                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  <ListIcon as={BiFoodMenu} color="green.500" />
                   Orders
                 </ListItem>
                 <ListItem
@@ -94,7 +101,7 @@ function DrawerLeft() {
                   py=".5rem"
                   px="1rem"
                 >
-                  <ListIcon as={MdCheckCircle} color="green.500" />
+                  <ListIcon as={BiFoodMenu} color="green.500" />
                   History
                 </ListItem>
 
@@ -116,7 +123,8 @@ function DrawerLeft() {
 
             <DrawerFooter justifyContent="center" alignItems="center">
               <Text fontSize="sm" color="gray.400">
-                &copy; 2021 - <a href='https://bigiltech.com'>Bigil Technologies</a>
+                &copy; 2021 -{" "}
+                <a href="https://bigiltech.com">Bigil Technologies</a>
               </Text>
             </DrawerFooter>
           </DrawerContent>
