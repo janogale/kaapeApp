@@ -53,8 +53,53 @@ let options = {
 };
 
 export async function getStaticPaths() {
-  let result = await fetch(`${apiURL}/api/providers`, options);
-  let spData = await result.json();
+  let spData = [
+    {
+      id: 100,
+      guid: 100,
+      currency: "usd",
+      businessType: "cafeteria",
+      serviceLevel: 2,
+      name: "Nomad Cafe",
+      description: "Drink with joy",
+      phoneNumber: "0631235422",
+      website: "www.cafe.com",
+      configuration: null,
+      city: "Hargeisa",
+      location: "downtown",
+      picture: "./images/cafe.png",
+    },
+    {
+      id: 101,
+      guid: 101,
+      currency: "usd",
+      businessType: "cafeteria",
+      serviceLevel: 2,
+      name: "Mudakar Coffee",
+      description: "Drink with joy",
+      phoneNumber: "0631235422",
+      website: "www.cafe.com",
+      configuration: null,
+      city: "Hargeisa",
+      location: "downtown",
+      picture: "./images/cafe.png",
+    },
+    {
+      id: 102,
+      guid: 102,
+      currency: "usd",
+      businessType: "cafeteria",
+      serviceLevel: 2,
+      name: "Cafe Barbera",
+      description: "Drink with joy",
+      phoneNumber: "0631235422",
+      website: "www.cafe.com",
+      configuration: null,
+      city: "Hargeisa",
+      location: "downtown",
+      picture: "./images/cafe.png",
+    },
+  ];
 
   // get paths.
 
@@ -70,11 +115,55 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  let result = await fetch(
-    `${apiURL}/api/providers/${context.params.spId}`,
-    options
-  );
-  let spData = await result.json();
+  let providers = [
+    {
+      id: 100,
+      guid: 100,
+      currency: "usd",
+      businessType: "cafeteria",
+      serviceLevel: 2,
+      name: "Nomad Cafe",
+      description: "Drink with joy",
+      phoneNumber: "0631235422",
+      website: "www.cafe.com",
+      configuration: null,
+      city: "Hargeisa",
+      location: "downtown",
+      picture: "./images/cafe.png",
+    },
+    {
+      id: 101,
+      guid: 101,
+      currency: "usd",
+      businessType: "cafeteria",
+      serviceLevel: 2,
+      name: "Mudakar Coffee",
+      description: "Drink with joy",
+      phoneNumber: "0631235422",
+      website: "www.cafe.com",
+      configuration: null,
+      city: "Hargeisa",
+      location: "downtown",
+      picture: "./images/cafe.png",
+    },
+    {
+      id: 102,
+      guid: 102,
+      currency: "usd",
+      businessType: "cafeteria",
+      serviceLevel: 2,
+      name: "Cafe Barbera",
+      description: "Drink with joy",
+      phoneNumber: "0631235422",
+      website: "www.cafe.com",
+      configuration: null,
+      city: "Hargeisa",
+      location: "downtown",
+      picture: "./images/cafe.png",
+    },
+  ];
+
+  let spData = providers.filter((sp) => sp.id == context.params.spId)[0];
 
   return {
     props: { spData },
