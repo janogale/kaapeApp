@@ -1,3 +1,3 @@
 # Kaape App
 
-new invention for Food Menu
+new invention for Food Menu for Hotel, Cafes, Retaurents and Caferias.
