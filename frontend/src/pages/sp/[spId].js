@@ -15,7 +15,7 @@ export default function ServiceProviderPage({ spData }) {
         background: "gray.100",
       }}
     >
-      <Link href={`sp/${spData.guid}`}>
+      <Link href={`/sp/${spData.id}`}>
         <a m="5">
           <Heading m="5" mb="0" as="h4" size="md">
             {spData.name}
@@ -34,9 +34,10 @@ export default function ServiceProviderPage({ spData }) {
     </Layout>
   );
 }
+const apiURL = process.env.SERVER;
 
 export async function getStaticPaths() {
-  let result = await fetch(`http://localhost:3000/api/providers`);
+  let result = await fetch(`${apiURL}/api/providers`);
   let spData = await result.json();
 
   // get paths.
@@ -53,9 +54,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  let result = await fetch(
-    `http://localhost:3000/api/providers/${context.params.spId}`
-  );
+  let result = await fetch(`${apiURL}/api/providers/${context.params.spId}`);
   let spData = await result.json();
 
   return {

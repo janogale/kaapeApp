@@ -16,7 +16,7 @@ export default function ServiceProviderPage({ spData }) {
           background: "gray.100",
         }}
       >
-        <Link href={`sp/${sp.guid}`}>
+        <Link href={`/sp/${sp.id}`}>
           <a m="5">
             <Heading m="5" mb="0" as="h4" size="md">
               {sp.name}
@@ -37,8 +37,10 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
+const apiURL = process.env.SERVER;
+
 export async function getStaticProps() {
-  let result = await fetch("http://localhost:3000/api/providers");
+  let result = await fetch(`${apiURL}/api/providers`);
   let spData = await result.json();
 
   return {
