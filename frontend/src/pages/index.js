@@ -18,8 +18,7 @@ const Index = () => {
   return (
     <Layout>
       <Text>Scan Menu</Text>
-
-      <QrReaderNoSSR />
+      {typeof window != "undefined" && <QrReaderNoSSR />}
     </Layout>
   );
 };

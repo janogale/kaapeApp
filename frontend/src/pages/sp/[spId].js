@@ -15,16 +15,24 @@ export default function ServiceProviderPage({ spData }) {
         background: "gray.100",
       }}
     >
-      <Link href={`/sp/${spData.id}`}>
-        <a m="5">
-          <Heading m="5" mb="0" as="h4" size="md">
-            {spData.name}
-          </Heading>
-          <Text m="5" mt="0">
-            {spData.description}
-          </Text>
-        </a>
+      <Link href={`/sp`}>
+        <Box
+          as="a"
+          m="5"
+          display="block"
+          bg="gray.300"
+          textAlign="center"
+          _hover={{ cursor: "pointer" }}
+        >
+          Go Back
+        </Box>
       </Link>
+      <Heading m="5" mb="0" as="h4" size="md">
+        {spData.name}
+      </Heading>
+      <Text m="5" mt="0">
+        {spData.description}
+      </Text>
     </Box>
   );
 

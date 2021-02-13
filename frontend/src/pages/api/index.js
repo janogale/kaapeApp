@@ -2,9 +2,11 @@
 
 // service providers route
 
+let data = {
+  name: "kaape",
+  version: 1.0,
+};
 export default function handler(req, res) {
   // Get data from your database
-  res.status(200).json({
-    root: "Kaape App Root",
-  });
+  res.status(200).json(data);
 }
