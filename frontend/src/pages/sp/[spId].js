@@ -43,9 +43,14 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 const apiURL = process.env.SERVER;
-
+let options = {
+  headers: {
+    Accept: "application/json, text/plain, */*",
+    "User-Agent": "*",
+  },
+};
 export async function getStaticPaths() {
-  let result = await fetch(`${apiURL}/api/providers`);
+  let result = await fetch(`${apiURL}/api/providers`, options);
   let spData = await result.json();
 
   // get paths.
@@ -62,7 +67,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  let result = await fetch(`${apiURL}/api/providers/${context.params.spId}`);
+  let result = await fetch(
+    `${apiURL}/api/providers/${context.params.spId}`,
+    options
+  );
   let spData = await result.json();
 
   return {

@@ -39,8 +39,15 @@ export default function ServiceProviderPage({ spData }) {
 
 const apiURL = process.env.SERVER;
 
+let options = {
+  headers: {
+    Accept: "application/json, text/plain, */*",
+    "User-Agent": "*",
+  },
+};
+
 export async function getStaticProps() {
-  let result = await fetch(`${apiURL}/api/providers`);
+  let result = await fetch(`${apiURL}/api/providers`, options);
   let spData = await result.json();
 
   return {
