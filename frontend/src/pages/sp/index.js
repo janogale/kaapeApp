@@ -40,9 +40,11 @@ export default function ServiceProviderPage({ spData }) {
 const apiURL = process.env.SERVER;
 
 let options = {
+  method: "GET",
   headers: {
-    Accept: "application/json, text/plain, */*",
+    // update with your user-agent
     "User-Agent": "*",
+    Accept: "application/json; charset=UTF-8",
   },
 };
 
