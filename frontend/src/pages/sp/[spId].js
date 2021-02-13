@@ -15,7 +15,7 @@ export default function ServiceProviderPage({ spData }) {
         background: "gray.100",
       }}
     >
-      <Link href={`/${spData.guid}`}>
+      <Link href={`sp/${spData.guid}`}>
         <a m="5">
           <Heading m="5" mb="0" as="h4" size="md">
             {spData.name}
@@ -36,14 +36,19 @@ export default function ServiceProviderPage({ spData }) {
 }
 
 export async function getStaticPaths() {
+  let result = await fetch(`http://localhost:3000/api/providers`);
+  let spData = await result.json();
+
+  // get paths.
+
+  let paths = spData.map((sp) => {
+    return {
+      params: { spId: sp.id + "" },
+    };
+  });
   return {
-    paths: [
-      { params: { spId: "100" } },
-      { params: { spId: "101" } },
-      { params: { spId: "102" } },
-      { params: { spId: "103" } },
-    ],
-    fallback: true,
+    paths,
+    fallback: false,
   };
 }
 
