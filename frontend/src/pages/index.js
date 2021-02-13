@@ -1,10 +1,13 @@
 import React from "react";
+
+import dynamic from "next/dynamic";
+
 import { Text } from "@chakra-ui/react";
-import { Container } from "../components/Container";
-import { Main } from "../components/Main";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import QrReader from "../components/QrReader";
+import Layout from "../components/Layout";
+
+const QrReaderNoSSR = dynamic(() => import("../components/QrReader"), {
+  ssr: false,
+});
 
 const Index = () => {
   const [active, setActive] = React.useState(null);
@@ -13,15 +16,11 @@ const Index = () => {
   });
 
   return (
-    <Container minH="100vh">
-      <Header />
-      <Main bg="gray.300">
-        <Text>Scan Menu</Text>
-        {active && <QrReader />}
-      </Main>
+    <Layout>
+      <Text>Scan Menu</Text>
 
-      <Footer />
-    </Container>
+      <QrReaderNoSSR />
+    </Layout>
   );
 };
 

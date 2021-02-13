@@ -1,17 +1,25 @@
 import React from "react";
-import QrReader from "react-qr-scanner";
+import QrReader from "react-qr-reader";
 function QrCodeReader(props) {
   const [result, setResult] = React.useState(null);
   const [qrData, setQrData] = React.useState(null);
+  const [camera, switchCamera] = React.useState("environment");
+
+  React.useEffect(function () {});
 
   const handleScan = (data) => {
+    console.log(data);
     setResult(data);
     if (data) {
-      setQrData(data.text);
+      setQrData(data);
     }
   };
   const handleError = (err) => {
     console.error(err);
+  };
+
+  const handleSwitchCamera = () => {
+    switchCamera(camera == "environment" ? "user" : "environment");
   };
 
   const previewStyle = {
@@ -21,20 +29,20 @@ function QrCodeReader(props) {
 
   return (
     <div>
-      {result === null ? (
+      <div style={{ position: "relative", marginBottom: 80 }}>
         <QrReader
-          delay={1000}
+          delay={500}
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
-          facingMode="environment"
+          facingMode={camera}
         />
-      ) : (
-        <>
-          <p>Found data</p>
-          <p>{qrData}</p>
-        </>
-      )}
+      </div>
+
+      <p>found Data: {qrData}</p>
+
+      <h2>{camera}</h2>
+      <button onClick={handleSwitchCamera}>Switch Camera</button>
     </div>
   );
 }

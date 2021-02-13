@@ -1,5 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { DrawerLeft } from "./DrawerLeft";
+import Link from "next/link";
 export const Header = (props) => {
   return (
     <Flex
@@ -16,7 +17,9 @@ export const Header = (props) => {
     >
       <DrawerLeft />
       <Heading as="h1" textAlign="center" fontSize="2xl" flexGrow={2}>
-        Kaape Menu
+        <Link href="/">
+          <a>Kaape Menu</a>
+        </Link>
       </Heading>
     </Flex>
   );
