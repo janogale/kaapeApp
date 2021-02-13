@@ -1,11 +1,18 @@
 import React from "react";
 import QrReader from "react-qr-reader";
+import { useRouter } from "next/router";
+
 function QrCodeReader(props) {
   const [result, setResult] = React.useState(null);
   const [qrData, setQrData] = React.useState(null);
   const [camera, switchCamera] = React.useState("environment");
+  const router = useRouter();
 
-  React.useEffect(function () {});
+  React.useEffect(function () {
+    if (qrData) {
+      router.push("/sp/100");
+    }
+  });
 
   const handleScan = (data) => {
     console.log(data);
