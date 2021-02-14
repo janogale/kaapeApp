@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, Heading, Box, Text, Button, Image } from "@chakra-ui/react";
+import Image from "next/image";
+import { Flex, Heading, Box, Text, Button } from "@chakra-ui/react";
 
 export default function FoodMenu({
   name,
@@ -12,7 +13,8 @@ export default function FoodMenu({
     <Flex>
       <Box>
         <Image
-          boxSize="100px"
+          width={100}
+          height={100}
           objectFit="cover"
           src={picture}
           alt={description}
