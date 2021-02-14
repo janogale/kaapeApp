@@ -13,7 +13,7 @@ export default function ServiceProviderPage({ spData }) {
         <ProviderBanner {...spData} img="/menu/menu.jpg" />
         {menuData.map((menu) => {
           return (
-            <Box key={menu.id}>
+            <Box key={menu.id} mb="2" boxShadow="sm" p="4">
               <FoodMenu {...menu} />
             </Box>
           );

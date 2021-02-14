@@ -6,7 +6,7 @@ const Menu = [
     description: "Delicious Fried Fish",
     status: 1,
     itemCategoryId: "main",
-    saleUnitPrice: 8.5,
+    saleUnitPrice: 18.5,
     picture: "/menu/f1.jpg",
   },
   {
@@ -26,7 +26,7 @@ const Menu = [
     description: "Delicious Fried Fish",
     status: 1,
     itemCategoryId: "main",
-    saleUnitPrice: 8.5,
+    saleUnitPrice: 16.5,
     picture: "/menu/f3.jpg",
   },
   {
@@ -36,7 +36,7 @@ const Menu = [
     description: "Delicious Fried Fish",
     status: 1,
     itemCategoryId: "main",
-    saleUnitPrice: 8.5,
+    saleUnitPrice: 12.5,
     picture: "/menu/f4.jpg",
   },
   {
@@ -46,7 +46,7 @@ const Menu = [
     description: "Delicious Fried Fish",
     status: 1,
     itemCategoryId: "main",
-    saleUnitPrice: 8.5,
+    saleUnitPrice: 20.2,
     picture: "/menu/d1.jpg",
   },
   {
@@ -56,7 +56,7 @@ const Menu = [
     description: "Delicious Fried Fish",
     status: 1,
     itemCategoryId: "main",
-    saleUnitPrice: 8.5,
+    saleUnitPrice: 15,
     picture: "/menu/f1.jpg",
   },
 ];
