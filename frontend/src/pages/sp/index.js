@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Box, Heading, Text } from "@chakra-ui/react";
-import Layout from "../../components/Layout";
+import Layout from "@/components/Layout";
 import serviceProvidersSample from "../../samples/providers";
 
 export default function ServiceProviderPage({ spData }) {

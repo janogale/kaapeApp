@@ -3,9 +3,9 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import { Text } from "@chakra-ui/react";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 
-const QrReaderNoSSR = dynamic(() => import("../components/QrReader"), {
+const QrReaderNoSSR = dynamic(() => import("../../components/QrReader"), {
   ssr: false,
 });
 

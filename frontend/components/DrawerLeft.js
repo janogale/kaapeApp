@@ -1,4 +1,6 @@
 import React from "react";
+import { useRouter } from "next/router";
+
 import { BiMenuAltLeft, BiFoodMenu } from "react-icons/bi";
 import { MdCheckCircle, MdSettings } from "react-icons/md";
 import {
@@ -25,6 +27,9 @@ import {
 function DrawerLeft() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const router = useRouter();
+
+  console.log(router);
 
   return (
     <>
