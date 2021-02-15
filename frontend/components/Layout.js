@@ -7,7 +7,7 @@ import { Main } from "./Main";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, hide = false }) => {
   const [active, setActive] = React.useState(null);
   React.useEffect(function () {
     setActive(true);
@@ -15,9 +15,9 @@ const Layout = ({ children }) => {
 
   return (
     <Container minH="100vh">
-      <Header />
+      {hide || <Header />}
       <Main>{children}</Main>
-      <Footer />
+      {hide || <Footer />}
     </Container>
   );
 };

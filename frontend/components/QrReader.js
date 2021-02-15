@@ -1,6 +1,10 @@
 import React from "react";
+import Link from "next/link";
 import QrReader from "react-qr-reader";
 import { useRouter } from "next/router";
+import { Box, Divider, Flex, Icon, Text } from "@chakra-ui/react";
+import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
+import { IoMdArrowBack } from "react-icons/io";
 
 function QrCodeReader(props) {
   const [result, setResult] = React.useState(null);
@@ -29,28 +33,74 @@ function QrCodeReader(props) {
     switchCamera(camera == "environment" ? "user" : "environment");
   };
 
+  const CameraSwitchIcon =
+    camera == "environment" ? RiCameraSwitchLine : RiCameraSwitchFill;
+
   const previewStyle = {
-    height: 240,
-    width: 320,
+    width: "24rem",
   };
 
   return (
-    <div>
-      <div style={{ position: "relative", marginBottom: 80 }}>
-        <QrReader
-          delay={500}
-          style={previewStyle}
-          onError={handleError}
-          onScan={handleScan}
-          facingMode={camera}
+    <Flex
+      direction="column"
+      maxW="24rem"
+      bg="gray.400"
+      mx="auto"
+      position="relative"
+    >
+      <Flex
+        color="gray.100"
+        justify="space-between"
+        align="center"
+        py="2"
+        px="6"
+      >
+        <Link href="/">
+          <a>
+            <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
+          </a>
+        </Link>
+
+        <Icon
+          bg="transparent"
+          onClick={handleSwitchCamera}
+          as={CameraSwitchIcon}
+          w={5}
+          h={5}
         />
-      </div>
-
-      <p>found Data: {qrData}</p>
-
-      <h2>{camera}</h2>
-      <button onClick={handleSwitchCamera}>Switch Camera</button>
-    </div>
+      </Flex>
+      <QrReader
+        delay={500}
+        style={previewStyle}
+        onError={handleError}
+        onScan={handleScan}
+        facingMode={camera}
+      />
+      <Flex
+        direction="column"
+        boxShadow="sm"
+        py="2"
+        align="center"
+        position="relative"
+        zIndex={100}
+      ></Flex>
+      <Flex
+        boxShadow="sm"
+        direction="column"
+        py="2"
+        mt="4"
+        align="center"
+        position="relative"
+        zIndex={100}
+      >
+        <Text color="gray.300" fontSize="xs">
+          Type Code
+        </Text>
+        <Text color="gray.400" fontSize="xs" mt="2">
+          to Browse Menu
+        </Text>
+      </Flex>
+    </Flex>
   );
 }
 

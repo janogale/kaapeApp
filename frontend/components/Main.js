@@ -8,7 +8,6 @@ export const Main = (props) => (
     width="100%"
     maxWidth="48rem"
     height="100%"
-    px="1rem"
     {...props}
   />
 );

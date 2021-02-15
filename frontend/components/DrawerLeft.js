@@ -29,8 +29,6 @@ function DrawerLeft() {
   const btnRef = React.useRef();
   const router = useRouter();
 
-  console.log(router);
-
   return (
     <>
       {/* <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
@@ -60,7 +58,7 @@ function DrawerLeft() {
                   <Image
                     borderRadius="full"
                     boxSize="30px"
-                    src="./kaape-icon.png"
+                    src="/kaape-icon.png"
                     alt="Kaape Menu App icon"
                   />
                   <Heading
