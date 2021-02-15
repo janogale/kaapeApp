@@ -25,11 +25,13 @@ const Index = () => {
           />
         </Box>
 
-        <Button colorScheme="teal" variant="outline" width="100%">
-          <Link href="/scan">
-            <a>Scan Menu</a>
-          </Link>
-        </Button>
+        <Link href="/scan">
+          <a style={{ display: "block", width: "100%" }}>
+            <Button colorScheme="teal" variant="outline" width="100%">
+              Scan Menu
+            </Button>
+          </a>
+        </Link>
       </Flex>
     </Layout>
   );

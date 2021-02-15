@@ -37,16 +37,16 @@ function QrCodeReader(props) {
     camera == "environment" ? RiCameraSwitchLine : RiCameraSwitchFill;
 
   const previewStyle = {
-    width: "24rem",
+    width: "100%",
   };
 
   return (
     <Flex
       direction="column"
-      maxW="24rem"
       bg="gray.400"
       mx="auto"
       position="relative"
+      width="100%"
     >
       <Flex
         color="gray.100"
