@@ -16,6 +16,9 @@ const Index = () => {
         flexGrow={2}
       >
         <Heading fontSize="lg">Welcome To Kaape</Heading>
+        <Heading color="gray.400" fontSize="md" mt="4">
+          Digital Menu
+        </Heading>
         <Box bg="red.300" my={8}>
           <IconButton
             w={24}
