@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineQrcode } from "react-icons/ai";
-import { Heading, Flex, Button, IconButton, Box } from "@chakra-ui/react";
+import { Text, Flex, Button, IconButton, Box } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
 const Index = () => {
@@ -16,10 +16,14 @@ const Index = () => {
         justify="space-around"
         flexGrow={2}
       >
-        <Heading fontSize="lg" colorScheme="teal">
-          DIGITAL MENU
-        </Heading>
-        <Box position="relative" w="50%" borderRadius="100%" overflow="hidden">
+        <Text color="gray.300">Scan Menu to order Food</Text>
+        <Box
+          mt={["-2rem", "-1rem", null]}
+          position="relative"
+          w="50%"
+          borderRadius="100%"
+          overflow="hidden"
+        >
           <Link href="/scan">
             <a>
               <Image
