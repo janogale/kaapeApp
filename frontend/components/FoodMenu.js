@@ -36,8 +36,8 @@ export default function FoodMenu({
             }}
             display="block"
             ml="auto"
-            size="md"
-            width="120px"
+            size="sm"
+            width="100px"
             border="1px"
             bg="green.500"
             color="gray.100"
