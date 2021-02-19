@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineQrcode } from "react-icons/ai";
 import { Heading, Flex, Button, IconButton, Box } from "@chakra-ui/react";
@@ -11,25 +12,30 @@ const Index = () => {
         mx="4"
         mt="8"
         direction="column"
-        justify="center"
         align="center"
+        justify="space-around"
         flexGrow={2}
       >
-        <Heading fontSize="lg">Welcome To Kaape</Heading>
-        <Heading color="gray.400" fontSize="md" mt="4">
-          Digital Menu
+        <Heading fontSize="lg" colorScheme="teal">
+          DIGITAL MENU
         </Heading>
-        <Box bg="red.300" my={8}>
-          <IconButton
-            w={24}
-            h={24}
-            fontSize="8.5rem"
-            icon={<AiOutlineQrcode />}
-          />
+        <Box position="relative" w="50%" borderRadius="100%" overflow="hidden">
+          <Link href="/scan">
+            <a>
+              <Image
+                style={{ borderRadius: "100%" }}
+                width={626}
+                height={626}
+                objectFit="cover"
+                src="/qrcodescan.jpg"
+                alt="qr code scan"
+              />
+            </a>
+          </Link>
         </Box>
 
         <Link href="/scan">
-          <a style={{ display: "block", width: "100%" }}>
+          <a style={{ display: "block", width: "50%" }}>
             <Button colorScheme="teal" variant="outline" width="100%">
               Scan Menu
             </Button>
