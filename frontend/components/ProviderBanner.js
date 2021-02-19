@@ -21,9 +21,8 @@ export default function ProviderBanner({ name, id, description, img }) {
       }}
       textColor="white"
       key={id}
-      my="4"
+  
       borderWidth="1px"
-      borderRadius="lg"
       overflow="hidden"
       _hover={{
         cursor: "pointer",
