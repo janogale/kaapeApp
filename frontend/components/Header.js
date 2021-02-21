@@ -12,7 +12,8 @@ export const Header = (props) => {
       flexShrink={0}
       justify="space-around"
       align="center"
-      bg="gray.200"
+      bg="brand.600"
+      color="brand.100"
       {...props}
     >
       <DrawerLeft />

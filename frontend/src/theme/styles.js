@@ -16,9 +16,6 @@ const styles = {
       },
     },
     // styles for the `a`
-    a: {
-      color: "brand.500",
-    },
   },
 };
 
