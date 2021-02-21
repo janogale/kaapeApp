@@ -6,10 +6,11 @@ export const Footer = (props) => (
     as="footer"
     w="100%"
     maxWidth="48rem"
-    py=".5rem"
+    py=".8rem"
     flexShrink={0}
     justify="space-around"
-    bg="gray.200"
+    bg="brand.600"
+    color="brand.100"
     {...props}
   >
     <BottomMenu text="scan" icon={ImQrcode} />
