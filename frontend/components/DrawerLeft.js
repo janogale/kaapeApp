@@ -2,8 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { BiMenuAltLeft, BiFoodMenu } from "react-icons/bi";
-import { MdCheckCircle, MdSettings } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
 import {
+  Box,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -21,11 +22,15 @@ import {
   List,
   ListItem,
   ListIcon,
+  FormLabel,
+  Switch,
   useDisclosure,
+  useColorMode,
 } from "@chakra-ui/react";
 
 function DrawerLeft() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
   const btnRef = React.useRef();
   const router = useRouter();
 
@@ -122,6 +127,20 @@ function DrawerLeft() {
                   Setting
                 </ListItem>
               </List>
+              <Divider orientation="horizontal" my="4rem" colorScheme="gray" />
+              {/* switch color mode */}
+
+              <Box display="flex" alignItems="center">
+                <FormLabel htmlFor="darkmode" mb="0" fontSize=".8rem">
+                  Enable Dark Mode
+                </FormLabel>
+                <Switch
+                  id="darkmode"
+                  onChange={toggleColorMode}
+                  size="sm"
+                  isChecked={colorMode == "dark"}
+                />
+              </Box>
             </DrawerBody>
 
             <DrawerFooter justifyContent="center" alignItems="center">
