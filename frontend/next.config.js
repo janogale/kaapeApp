@@ -1,3 +1,4 @@
+const path = require('path');
 const withPWA = require("next-pwa");
 
 module.exports = withPWA({
@@ -8,4 +9,7 @@ module.exports = withPWA({
     register: true,
     sw: "sw.js",
   },
+  env: {
+    protosDir: path.join(__dirname, 'Protos')
+  }
 });
