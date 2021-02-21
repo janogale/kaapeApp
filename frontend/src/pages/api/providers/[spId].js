@@ -1,3 +1,9 @@
+
+
+import { getServiceProvider } from '../../../service/kaabe';
+// const gspr = require('../../../service/getserviceproviderrequest');
+
+
 // Fake users data
 const serviceProviders = [
   {
@@ -49,11 +55,18 @@ const serviceProviders = [
 
 // service providers route
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const {
     query: { spId },
   } = req;
 
-  let serviceProvider = serviceProviders.filter((sp) => sp.id == spId);
-  res.status(200).json(serviceProvider[0]);
+  var provider = await getServiceProvider({guid: spId, includeItems: true});
+  res.status(200).json(provider);
+
+  // client.GetServiceProvider({guid: spId}, (err, data) => {
+  //   if (err) throw err;
+
+  //   console.log("SP", data);
+  //   let serviceProvider = serviceProviders.filter((sp) => sp.id == spId);
+  //   });
 }
