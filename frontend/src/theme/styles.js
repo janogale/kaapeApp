@@ -4,6 +4,8 @@ const styles = {
     body: {
       bg: "brand.300",
       color: "gray.500",
+      userSelect: "none",
+      "-webkit-tap-highlight-color": "transparent",
     },
     // default button style
     button: {

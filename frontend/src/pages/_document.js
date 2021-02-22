@@ -12,8 +12,51 @@ export default class Document extends NextDocument {
           <meta name="description" content="Kaabe Digital Menu" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="theme-color" content="#faf9f9" />
-
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="theme-color" content="#e8303d" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+          />
+          {/* Splash Screen for iOS*/}
+          <link
+            href="kaape-icon.png"
+            media="(device-width: 414px) and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="kaape-icon.png"
+            media="(device-width: 375px) and (device-height: 812px) 
+    and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="kaape-icon.png"
+            media="(device-width: 414px) and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+          />
+          ...
+          <link
+            href="kaape-icon.png"
+            media="(device-width: 414px) and (device-height: 896px) 
+    and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="kaape-icon.png"
+            media="(device-width: 375px) and (device-height: 812px) 
+    and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="kaape-icon.png"
+            media="(device-width: 414px) and (device-height: 896px) 
+    and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+          />
+          {/* end Splash screen */}
           <link
             rel="icon"
             type="image/png"
@@ -27,9 +70,7 @@ export default class Document extends NextDocument {
             href="/icons/favicon-16x16.png"
           />
           <link rel="manifest" href="/manifest.json" />
-
           <link rel="shortcut icon" href="/icons/favicon.ico" />
-
           <meta name="twitter:card" content="summary" />
           <meta
             name="twitter:url"
