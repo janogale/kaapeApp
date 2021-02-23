@@ -32,7 +32,9 @@ var client = new protoDescriptor.KaabeService(target, grpc.credentials.createSsl
 //   });
 
 const getServiceProvider = promisify(client.GetServiceProvider).bind(client);
+const addOrder = promisify(client.AddOrder).bind(client);
 
 export {
-  getServiceProvider
+  getServiceProvider,
+  addOrder
 };
