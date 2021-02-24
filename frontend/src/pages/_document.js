@@ -37,7 +37,6 @@ export default class Document extends NextDocument {
     and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
-          ...
           <link
             href="kaape-icon.png"
             media="(device-width: 414px) and (device-height: 896px) 

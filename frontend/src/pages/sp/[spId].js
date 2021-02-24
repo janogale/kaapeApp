@@ -41,7 +41,7 @@ export default function ServiceProviderPage({ spData }) {
   return (
     <Layout hide>
       <Box>
-        <GoBack title={spData.name} />
+        <GoBack title={spData.name} cart />
         <ProviderBanner {...spData} img="/menu/menu.jpg" />
         <Tabs overflow="auto">
           <TabList>{Cats}</TabList>

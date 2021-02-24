@@ -9,14 +9,31 @@ const { Provider } = Context;
 //   localStorage.setItem("settings", JSON.stringify(state));
 // };
 
-const v = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case "darkmode": {
       const newState = { ...state, darkMode: !state.darkMode };
       saveToLocal(newState);
       return newState;
     }
+    case "add": {
+      console.log(action.payload);
+      let newCart = [...state.cart, { item: state.cart.length }];
+      const newState = {
+        ...state,
+        cart: newCart,
+      };
 
+      return newState;
+    }
+    case "remove": {
+      // if cart is empty return
+      if (!state.cart.length) return state;
+
+      const newState = { ...state };
+      newState.cart.pop();
+      return newState;
+    }
     case "signout": {
       Router.push("/login");
       return { ...state };
@@ -32,7 +49,7 @@ const AppProvider = (props) => {
     mobile: false,
     boxed: false,
     darkMode: false,
-    cart: null,
+    cart: [],
   });
 
   return <Provider value={[state, dispatch]}>{props.children}</Provider>;
