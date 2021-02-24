@@ -32,7 +32,7 @@ service KaabeService {
   // Manage orders.
   rpc GetOrders(GetOrdersRequest) returns (GetOrdersResponse) {};
   rpc GetOrder(OrderRequest) returns (Order) {};
-  rpc AddOrder(OrderRequest) returns (UniqueResourceMessage) {};
+  rpc AddOrder(OrderRequest) returns (Order) {};
   rpc DeleteOrder(OrderRequest) returns (UniqueResourceMessage) {};
   rpc UpdateOrder(OrderRequest) returns (UniqueResourceMessage) {};
   rpc UpdateOrderTableNumber(OrderRequest) returns (UniqueResourceMessage) {};
@@ -172,6 +172,7 @@ message ServiceProvider {
     double Latitude = 13;
     double Longitude = 14;
     string picture = 15;
+    string thumbnails = 16;
 }
 
 // Category.
@@ -192,6 +193,7 @@ message MenuItem {
     int64 item_category_id = 6;
     double sale_unit_price = 7;
     string picture = 8;
+    string thumbnails = 9;
 }
 
 // Order item.
@@ -206,6 +208,8 @@ message Order {
     string customer_notes = 8;
     string additional_info = 9;
     string order_rows = 10;
+    string owner = 11;
+    string owner_number = 12;
 }
 
 // Customer item.
