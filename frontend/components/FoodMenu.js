@@ -59,7 +59,10 @@ export default function FoodMenu({
   );
 }
 
-function AddRemoveButton({ isAdded = true, menuItem = {} }) {
+// Add Item and Remove Item Button
+function AddRemoveButton({ menuItem = {} }) {
+  const [count, setCount] = React.useState(0);
+  const [isAdded, setIsAdded] = React.useState(false);
   const [state, dispatch] = useAppState();
   if (!isAdded) {
     return (
@@ -68,7 +71,11 @@ function AddRemoveButton({ isAdded = true, menuItem = {} }) {
           bg: "gray.100",
           color: "green.500",
         }}
-        onClick={() => dispatch({ type: "add", payload: menuItem })}
+        onClick={() => {
+          setCount(count + 1);
+          setIsAdded(true);
+          dispatch({ type: "add", payload: menuItem });
+        }}
         size="sm"
         width="100px"
         border="1px"
@@ -89,12 +96,23 @@ function AddRemoveButton({ isAdded = true, menuItem = {} }) {
       borderRadius="3px"
     >
       <IconButton
-        onClick={() => dispatch({ type: "remove", payload: menuItem })}
+        onClick={() => {
+          dispatch({ type: "remove", payload: menuItem });
+          if (count === 1) {
+            setCount(count - 1);
+            setIsAdded(false);
+            return;
+          }
+          setCount(count - 1);
+        }}
         icon={<MdRemove />}
       />
-      <Button>3</Button>
+      <Button>{count}</Button>
       <IconButton
-        onClick={() => dispatch({ type: "add", payload: menuItem })}
+        onClick={() => {
+          setCount(count + 1);
+          dispatch({ type: "add", payload: menuItem });
+        }}
         icon={<MdAdd />}
       />
     </ButtonGroup>

@@ -27,6 +27,7 @@ const reducer = (state, action) => {
       return newState;
     }
     case "remove": {
+      console.log(action.payload);
       // if cart is empty return
       if (!state.cart.length) return state;
 
