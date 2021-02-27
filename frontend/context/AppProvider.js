@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 
 import Router from "next/router";
+import { getFontDefinitionFromNetwork } from "next/dist/next-server/server/font-utils";
+import { others } from "@chakra-ui/react";
 const Context = createContext();
 
 const { Provider } = Context;
@@ -17,24 +19,72 @@ const reducer = (state, action) => {
       return newState;
     }
     case "add": {
-      console.log(action.payload);
-      let newCart = [...state.cart, { item: state.cart.length }];
+      // add menu item to cart
+
+      // check if amount is already added to cart.
+      let newCart = [...state.cart];
+
+      let currentItem = newCart.find(
+        (menu) => menu.name === action.payload.name
+      );
+
+      if (!currentItem) {
+        newCart.push({ item: state.cart.length, amount: 1, ...action.payload });
+      } else {
+        let otherMenues = newCart.filter(
+          (menu) => menu.name !== action.payload.name
+        );
+        currentItem.amount += 1;
+        newCart = [...otherMenues, currentItem];
+      }
+
       const newState = {
         ...state,
         cart: newCart,
       };
+      console.log(newState.cart);
 
       return newState;
     }
+
+    /**
+     *  Remote MenuItem from cart
+     */
     case "remove": {
-      console.log(action.payload);
-      // if cart is empty return
+      // if cart is empty return state
       if (!state.cart.length) return state;
 
-      const newState = { ...state };
-      newState.cart.pop();
+      // copy cart
+      let cartCopy = [...state.cart];
+
+      // decrease amount if > 2 or remove
+      let newCart = cartCopy.reduce((acc, menu) => {
+        if (menu.name === action.payload.name) {
+          // amount is > 1
+          if (menu.amount > 1) {
+            menu.amount -= 1;
+            acc.push(menu);
+          }
+        } else {
+          acc.push(menu);
+        }
+
+        return acc;
+      }, []);
+
+      // re-add the new cart to state object
+      const newState = {
+        ...state,
+        cart: newCart,
+      };
+      console.log(newState.cart);
+
       return newState;
     }
+
+    /**
+     *  Sign out and clear state
+     */
     case "signout": {
       Router.push("/login");
       return { ...state };

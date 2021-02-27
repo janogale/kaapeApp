@@ -29,34 +29,38 @@ export default function Goback({ title = "", icon = "", cart }) {
       <Box>
         <Text>{title}</Text>
       </Box>
-      <Box
-        position="relative"
-        _hover={{
-          cursor: "pointer",
-        }}
-      >
-        <Flex
-          display={state.cart.length ? "flex" : "none"}
-          position="absolute"
-          zIndex="10"
-          justify="center"
-          align="center"
-          right="-2"
-          fontSize=".5rem"
-          fontWeight="bold"
-          color="gray.100"
-          bg="green.500"
-          borderRadius="100%"
-          width="14px"
-          height="14px"
-        >
-          {state.cart.length}
-        </Flex>
-        <Icon
-          as={state.cart.length ? RiShoppingCartFill : RiShoppingCartLine}
-        />
-      </Box>
+
+      <Link href="/cart" onClick={() => router.back()}>
+        <a>
+          <Box
+            position="relative"
+            _hover={{
+              cursor: "pointer",
+            }}
+          >
+            <Flex
+              display={state.cart.length ? "flex" : "none"}
+              position="absolute"
+              zIndex="10"
+              justify="center"
+              align="center"
+              right="-2"
+              fontSize=".5rem"
+              fontWeight="bold"
+              color="gray.100"
+              bg="green.500"
+              borderRadius="100%"
+              width="14px"
+              height="14px"
+            >
+              {state.cart.length}
+            </Flex>
+            <Icon
+              as={state.cart.length ? RiShoppingCartFill : RiShoppingCartLine}
+            />
+          </Box>
+        </a>
+      </Link>
     </Flex>
   );
 }
-
