@@ -14,53 +14,60 @@ export default function Goback({ title = "", icon = "", cart }) {
   const router = useRouter();
 
   return (
-    <Flex
-      justify="space-between"
-      align="center"
-      py="2"
-      px="6"
-      color="brand.500"
-    >
-      <Link href="/" onClick={() => router.back()}>
-        <a>
+    <Box mb="12" position="relative" zIndex="sticky">
+      <Flex
+        justify="space-between"
+        align="center"
+        py="2"
+        px="6"
+        color="brand.500"
+        bg="gray.200"
+        borderBottom="1px"
+        borderColor="brand.100"
+        position="fixed"
+        top={0}
+        width="100%"
+        maxWidth="48rem"
+      >
+        <Box onClick={() => router.back()}>
           <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
-        </a>
-      </Link>
-      <Box>
-        <Text>{title}</Text>
-      </Box>
+        </Box>
+        <Box>
+          <Text>{title}</Text>
+        </Box>
 
-      <Link href="/cart" onClick={() => router.back()}>
-        <a>
-          <Box
-            position="relative"
-            _hover={{
-              cursor: "pointer",
-            }}
-          >
-            <Flex
-              display={state.cart.length ? "flex" : "none"}
-              position="absolute"
-              zIndex="10"
-              justify="center"
-              align="center"
-              right="-2"
-              fontSize=".5rem"
-              fontWeight="bold"
-              color="gray.100"
-              bg="green.500"
-              borderRadius="100%"
-              width="14px"
-              height="14px"
+        <Link href="/cart" onClick={() => router.back()}>
+          <a>
+            <Box
+              position="relative"
+              _hover={{
+                cursor: "pointer",
+              }}
             >
-              {state.cart.length}
-            </Flex>
-            <Icon
-              as={state.cart.length ? RiShoppingCartFill : RiShoppingCartLine}
-            />
-          </Box>
-        </a>
-      </Link>
-    </Flex>
+              <Flex
+                display={state.cart.length ? "flex" : "none"}
+                position="absolute"
+                zIndex="10"
+                justify="center"
+                align="center"
+                right="-2"
+                fontSize=".5rem"
+                fontWeight="bold"
+                color="gray.100"
+                bg="green.500"
+                borderRadius="100%"
+                width="14px"
+                height="14px"
+              >
+                {state.cart.length}
+              </Flex>
+              <Icon
+                as={state.cart.length ? RiShoppingCartFill : RiShoppingCartLine}
+              />
+            </Box>
+          </a>
+        </Link>
+      </Flex>
+    </Box>
   );
 }

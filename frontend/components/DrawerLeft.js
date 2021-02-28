@@ -27,12 +27,12 @@ import {
   useDisclosure,
   useColorMode,
 } from "@chakra-ui/react";
+import { SettingsIcon } from "@chakra-ui/icons";
 
 function DrawerLeft() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const btnRef = React.useRef();
-  const router = useRouter();
 
   return (
     <>
@@ -86,48 +86,8 @@ function DrawerLeft() {
               </Flex>
             </DrawerHeader>
             <DrawerBody>
-              <List spacing={3}>
-                <ListItem
-                  _hover={{
-                    background: "gray.200",
-                    color: "teal.500",
-                    pointer: "pointer",
-                  }}
-                  my="1rem"
-                  py=".5rem"
-                  px="1rem"
-                >
-                  <ListIcon as={BiFoodMenu} color="green.500" />
-                  Orders
-                </ListItem>
-                <ListItem
-                  _hover={{
-                    background: "gray.200",
-                    color: "teal.500",
-                    pointer: "pointer",
-                  }}
-                  my="1rem"
-                  py=".5rem"
-                  px="1rem"
-                >
-                  <ListIcon as={BiFoodMenu} color="green.500" />
-                  History
-                </ListItem>
+              <MenuList />
 
-                <ListItem
-                  _hover={{
-                    background: "gray.200",
-                    color: "teal.500",
-                    pointer: "pointer",
-                  }}
-                  my="1rem"
-                  py=".5rem"
-                  px="1rem"
-                >
-                  <ListIcon as={MdSettings} color="green.500" />
-                  Setting
-                </ListItem>
-              </List>
               <Divider orientation="horizontal" my="4rem" colorScheme="gray" />
               {/* switch color mode */}
 
@@ -157,4 +117,47 @@ function DrawerLeft() {
   );
 }
 
+function MenuList() {
+  const router = useRouter();
+  const MenuPaths = [
+    {
+      path: "/cart",
+      name: "Orders",
+      icon: BiFoodMenu,
+    },
+    {
+      path: "/history",
+      name: "History",
+      icon: BiFoodMenu,
+    },
+    {
+      path: "/setting",
+      name: "Setting",
+      icon: SettingsIcon,
+    },
+  ];
+
+  return (
+    <List spacing={3}>
+      {MenuPaths.map((list) => {
+        return (
+          <ListItem
+            onClick={() => router.push(`${list.path}`)}
+            _hover={{
+              background: "gray.200",
+              color: "teal.500",
+              pointer: "pointer",
+            }}
+            my="1rem"
+            py=".5rem"
+            px="1rem"
+          >
+            <ListIcon as={list.icon} color="green.500" />
+            {list.name}
+          </ListItem>
+        );
+      })}
+    </List>
+  );
+}
 export { DrawerLeft };

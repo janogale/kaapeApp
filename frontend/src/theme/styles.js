@@ -5,7 +5,7 @@ const styles = {
       bg: "gray.100",
       color: "gray.500",
       userSelect: "none",
-      "-webkit-tap-highlight-color": "transparent",
+      WebkitTapHighlightColor: "transparent",
     },
     // default button style
     button: {
@@ -18,6 +18,11 @@ const styles = {
       },
     },
     // styles for the `a`
+    a: {
+      _hover: {
+        textDecoration: "none !important",
+      },
+    },
   },
 };
 

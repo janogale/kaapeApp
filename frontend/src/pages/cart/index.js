@@ -1,11 +1,14 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import Image from "next/image";
+import { RiShoppingCartLine } from "react-icons/ri";
+import { GiShoppingCart } from "react-icons/gi";
 import {
   Heading,
   Text,
   Stack,
-  Button,
+  Link,
   Box,
+  Icon,
   Flex,
   Divider,
 } from "@chakra-ui/react";
@@ -33,7 +36,7 @@ export default function Cart() {
         ) : (
           state.cart.map((menu) => {
             return (
-              <Box key={menu.id} mt="3">
+              <Box key={menu.name} p={4} mt="3">
                 <FoodMenu {...menu} />
               </Box>
             );
@@ -47,26 +50,27 @@ export default function Cart() {
 function EmptyCart() {
   return (
     <Stack spacing={4} align="center" mt="20">
-      <Image
-        width={300}
-        height={300}
-        objectFit="cover"
-        src="/images/emptycart.png"
-        alt="Cart is empty"
-      />
+      <Icon color="brand.500" as={GiShoppingCart} w={250} h={250} />
+
       <Box>
         <Heading as="h4" fontSize="lg">
           Your Cart is Empty
         </Heading>
         <Text fontSize="md">let's fill it now</Text>
       </Box>
-      <Link href="/sp/100">
-        <a>
-          <Button colorScheme="teal" variant="outline">
-            Start Ordering Now
-          </Button>
-        </a>
-      </Link>
+      <NextLink href="/sp/100">
+        <Link
+          bg="brand.500"
+          fontSize="lg"
+          border="none"
+          borderRadius="sm"
+          color="brand.100"
+          px="4"
+          py="2"
+        >
+          Start Ordering Now
+        </Link>
+      </NextLink>
     </Stack>
   );
 }
