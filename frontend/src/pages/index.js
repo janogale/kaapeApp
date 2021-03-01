@@ -40,7 +40,12 @@ const Index = () => {
 
         <Link href="/scan">
           <a style={{ display: "block", width: "50%" }}>
-            <Button variant="outline" width="100%">
+            <Button
+              variant="outline"
+              width="100%"
+              border="1px"
+              borderColor="brand.200"
+            >
               Scan Menu
             </Button>
           </a>

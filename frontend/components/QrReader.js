@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import QrReader from "react-qr-reader";
 import { useRouter } from "next/router";
-import { Box, Divider, Flex, Icon, Text } from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
 import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
 import { IoMdArrowBack } from "react-icons/io";
 
@@ -41,26 +41,22 @@ function QrCodeReader(props) {
   };
 
   return (
-    <Flex
-      direction="column"
-      bg="gray.400"
-      mx="auto"
-      position="relative"
-      width="100%"
-    >
+    <Flex direction="column" mx="auto" position="relative" width="100%">
       <Flex
-        color="gray.100"
+        color="brand.500"
         justify="space-between"
         align="center"
         py="2"
         px="6"
+        borderBottom="2px"
+        borderColor="brand.100"
       >
         <Link href="/">
           <a>
             <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
           </a>
         </Link>
-
+        <Text>Scan Menu to Order</Text>
         <Icon
           bg="transparent"
           onClick={handleSwitchCamera}
@@ -93,10 +89,10 @@ function QrCodeReader(props) {
         position="relative"
         zIndex={100}
       >
-        <Text color="gray.300" fontSize="xs">
+        <Text color="brand.300" fontSize="xs">
           Type Code
         </Text>
-        <Text color="gray.400" fontSize="xs" mt="2">
+        <Text color="brand.400" fontSize="xs" mt="2">
           to Browse Menu
         </Text>
       </Flex>

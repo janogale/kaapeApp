@@ -9,10 +9,6 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <meta charset="utf-8"></meta>
-          <meta
-            name="viewport"
-            content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
-          />
           <meta name="application-name" content="Kaabe" />
           <meta name="description" content="Kaabe Digital Menu" />
           <meta name="format-detection" content="telephone=no" />

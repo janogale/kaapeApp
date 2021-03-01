@@ -7,17 +7,17 @@ export const Header = (props) => {
       as="header"
       w="100%"
       maxWidth="48rem"
-      py=".8rem"
+      py=".3rem"
       px="1rem"
       flexShrink={0}
       justify="space-around"
       align="center"
-      bg="brand.600"
+      bg="brand.500"
       color="brand.100"
       {...props}
     >
       <DrawerLeft />
-      <Heading as="h1" textAlign="center" fontSize="2xl" flexGrow={2}>
+      <Heading as="h1" textAlign="center" fontSize="lg" flexGrow={2}>
         <Link href="/">
           <a>Kaape Menu</a>
         </Link>
