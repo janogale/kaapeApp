@@ -8,16 +8,18 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
+          <meta charset="utf-8"></meta>
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
+          />
           <meta name="application-name" content="Kaabe" />
           <meta name="description" content="Kaabe Digital Menu" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="theme-color" content="#e8303d" />
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
-          />
+          <meta name="apple-mobile-web-app-status-bar-style" content="white" />
           {/* Splash Screen for iOS*/}
           <link
             href="kaape-icon.png"
