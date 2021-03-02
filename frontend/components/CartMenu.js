@@ -15,12 +15,13 @@ import { MdAdd, MdRemove } from "react-icons/md";
 // context
 import { useAppState } from "../context/AppProvider";
 
-export default function FoodMenu({
+export default function CartMenu({
   name,
   id,
   description,
   saleUnitPrice,
   picture,
+  amount = 0,
 }) {
   const menuItem = {
     name,
@@ -28,6 +29,7 @@ export default function FoodMenu({
     description,
     saleUnitPrice,
     picture,
+    amount,
   };
 
   return (
@@ -53,6 +55,7 @@ export default function FoodMenu({
           <AddRemoveButton menuItem={menuItem} />
         </Flex>
       </Box>
+      {/* Order Banner */}
     </Flex>
   );
 }
@@ -60,7 +63,7 @@ export default function FoodMenu({
 // Add Item and Remove Item Button
 function AddRemoveButton({ menuItem = {} }) {
   const [state, dispatch] = useAppState();
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(menuItem.amount || 0);
 
   if (!count) {
     return (

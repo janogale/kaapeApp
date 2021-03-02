@@ -1,6 +1,7 @@
+import React from "react";
 import NextLink from "next/link";
 import Image from "next/image";
-import { RiShoppingCartLine } from "react-icons/ri";
+import { RiShoppingCartLine, RiSendPlane2Line } from "react-icons/ri";
 import { GiShoppingCart } from "react-icons/gi";
 import {
   Heading,
@@ -15,16 +16,16 @@ import {
 
 import Layout from "@/components/Layout";
 
-import FoodMenu from "@/components/FoodMenu";
+import CartMenu from "@/components/CartMenu";
 import GoBack from "@/components/GoBack";
 
 // context
 import { useAppState } from "../../../context/AppProvider";
+import { useRouter } from "next/router";
 
 export default function Cart() {
   const [state, dispatch] = useAppState();
-
-  console.log(state.cart);
+  let [cartData, setCartDat] = React.useState(state);
 
   return (
     <Layout hide>
@@ -34,13 +35,18 @@ export default function Cart() {
         {state?.cart.length === 0 ? (
           <EmptyCart />
         ) : (
-          state.cart.map((menu) => {
-            return (
-              <Box key={menu.name} p={4} mt="3">
-                <FoodMenu {...menu} />
-              </Box>
-            );
-          })
+          <>
+            {cartData.cart.map((menu) => {
+              return (
+                <Box key={menu.name} p={4} mt="3">
+                  <CartMenu {...menu} />
+                </Box>
+              );
+            })}
+            {/* Order Now Banner */}
+            <Divider mb="12" />
+            <OrderBanner />
+          </>
         )}
       </Flex>
     </Layout>
@@ -72,5 +78,33 @@ function EmptyCart() {
         </Link>
       </NextLink>
     </Stack>
+  );
+}
+
+function OrderBanner() {
+  const router = useRouter();
+  return (
+    <Flex
+      bg="brand.500"
+      color="gray.100"
+      border="1px"
+      borderColor="brand.100"
+      py="2"
+      justify="space-around"
+      align="center"
+      width="100%"
+      position="fixed"
+      bottom="0"
+    >
+      <Text fontWeight="bold">Order Now</Text>
+      <Text fontSize="xs">4 Items</Text>
+      <Text fontSize="xs">$35.5</Text>
+      <Icon
+        onClick={() => router.push("/cart/success")}
+        as={RiSendPlane2Line}
+        w={4}
+        h={4}
+      />
+    </Flex>
   );
 }

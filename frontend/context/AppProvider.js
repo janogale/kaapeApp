@@ -42,7 +42,7 @@ const reducer = (state, action) => {
         ...state,
         cart: newCart,
       };
-      console.log(newState.cart);
+     
 
       return newState;
     }
@@ -77,7 +77,7 @@ const reducer = (state, action) => {
         ...state,
         cart: newCart,
       };
-      console.log(newState.cart);
+    
 
       return newState;
     }

@@ -19,7 +19,7 @@ function QrCodeReader(props) {
   });
 
   const handleScan = (data) => {
-    console.log(data);
+  
     setResult(data);
     if (data) {
       setQrData(data);
