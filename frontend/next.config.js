@@ -1,7 +1,10 @@
-const path = require('path');
+const path = require("path");
 const withPWA = require("next-pwa");
 
 module.exports = withPWA({
+  images: {
+    domains: ["kaabeapp.blob.core.windows.net"],
+  },
   future: { webpack5: true },
   pwa: {
     dest: "public",
@@ -10,6 +13,6 @@ module.exports = withPWA({
     sw: "sw.js",
   },
   env: {
-    protosDir: path.join(__dirname, 'Protos')
-  }
+    protosDir: path.join(__dirname, "Protos"),
+  },
 });

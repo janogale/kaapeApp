@@ -38,7 +38,7 @@ export default function FoodMenu({
           width={100}
           height={100}
           objectFit="cover"
-          src={picture}
+          src={picture || "/menu/f1.jpg"}
           alt={description}
         />
       </Box>

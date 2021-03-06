@@ -1,14 +1,5 @@
 import Link from "next/link";
-import {
-  Heading,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Box,
-} from "@chakra-ui/react";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from "@chakra-ui/react";
 
 import Layout from "@/components/Layout";
 
@@ -17,15 +8,12 @@ import FoodMenu from "@/components/FoodMenu";
 import GoBack from "@/components/GoBack";
 import { groupBy } from "../../../utils";
 
-// import Data
-import serviceProvidersSample from "../../samples/providers";
-import menuData from "../../samples/menu";
-import Categories from "../../samples/categories";
-
 export default function ServiceProviderPage({ spData }) {
-  const TapContent = groupBy(menuData, "itemCategoryId");
+  const { categories, menuItems, provider } = spData;
 
-  const Cats = Categories.map((cat) => {
+  const TapContent = groupBy(menuItems, "itemCategoryId");
+
+  const Cats = categories.map((cat) => {
     return (
       <Tab
         _selected={{ color: "brand.500", borderColor: "currentColor" }}
@@ -42,8 +30,8 @@ export default function ServiceProviderPage({ spData }) {
   return (
     <Layout hide>
       <Box>
-        <GoBack title={spData.name} cart />
-        <ProviderBanner {...spData} img="/menu/menu.jpg" />
+        <GoBack title={provider.name} cart />
+        <ProviderBanner {...provider} img="/menu/menu.jpg" />
         <Tabs overflow="auto">
           <TabList>{Cats}</TabList>
           <TabPanels>
@@ -67,10 +55,16 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
+const SERVER = process.env.SERVER;
+
 export async function getStaticPaths() {
+  const result = await fetch(`${SERVER}/api/providers`);
+
+  const data = await result.json();
+
   // get paths.
 
-  let paths = serviceProvidersSample.map((sp) => {
+  let paths = data.map((sp) => {
     return {
       params: { spId: sp.id + "" },
     };
@@ -82,9 +76,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  let spData = serviceProvidersSample.filter(
-    (sp) => sp.id == context.params.spId
-  )[0];
+  const result = await fetch(`${SERVER}/api/providers/${context.params.spId}`);
+
+  const spData = await result.json();
+
+  // let spData = serviceProvidersSample.filter(
+  //   (sp) => sp.id == context.params.spId
+  // )[0];
 
   return {
     props: { spData },
