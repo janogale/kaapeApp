@@ -8,6 +8,7 @@ import {
   Button,
   ButtonGroup,
   IconButton,
+  useToast,
 } from "@chakra-ui/react";
 
 import { MdAdd, MdRemove } from "react-icons/md";
@@ -59,6 +60,7 @@ export default function FoodMenu({
 
 // Add Item and Remove Item Button
 function AddRemoveButton({ menuItem = {} }) {
+  const toast = useToast();
   const [state, dispatch] = useAppState();
   const [count, setCount] = React.useState(0);
 
@@ -71,8 +73,15 @@ function AddRemoveButton({ menuItem = {} }) {
         }}
         onClick={() => {
           setCount(count + 1);
-
           dispatch({ type: "add", payload: menuItem });
+
+          // show toast message
+          toast({
+            description: `Added ${menuItem?.name} to the Cart`,
+            status: "success",
+            duration: 1000,
+            position: "top",
+          });
         }}
         size="sm"
         width="100px"

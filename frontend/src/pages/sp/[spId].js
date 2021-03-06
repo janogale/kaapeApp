@@ -28,6 +28,7 @@ export default function ServiceProviderPage({ spData }) {
   const Cats = Categories.map((cat) => {
     return (
       <Tab
+        _selected={{ color: "brand.500", borderColor: "currentColor" }}
         _focus={{
           boxShadow: "none",
         }}

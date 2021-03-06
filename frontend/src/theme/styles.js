@@ -9,7 +9,6 @@ const styles = {
     },
     // default button style
     button: {
-      color: "brand.500",
       _focus: {
         boxShadow: "none !important", // remove shadow forcefully
       },

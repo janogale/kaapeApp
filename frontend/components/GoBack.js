@@ -29,7 +29,12 @@ export default function Goback({ title = "", icon = "", cart }) {
         width="100%"
         maxWidth="48rem"
       >
-        <Box onClick={() => router.back()}>
+        <Box
+          onClick={() => router.back()}
+          _hover={{
+            cursor: "pointer",
+          }}
+        >
           <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
         </Box>
         <Box>
