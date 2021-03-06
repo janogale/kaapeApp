@@ -62,7 +62,7 @@ export default function CartMenu({
 
 // Add Item and Remove Item Button
 function AddRemoveButton({ menuItem = {} }) {
-  const [state, dispatch] = useAppState();
+  const [, dispatch] = useAppState();
   const [count, setCount] = React.useState(menuItem.amount || 0);
 
   if (!count) {

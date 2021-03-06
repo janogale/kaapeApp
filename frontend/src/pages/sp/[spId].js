@@ -80,10 +80,6 @@ export async function getStaticProps(context) {
 
   const spData = await result.json();
 
-  // let spData = serviceProvidersSample.filter(
-  //   (sp) => sp.id == context.params.spId
-  // )[0];
-
   return {
     props: { spData },
   };

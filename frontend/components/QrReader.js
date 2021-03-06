@@ -14,12 +14,11 @@ function QrCodeReader(props) {
 
   React.useEffect(function () {
     if (qrData) {
-      router.push("/sp/100");
+      router.push("/sp/a4337c7a-68b2-45f8-827d-8e4389d5eb51");
     }
   });
 
   const handleScan = (data) => {
-  
     setResult(data);
     if (data) {
       setQrData(data);

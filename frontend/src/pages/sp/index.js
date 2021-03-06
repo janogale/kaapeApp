@@ -17,7 +17,7 @@ export default function ServiceProviderPage({ spData }) {
           background: "gray.100",
         }}
       >
-        <Link href={`/sp/${sp.id}`}>
+        <Link href={`/sp/a4337c7a-68b2-45f8-827d-8e4389d5eb51`}>
           <a m="5">
             <Heading m="5" mb="0" as="h4" size="md">
               {sp.name}
