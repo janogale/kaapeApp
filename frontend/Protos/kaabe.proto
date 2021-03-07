@@ -10,6 +10,7 @@ service KaabeService {
 
   // Gets a service provider.
   rpc GetServiceProviders(GetServiceProvidersRequest) returns (GetServiceProvidersResponse) {};
+  rpc GetServiceProviderList(GetServiceProviderListRequest) returns (GetServiceProviderListResponse) {};
   rpc AddServiceProvider(ServiceProvider) returns (UniqueResourceMessage) {};
   rpc GetServiceProvider(GetServiceProviderRequest) returns (GetServiceProviderResponse) {};
   rpc UpdateServiceProvider(ServiceProvider) returns (UniqueResourceMessage) {};
@@ -82,6 +83,12 @@ message GetServiceProvidersResponse {
   repeated ServiceProvider providers = 1;
 }
 
+
+// Get service provider list response.
+message GetServiceProviderListResponse {
+  repeated ServiceProviderId providers = 1;
+}
+
 // Request for getting a single service provider.
 message GetServiceProviderRequest {
   string guid = 1;
@@ -97,6 +104,10 @@ message GetServiceProviderResponse {
 
 // Request for getting service providers.
 message GetServiceProvidersRequest {
+}
+
+// Request for getting service providers.
+message GetServiceProviderListRequest {
 }
 
 // Get menu items response.
@@ -163,16 +174,24 @@ message ServiceProvider {
     BusinessType business_type = 4;
     ServiceLevel service_level = 5;
     string name = 6;
-    string description = 7;
-    string phone_number = 8;
-    string website = 9;
-    string configuration = 10;
-    string city = 11;
-    string location = 12;
-    double Latitude = 13;
-    double Longitude = 14;
-    string picture = 15;
-    string thumbnails = 16;
+    string code = 7;
+    string description = 8;
+    string phone_number = 9;
+    string website = 10;
+    string configuration = 11;
+    string city = 12;
+    string location = 13;
+    double Latitude = 14;
+    double Longitude = 15;
+    string picture = 16;
+    string thumbnails = 17;
+}
+
+// Service provider id entry.
+message ServiceProviderId {
+    int64 id = 1;
+    string guid = 2;
+    string code = 3;
 }
 
 // Category.
@@ -210,6 +229,8 @@ message Order {
     string order_rows = 10;
     string owner = 11;
     string owner_number = 12;
+    double total_price = 13;
+    double total_discount = 14;
 }
 
 // Customer item.
@@ -282,6 +303,7 @@ enum Currency {
   Frangi = 3;
   KenyaShilling = 4;
   Birr = 5;
+  Euro = 6;
 }
 
 // Business type.
