@@ -30,16 +30,17 @@ export default function Cart() {
 
   return (
     <Layout hide>
-      <Flex direction="column">
+      <Flex direction="column" h="100vh">
         <GoBack title="My Orders" cart />
         <Divider />
+
         {state?.cart.length === 0 ? (
           <EmptyCart />
         ) : (
           <>
             {cartData.cart.map((menu) => {
               return (
-                <Box key={menu.name} p={4} mt="3">
+                <Box key={menu.name} p={4} mt="3" flexGrow={2}>
                   <CartMenu {...menu} />
                 </Box>
               );

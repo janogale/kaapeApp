@@ -50,7 +50,7 @@ function OrderSend() {
       <Icon color="green.500" as={AiOutlineFileDone} boxSize={16} />
       <Box textAlign="center">
         <Heading as="h4" fontSize="md" mb="3">
-          Your Order Sent Successfully
+          Your Order has been Sent Successfully
         </Heading>
         <Text fontSize="sm">Please wait while the food is being prepared</Text>
       </Box>

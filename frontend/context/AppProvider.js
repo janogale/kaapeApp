@@ -2,19 +2,21 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 
 import Router from "next/router";
 import { getFontDefinitionFromNetwork } from "next/dist/next-server/server/font-utils";
-import { others } from "@chakra-ui/react";
+
 const Context = createContext();
 
 const { Provider } = Context;
 
-// const saveToLocal = (state) => {
-//   localStorage.setItem("settings", JSON.stringify(state));
-// };
+const saveToLocal = (state) => {
+  window.localStorage.setItem("appState", JSON.stringify(state));
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "darkmode": {
       const newState = { ...state, darkMode: !state.darkMode };
+
+      // save to local storage
       saveToLocal(newState);
       return newState;
     }
@@ -42,7 +44,9 @@ const reducer = (state, action) => {
         ...state,
         cart: newCart,
       };
-     
+
+      // save to local storage
+      saveToLocal(newState);
 
       return newState;
     }
@@ -77,7 +81,9 @@ const reducer = (state, action) => {
         ...state,
         cart: newCart,
       };
-    
+
+      // save to local storage
+      saveToLocal(newState);
 
       return newState;
     }
@@ -87,7 +93,11 @@ const reducer = (state, action) => {
      */
     case "signout": {
       Router.push("/login");
-      return { ...state };
+
+      // save to local storage
+      saveToLocal(state);
+
+      return state;
     }
     default:
       return state;

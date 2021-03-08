@@ -1,10 +1,19 @@
 import Link from "next/link";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Box,
+  Flex,
+} from "@chakra-ui/react";
 
 import Layout from "@/components/Layout";
 
 import ProviderBanner from "@/components/ProviderBanner";
 import FoodMenu from "@/components/FoodMenu";
+import OrderBanner from "@/components/OrderBanner";
 import GoBack from "@/components/GoBack";
 import { groupBy } from "../../../utils";
 
@@ -13,7 +22,13 @@ export default function ServiceProviderPage({ spData }) {
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
+  // get only category IDs with items
+  const categoryIdWithItems = menuItems.map((item) => item.itemCategoryId);
+
   const Cats = categories.map((cat) => {
+    // if id is not assigned to any menuItem skip.
+    if (!categoryIdWithItems.includes(cat.id)) return null;
+
     return (
       <Tab
         _selected={{ color: "brand.500", borderColor: "currentColor" }}
@@ -29,10 +44,10 @@ export default function ServiceProviderPage({ spData }) {
 
   return (
     <Layout hide>
-      <Box>
+      <Flex flexDir="column" h="100vh">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} img="/menu/menu.jpg" />
-        <Tabs overflow="auto">
+        <Tabs overflow="auto" flexGrow={2}>
           <TabList>{Cats}</TabList>
           <TabPanels>
             {Object.keys(TapContent).map((menu, index) => {
@@ -50,7 +65,8 @@ export default function ServiceProviderPage({ spData }) {
             })}
           </TabPanels>
         </Tabs>
-      </Box>
+        <OrderBanner />
+      </Flex>
     </Layout>
   );
 }
@@ -64,9 +80,9 @@ export async function getStaticPaths() {
 
   // get paths.
 
-  let paths = data.map((sp) => {
+  let paths = data.providers.map((sp) => {
     return {
-      params: { spId: sp.id + "" },
+      params: { spId: sp.guid + "" },
     };
   });
   return {

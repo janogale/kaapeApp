@@ -1,7 +1,8 @@
+import React from "react";
 import { useRouter } from "next/router";
 
 // chakra
-import { Flex, Text, Icon } from "@chakra-ui/react";
+import { Flex, Text, Icon, Button } from "@chakra-ui/react";
 
 // Icons
 import { RiSendPlane2Line } from "react-icons/ri";
@@ -12,10 +13,40 @@ import { useAppState } from "../context/AppProvider";
 function OrderBanner() {
   const router = useRouter();
   const [state, dispatch] = useAppState();
+  const [order, setOrders] = React.useState(null);
+
+  // post data
+
+  const handleSubmit = async function () {
+    const strindMenuItems = JSON.stringify(state.cart);
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        spId: "a4337c7a-68b2-45f8-827d-8e4389d5eb51",
+        tableNumber: "t1",
+        additionalInfo: "kApp",
+        orderRows: strindMenuItems,
+      }),
+    };
+
+    const result = await fetch(
+      "http://localhost:3000/api/orders",
+      requestOptions
+    );
+
+    const data = await result.json();
+
+    //  order is success
+    if (data) router.push("/cart/success");
+
+    setOrders(data);
+  };
 
   // total order price
   const totalPrice = state.cart.reduce(
-    (acc, item) => acc + item.saleUnitPrice,
+    (acc, item) => acc + item.saleUnitPrice * item.amount,
     0
   );
 
@@ -29,18 +60,19 @@ function OrderBanner() {
       justify="space-around"
       align="center"
       width="100%"
-      position="fixed"
-      bottom="0"
+      flexShrink={1}
     >
-      <Text fontWeight="bold">Order Now</Text>
-      <Text fontSize="xs">{state?.cart?.length} Items</Text>
-      <Text fontSize="xs">${totalPrice}</Text>
-      <Icon
-        onClick={() => router.push("/cart/success")}
-        as={RiSendPlane2Line}
-        w={4}
-        h={4}
-      />
+      <Text>{state?.cart?.length} Items</Text>
+      <Text>Total ${totalPrice}</Text>
+      <Button
+        onClick={handleSubmit}
+        variant="outline"
+        fontWeight="bold"
+        fontSize="xl"
+        rightIcon={<RiSendPlane2Line />}
+      >
+        Order Now
+      </Button>
     </Flex>
   );
 }

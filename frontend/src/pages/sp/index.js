@@ -1,29 +1,28 @@
 import Link from "next/link";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
-import serviceProvidersSample from "../../samples/providers";
 
 export default function ServiceProviderPage({ spData }) {
-  let serviceProviders = spData.map((sp) => {
+  let serviceProviders = spData.providers.map((sp) => {
     return (
       <Box
-        key={sp.id}
+        key={sp.guid}
         maxW="sm"
         my="4"
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"
         _hover={{
-          background: "gray.100",
+          background: "gray.400",
         }}
       >
-        <Link href={`/sp/a4337c7a-68b2-45f8-827d-8e4389d5eb51`}>
+        <Link href={`/sp/${sp.guid}`}>
           <a m="5">
             <Heading m="5" mb="0" as="h4" size="md">
-              {sp.name}
+              {sp.code}
             </Heading>
             <Text m="5" mt="0">
-              {sp.description}
+              {sp.code}
             </Text>
           </a>
         </Link>
@@ -38,10 +37,13 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-const apiURL = process.env.SERVER;
+const apiURL = process.env.API_URL;
 
 export async function getStaticProps() {
+  const result = await fetch(`${apiURL}/providers`);
+  const spData = await result.json();
+
   return {
-    props: { spData: serviceProvidersSample, apiURL },
+    props: { spData, apiURL },
   };
 }
