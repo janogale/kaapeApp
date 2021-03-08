@@ -5,6 +5,8 @@ node_modules
 /.pnp
 .pnp.js
 
+# service worker auto created file
+/public/sw.*
 # testing
 /coverage
 
