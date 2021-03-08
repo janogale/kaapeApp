@@ -32,6 +32,11 @@ var client = new protoDescriptor.KaabeService(
 //   });
 
 const getServiceProvider = promisify(client.GetServiceProvider).bind(client);
+const getServiceProviderList = promisify(client.GetServiceProviderList).bind(client);
 const addOrder = promisify(client.AddOrder).bind(client);
 
-export { getServiceProvider, addOrder };
+export {
+  getServiceProvider,
+  getServiceProviderList,
+  addOrder
+};
