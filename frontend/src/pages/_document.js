@@ -67,7 +67,7 @@ export default class Document extends NextDocument {
             href="/icons/favicon-16x16.png"
           />
           <link rel="manifest" href="/manifest.json" />
-          <link rel="shortcut icon" href="/icons/favicon.ico" />
+          <link rel="shortcut icon" href="/icons/favicon-16x16.png" />
           <meta name="twitter:card" content="summary" />
           <meta
             name="twitter:url"
