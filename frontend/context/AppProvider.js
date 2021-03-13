@@ -116,5 +116,5 @@ const AppProvider = (props) => {
   return <Provider value={[state, dispatch]}>{props.children}</Provider>;
 };
 
-export default AppProvider;
 export const useAppState = () => useContext(Context);
+export default AppProvider;

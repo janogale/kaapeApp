@@ -9,8 +9,7 @@ import { RiShoppingCartFill, RiShoppingCartLine } from "react-icons/ri";
 import { useAppState } from "../context/AppProvider";
 
 export default function Goback({ title = "", icon = "", cart }) {
-  const [state, dispatch] = useAppState();
-
+  const [state] = useAppState();
   const router = useRouter();
 
   return (
