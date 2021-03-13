@@ -18,7 +18,7 @@ function OrderBanner() {
   // post data
 
   const handleSubmit = async function () {
-    const strindMenuItems = JSON.stringify(state.cart);
+    const stringMenuItems = JSON.stringify(state.cart);
 
     const requestOptions = {
       method: "POST",
@@ -27,7 +27,7 @@ function OrderBanner() {
         spId: "a4337c7a-68b2-45f8-827d-8e4389d5eb51",
         tableNumber: "t1",
         additionalInfo: "kApp",
-        orderRows: strindMenuItems,
+        orderRows: stringMenuItems,
       }),
     };
 
@@ -37,6 +37,8 @@ function OrderBanner() {
     );
 
     const data = await result.json();
+
+    console.log(data);
 
     //  order is success
     if (data) router.push("/cart/success");
@@ -70,6 +72,10 @@ function OrderBanner() {
         fontWeight="bold"
         fontSize="xl"
         rightIcon={<RiSendPlane2Line />}
+        _hover={{
+          color: "brand.400",
+          bg: "gray.300",
+        }}
       >
         Order Now
       </Button>
