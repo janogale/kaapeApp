@@ -37,13 +37,13 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-const apiURL = process.env.API_URL;
+const SERVER = process.env.SERVER;
 
 export async function getStaticProps() {
-  const result = await fetch(`${apiURL}/providers`);
+  const result = await fetch(`${SERVER}/api/providers`);
   const spData = await result.json();
 
   return {
-    props: { spData, apiURL },
+    props: { spData },
   };
 }
