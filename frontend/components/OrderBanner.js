@@ -28,6 +28,7 @@ function OrderBanner() {
         tableNumber: "t1",
         additionalInfo: "kApp",
         orderRows: stringMenuItems,
+        status: 1, // In-queue.
       }),
     };
 
