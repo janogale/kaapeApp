@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
+import { getServiceProviderList } from "../../service/kaabe";
 
 export default function ServiceProviderPage({ spData }) {
   let serviceProviders = spData.providers.map((sp) => {
@@ -37,21 +38,9 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-let SERVER = process.env.SERVER;
-
-if (process.env.VERCEL_URL) {
-  SERVER = "https://" + process.env.VERCEL_URL;
-}
-
-const headers = {
-  headers: {
-    "User-Agent": "*",
-  },
-};
-
 export async function getStaticProps(context) {
-  const result = await fetch(`${SERVER}/api/providers`, headers);
-  const spData = await result.json();
+  var providerList = await getServiceProviderList({});
+  const spData = providerList;
 
   return {
     props: { spData },

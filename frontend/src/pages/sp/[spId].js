@@ -9,6 +9,12 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
+// gRPC functions
+import {
+  getServiceProviderList,
+  getServiceProvider,
+} from "../../service/kaabe";
+
 import Layout from "@/components/Layout";
 
 import ProviderBanner from "@/components/ProviderBanner";
@@ -71,22 +77,9 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-let SERVER = process.env.SERVER;
-
-if (process.env.VERCEL_URL) {
-  SERVER = "https://" + process.env.VERCEL_URL;
-}
-
-const headers = {
-  headers: {
-    "User-Agent": "*",
-  },
-};
-
 export async function getStaticPaths() {
-  const result = await fetch(`${SERVER}/api/providers`, headers);
-
-  const data = await result.json();
+  var providerList = await getServiceProviderList({});
+  const data = providerList;
 
   // get paths.
 
@@ -102,12 +95,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const result = await fetch(
-    `${SERVER}/api/providers/${context.params.spId}`,
-    headers
-  );
+  var provider = await getServiceProvider({
+    guid: context.params.spId,
+    includeItems: true,
+  });
 
-  const spData = await result.json();
+  const spData = provider;
 
   return {
     props: { spData },
