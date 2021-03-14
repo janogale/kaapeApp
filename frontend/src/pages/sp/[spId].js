@@ -78,14 +78,13 @@ export default function ServiceProviderPage({ spData }) {
 }
 
 export async function getStaticPaths() {
-  var providerList = await getServiceProviderList({});
-  const data = providerList;
+  const providerList = await getServiceProviderList({});
 
   // get paths.
 
-  let paths = data.providers.map((sp) => {
+  let paths = providerList.providers.map((sp) => {
     return {
-      params: { spId: sp.guid + "" },
+      params: { spId: sp.code + "" },
     };
   });
   return {

@@ -17,13 +17,13 @@ export default function ServiceProviderPage({ spData }) {
           background: "gray.400",
         }}
       >
-        <Link href={`/sp/${sp.guid}`}>
+        <Link href={`/sp/${sp.code}`}>
           <a m="5">
             <Heading m="5" mb="0" as="h4" size="md">
               {sp.code}
             </Heading>
             <Text m="5" mt="0">
-              {sp.code}
+              {sp.guid}
             </Text>
           </a>
         </Link>
