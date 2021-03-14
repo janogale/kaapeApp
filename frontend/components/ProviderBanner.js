@@ -1,13 +1,14 @@
 import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-export default function ProviderBanner({ name, id, description, img }) {
+export default function ProviderBanner({ name, id, description, phoneNumber, picture = '/menu/menu.jpg' }) {
   return (
     <Box
+      height={160}
       pos="relative"
       bg="rgba(0,0,0,0.8)"
       _before={{
-        bgImage: `url(${img})`,
+        bgImage: `url(${picture})`,
         content: '""',
         bgSize: "cover",
         bgPosition: "center",
@@ -35,7 +36,7 @@ export default function ProviderBanner({ name, id, description, img }) {
         {description}
       </Text>
       <Text mx="5" mb="5" textColor="gray.300">
-        063-33225533
+        Tel: {phoneNumber || '-'}
       </Text>
     </Box>
   );
