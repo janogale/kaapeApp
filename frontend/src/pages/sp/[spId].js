@@ -77,8 +77,14 @@ if (process.env.VERCEL_URL) {
   SERVER = "https://" + process.env.VERCEL_URL;
 }
 
+const headers = {
+  headers: {
+    "User-Agent": "*",
+  },
+};
+
 export async function getStaticPaths() {
-  const result = await fetch(`${SERVER}/api/providers`);
+  const result = await fetch(`${SERVER}/api/providers`, headers);
 
   const data = await result.json();
 
@@ -96,7 +102,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const result = await fetch(`${SERVER}/api/providers/${context.params.spId}`);
+  const result = await fetch(
+    `${SERVER}/api/providers/${context.params.spId}`,
+    headers
+  );
 
   const spData = await result.json();
 
