@@ -46,7 +46,7 @@ export default function ServiceProviderPage({ spData }) {
     <Layout hide>
       <Flex flexDir="column" h="100vh">
         <GoBack title={provider.name} cart />
-        <ProviderBanner {...provider} img="/menu/menu.jpg" />
+        <ProviderBanner {...provider} />
         <Tabs overflow="auto" flexGrow={2}>
           <TabList>{Cats}</TabList>
           <TabPanels>

@@ -31,14 +31,16 @@ export default function FoodMenu({
     picture,
   };
 
+  const thumbnail = (picture || "/menu/f1.jpg").replace("/images/", "/thumbnails/");
+
   return (
     <Flex>
       <Box>
         <Image
-          width={100}
-          height={100}
+          width={80}
+          height={60}
           objectFit="cover"
-          src={picture || "/menu/f1.jpg"}
+          src={thumbnail}
           alt={description}
         />
       </Box>
