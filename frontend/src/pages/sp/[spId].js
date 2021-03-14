@@ -19,7 +19,7 @@ import Layout from "@/components/Layout";
 
 import ProviderBanner from "@/components/ProviderBanner";
 import FoodMenu from "@/components/FoodMenu";
-import OrderBanner from "@/components/OrderBanner";
+import OrderView from "@/components/OrderView";
 import GoBack from "@/components/GoBack";
 import { groupBy } from "../../../utils";
 
@@ -71,7 +71,7 @@ export default function ServiceProviderPage({ spData }) {
             })}
           </TabPanels>
         </Tabs>
-        <OrderBanner />
+        <OrderView />
       </Flex>
     </Layout>
   );
