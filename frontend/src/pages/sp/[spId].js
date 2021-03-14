@@ -71,7 +71,11 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-const SERVER = process.env.SERVER;
+let SERVER = process.env.SERVER;
+
+if (process.env.VERCEL_URL) {
+  SERVER = process.env.VERCEL_URL;
+}
 
 export async function getStaticPaths() {
   const result = await fetch(`${SERVER}/api/providers`);

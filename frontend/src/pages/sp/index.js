@@ -37,9 +37,13 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-const SERVER = process.env.SERVER;
+let SERVER = process.env.SERVER;
 
-export async function getStaticProps() {
+if (process.env.VERCEL_URL) {
+  SERVER = process.env.VERCEL_URL;
+}
+
+export async function getStaticProps(context) {
   const result = await fetch(`${SERVER}/api/providers`);
   const spData = await result.json();
 

@@ -8,7 +8,7 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <meta charset="utf-8"></meta>
+          <meta charSet="utf-8" />
           <meta name="application-name" content="Kaabe" />
           <meta name="description" content="Kaabe Digital Menu" />
           <meta name="format-detection" content="telephone=no" />
