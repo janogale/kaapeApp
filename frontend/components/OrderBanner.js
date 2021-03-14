@@ -2,7 +2,23 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // chakra
-import { Flex, Text, Icon, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  FormLabel,
+  FormControl,
+  Textarea,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 // Icons
 import { RiSendPlane2Line } from "react-icons/ri";
@@ -11,41 +27,9 @@ import { RiSendPlane2Line } from "react-icons/ri";
 import { useAppState } from "../context/AppProvider";
 
 function OrderBanner() {
-  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [state, dispatch] = useAppState();
-  const [order, setOrders] = React.useState(null);
-
-  // post data
-
-  const handleSubmit = async function () {
-    const stringMenuItems = JSON.stringify(state.cart);
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        spId: "a4337c7a-68b2-45f8-827d-8e4389d5eb51",
-        tableNumber: "t1",
-        additionalInfo: "kApp",
-        orderRows: stringMenuItems,
-        status: 1, // In-queue.
-      }),
-    };
-
-    const result = await fetch(
-      "http://localhost:3000/api/orders",
-      requestOptions
-    );
-
-    const data = await result.json();
-
-    console.log(data);
-
-    //  order is success
-    if (data) router.push("/cart/success");
-
-    setOrders(data);
-  };
 
   // total order price
   const totalPrice = state.cart.reduce(
@@ -68,7 +52,7 @@ function OrderBanner() {
       <Text>{state?.cart?.length} Items</Text>
       <Text>Total ${totalPrice}</Text>
       <Button
-        onClick={handleSubmit}
+        onClick={onOpen}
         variant="outline"
         fontWeight="bold"
         fontSize="xl"
@@ -78,9 +62,90 @@ function OrderBanner() {
           bg: "gray.300",
         }}
       >
-        Order Now
+        Submit
       </Button>
+      <ConfirmOrder
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        state={state}
+      />
     </Flex>
+  );
+}
+
+function ConfirmOrder({ isOpen, onOpen, onClose, state }) {
+  const [additionalInfo, setAdditionalInfo] = React.useState("");
+  const router = useRouter();
+
+  console.log(router);
+  // handle order submit
+  const handleSubmit = async function () {
+    const stringMenuItems = JSON.stringify(state.cart);
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        spId: router.query.spId,
+        tableNumber: router.query.tn || "",
+        additionalInfo: additionalInfo,
+        orderRows: stringMenuItems,
+        status: 1, // In-queue.
+      }),
+    };
+
+    const result = await fetch(
+      "http://localhost:3000/api/orders",
+      requestOptions
+    );
+
+    const data = await result.json();
+
+    //  order is success
+    if (data) router.push("/cart/success");
+  };
+
+  const initialRef = React.useRef();
+  const finalRef = React.useRef();
+
+  return (
+    <>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Confirm Order</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={3}>
+            <FormControl>
+              <FormLabel fontSize="sm">Add additional Information</FormLabel>
+              <Textarea
+                borderColor="brand.100"
+                size="sm"
+                value={additionalInfo}
+                onChange={(e) => setAdditionalInfo(e.target.value)}
+                placeholder="Add additional Information"
+                variant="outline"
+                colorScheme="gray"
+              />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button onClick={handleSubmit} colorScheme="red" size="md" mr={3}>
+              Order Now
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 
