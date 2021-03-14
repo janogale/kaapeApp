@@ -91,6 +91,12 @@ const reducer = (state, action) => {
     /**
      *  Sign out and clear state
      */
+    case "clearCart": {
+      // save to local storage
+      saveToLocal(state);
+
+      return { ...state, cart: [] };
+    }
     case "signout": {
       Router.push("/login");
 

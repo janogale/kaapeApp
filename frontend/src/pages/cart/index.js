@@ -66,7 +66,7 @@ function EmptyCart() {
         </Heading>
         <Text fontSize="md">let's fill it now</Text>
       </Box>
-      <NextLink href="/sp/a4337c7a-68b2-45f8-827d-8e4389d5eb51">
+      <NextLink href="/sp/RCR">
         <Link
           bg="brand.500"
           fontSize="lg"

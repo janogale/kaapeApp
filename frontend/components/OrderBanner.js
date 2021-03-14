@@ -28,7 +28,6 @@ import { useAppState } from "../context/AppProvider";
 
 function OrderBanner() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [state, dispatch] = useAppState();
 
   // total order price
@@ -64,30 +63,28 @@ function OrderBanner() {
       >
         Submit
       </Button>
-      <ConfirmOrder
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        state={state}
-      />
+      <ConfirmOrder isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Flex>
   );
 }
 
-function ConfirmOrder({ isOpen, onOpen, onClose, state }) {
+function ConfirmOrder({ isOpen, onOpen, onClose }) {
+  const [state, dispatch] = useAppState();
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const router = useRouter();
 
-  console.log(router);
   // handle order submit
   const handleSubmit = async function () {
     const stringMenuItems = JSON.stringify(state.cart);
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       body: JSON.stringify({
-        spId: router.query.spId,
+        spId: "5a1f2a0d-81b2-4808-a554-02b2ec91b333",
         tableNumber: router.query.tn || "",
         additionalInfo: additionalInfo,
         orderRows: stringMenuItems,
@@ -104,6 +101,9 @@ function ConfirmOrder({ isOpen, onOpen, onClose, state }) {
 
     //  order is success
     if (data) router.push("/cart/success");
+
+    // clear state
+    dispatch({ type: "clearCart" });
   };
 
   const initialRef = React.useRef();

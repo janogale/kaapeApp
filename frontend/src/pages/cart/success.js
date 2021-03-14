@@ -76,7 +76,7 @@ function OrderSend() {
           />
         </List>
       </Box>
-      <NextLink href="/sp/100">
+      <NextLink href="/sp/RCR">
         <Link
           fontSize="md"
           border="1px"
