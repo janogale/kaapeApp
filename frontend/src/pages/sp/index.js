@@ -40,7 +40,7 @@ export default function ServiceProviderPage({ spData }) {
 let SERVER = process.env.SERVER;
 
 if (process.env.VERCEL_URL) {
-  SERVER = process.env.VERCEL_URL;
+  SERVER = "https://" + process.env.VERCEL_URL;
 }
 
 export async function getStaticProps(context) {
