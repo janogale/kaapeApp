@@ -2,7 +2,6 @@ const styles = {
   global: {
     // styles for the `body`
     body: {
-      bg: "gray.100",
       color: "gray.500",
       userSelect: "none",
       WebkitTapHighlightColor: "transparent",

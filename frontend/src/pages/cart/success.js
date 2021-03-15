@@ -28,6 +28,11 @@ export default function Cart() {
   const [state, dispatch] = useAppState();
   let [cartData, setCartDat] = React.useState(state);
 
+  React.useEffect(() => {
+    // clear state
+    dispatch({ type: "clearCart" });
+  }, []);
+
   return (
     <Layout hide>
       <Flex direction="column">

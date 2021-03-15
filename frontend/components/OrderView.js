@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Flex, Text, Button } from "@chakra-ui/react";
 
 // Icons
-import { BiFoodMenu } from "react-icons/bi";
+import { RiShoppingCartFill } from "react-icons/ri";
 
 // context
 import { useAppState } from "../context/AppProvider";
@@ -33,14 +33,14 @@ function OrderBanner() {
       width="100%"
       flexShrink={1}
     >
-      <Text>{state?.cart?.length} Items</Text>
+      <Text>{state?.cart?.length} items</Text>
       <Text>Total ${totalPrice}</Text>
       <Button
         onClick={() => router.push("/cart")}
         variant="outline"
         fontWeight="bold"
-        fontSize="lg"
-        rightIcon={<BiFoodMenu />}
+        fontSize="md"
+        rightIcon={<RiShoppingCartFill />}
         _hover={{
           color: "brand.400",
           bg: "gray.300",

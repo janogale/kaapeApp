@@ -23,7 +23,12 @@ import OrderView from "@/components/OrderView";
 import GoBack from "@/components/GoBack";
 import { groupBy } from "../../../utils";
 
+// context
+import { useAppState } from "../../../context/AppProvider";
+
 export default function ServiceProviderPage({ spData }) {
+  const [state] = useAppState();
+
   const { categories, menuItems, provider } = spData;
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
@@ -71,7 +76,7 @@ export default function ServiceProviderPage({ spData }) {
             })}
           </TabPanels>
         </Tabs>
-        <OrderView />
+        {state.cart?.length > 0 && <OrderView />}
       </Flex>
     </Layout>
   );

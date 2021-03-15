@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import {
   Flex,
   Text,
+  Box,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -16,7 +17,7 @@ import {
   FormLabel,
   FormControl,
   Textarea,
-  Input,
+  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -71,10 +72,12 @@ function OrderBanner() {
 function ConfirmOrder({ isOpen, onOpen, onClose }) {
   const [state, dispatch] = useAppState();
   const [additionalInfo, setAdditionalInfo] = React.useState("");
+  const [status, setStatus] = React.useState(null);
   const router = useRouter();
 
   // handle order submit
   const handleSubmit = async function () {
+    setStatus("pending");
     const stringMenuItems = JSON.stringify(state.cart);
 
     const requestOptions = {
@@ -100,10 +103,10 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
     const data = await result.json();
 
     //  order is success
-    if (data) router.push("/cart/success");
-
-    // clear state
-    dispatch({ type: "clearCart" });
+    if (data) {
+      setStatus("done");
+      router.push("/cart/success");
+    }
   };
 
   const initialRef = React.useRef();
@@ -136,11 +139,29 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
               />
             </FormControl>
           </ModalBody>
-
           <ModalFooter>
-            <Button onClick={handleSubmit} colorScheme="red" size="md" mr={3}>
-              Order Now
-            </Button>
+            {status ? (
+              <Box
+                width="120px"
+                bg="brand.500"
+                py="0.18rem"
+                borderRadius="5px"
+                textAlign="center"
+              >
+                <Spinner color="green.300" size="lg" />
+              </Box>
+            ) : (
+              <Button
+                width="120px"
+                onClick={handleSubmit}
+                colorScheme="red"
+                size="md"
+                mr={3}
+              >
+                Order Now
+              </Button>
+            )}
+
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>

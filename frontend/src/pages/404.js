@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Text, Flex, Button, IconButton, Box } from "@chakra-ui/react";
+import { Text, Flex, Button, Box } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
 const Index = () => {
