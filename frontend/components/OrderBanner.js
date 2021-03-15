@@ -75,6 +75,8 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
   const [status, setStatus] = React.useState(null);
   const router = useRouter();
 
+  const baseUrl = window.location.origin;
+
   // handle order submit
   const handleSubmit = async function () {
     setStatus("pending");
@@ -95,10 +97,7 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
       }),
     };
 
-    const result = await fetch(
-      "http://localhost:3000/api/orders",
-      requestOptions
-    );
+    const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
 
     const data = await result.json();
 
