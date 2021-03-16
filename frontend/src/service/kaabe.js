@@ -3,7 +3,7 @@ const grpc = require("grpc");
 const protoLoader = require("@grpc/proto-loader");
 const { promisify } = require("util");
 
-const PROTO_PATH = path.join(process.env.protosDir, "kaabe.proto");
+const PROTO_PATH = path.join(process.cwd(), "Protos", "kaabe.proto");
 
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: false,
@@ -32,13 +32,10 @@ var client = new protoDescriptor.KaabeService(
 //   });
 
 const getServiceProvider = promisify(client.GetServiceProvider).bind(client);
-const getServiceProviderList = promisify(client.GetServiceProviderList).bind(client);
+const getServiceProviderList = promisify(client.GetServiceProviderList).bind(
+  client
+);
 const getOrder = promisify(client.GetOrder).bind(client);
 const addOrder = promisify(client.AddOrder).bind(client);
 
-export {
-  getServiceProvider,
-  getServiceProviderList,
-  getOrder,
-  addOrder
-};
+export { getServiceProvider, getServiceProviderList, getOrder, addOrder };
