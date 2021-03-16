@@ -76,11 +76,11 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
   const router = useRouter();
 
   const baseUrl = window.location.origin;
+  const spId = JSON.parse(window.sessionStorage.getItem("spId"));
 
   // handle order submit
   const handleSubmit = async function () {
     setStatus("pending");
-    const stringMenuItems = JSON.stringify(state.cart);
 
     const requestOptions = {
       method: "POST",
@@ -89,18 +89,23 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        spId: "5a1f2a0d-81b2-4808-a554-02b2ec91b333",
+        spId: spId,
         tableNumber: router.query.tn || "",
         additionalInfo: additionalInfo,
-        orderRows: stringMenuItems,
+        orderRows: JSON.stringify(state.cart),
         status: 1, // In-queue.
       }),
     };
+    console.log(router.query.spId);
+    console.log("----posted data----");
+    console.log(JSON.parse(requestOptions.body));
 
     const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
 
     const data = await result.json();
 
+    console.log("----returned data----");
+    console.log(data);
     //  order is success
     if (data) {
       setStatus("done");

@@ -26,7 +26,18 @@ import { useRouter } from "next/router";
 
 export default function Cart() {
   const [state, dispatch] = useAppState();
-  let [cartData, setCartDat] = React.useState(state);
+  let [cartData, setCartDat] = React.useState(state.cart);
+
+  React.useEffect(
+    function () {
+      // sort array to preverse render order
+      let sortedCart = [...state.cart].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setCartDat(sortedCart);
+    },
+    [state]
+  );
 
   return (
     <Layout hide>
@@ -38,7 +49,7 @@ export default function Cart() {
           <EmptyCart />
         ) : (
           <>
-            {cartData.cart.map((menu) => {
+            {cartData.map((menu) => {
               return (
                 <Box key={menu.name} p={4} mt="3" flexGrow={2}>
                   <CartMenu {...menu} />

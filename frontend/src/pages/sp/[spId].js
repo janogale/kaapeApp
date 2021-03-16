@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import {
   Tabs,
@@ -28,6 +29,12 @@ import { useAppState } from "../../../context/AppProvider";
 
 export default function ServiceProviderPage({ spData }) {
   const [state] = useAppState();
+
+  // store provider id to localStorage
+
+  React.useEffect(() => {
+    window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
+  }, []);
 
   const { categories, menuItems, provider } = spData;
 
