@@ -5,6 +5,6 @@ export default async function handler(req, res) {
     query: { orderId },
   } = req;
 
-  var order = await getOrder({ item: { guid: orderId } });
+  var order = await getOrder(orderId);
   res.status(200).json(order);
 }

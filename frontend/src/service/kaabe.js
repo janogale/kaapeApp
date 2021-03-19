@@ -1,41 +1,86 @@
-const path = require("path");
-const grpc = require("grpc");
-const protoLoader = require("@grpc/proto-loader");
+const grpc = require('@grpc/grpc-js');
 const { promisify } = require("util");
-
-const PROTO_PATH = path.join(process.cwd(), "Protos", "kaabe.proto");
-
-var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: false,
-  longs: String,
-  //  enums: String,
-  defaults: true,
-  oneofs: true,
-});
-var protoDescriptor = grpc.loadPackageDefinition(packageDefinition).kaabe;
-// The protoDescriptor object has the full package hierarchy
-// var routeguide = protoDescriptor.routeguide;
+const messages = require('./kaabe_pb');
+const kaabeService = require('./kaabe_grpc_pb');
 
 const target = "staff.kaabeapp.com:8443";
-var client = new protoDescriptor.KaabeService(
-  target,
-  grpc.credentials.createSsl()
-);
 
-// const stub = new routeguide.RouteGuide('https://localhost:5001');
+const staticClient = new kaabeService.KaabeServiceClient(target, grpc.credentials.createSsl());
+const AuthExchange = promisify(staticClient.authExchange).bind(staticClient);
+const GetServiceProviderList = promisify(staticClient.getServiceProviderList).bind(staticClient);
+const GetServiceProvider = promisify(staticClient.getServiceProvider).bind(staticClient);
+const GetOrder = promisify(staticClient.getOrder).bind(staticClient);
+const AddOrder = promisify(staticClient.addOrder).bind(staticClient);
 
-// client.GetServiceProvider({guid: spId}, (err, data) => {
-//   if (err) throw err;
+/**
+ * Exchange auth token.
+ * @param {*} token 
+ * @returns 
+ */
+async function authExchange(token) {
+  const request = new messages.EmptyRequest();
+  const metadata = new grpc.Metadata();
+  metadata.add('authorization', token);
+  const resp = await AuthExchange(request, metadata);
+  return resp.toObject();
+}
 
-//   let serviceProvider = serviceProviders.filter((sp) => sp.id == spId);
-//   res.status(200).json(serviceProvider[0]);
-//   });
+/**
+ * Providers list.
+ * @returns 
+ */
+async function getServiceProviderList() {
+  const resp = await GetServiceProviderList(new messages.GetServiceProviderListRequest());
+  return resp.toObject();
+}
 
-const getServiceProvider = promisify(client.GetServiceProvider).bind(client);
-const getServiceProviderList = promisify(client.GetServiceProviderList).bind(
-  client
-);
-const getOrder = promisify(client.GetOrder).bind(client);
-const addOrder = promisify(client.AddOrder).bind(client);
+/**
+ * Get provider.
+ * @returns 
+ */
+async function getServiceProvider(spId, includeItems = true) {
+  const req = new messages.GetServiceProviderRequest();
+  req.setGuid(spId);
+  req.setIncludeItems(includeItems);
+  console.log(spId, includeItems)
+  const resp = await GetServiceProvider(req);
+  return resp.toObject();
+}
 
-export { getServiceProvider, getServiceProviderList, getOrder, addOrder };
+/**
+ * Gets a specific order.
+ * @returns 
+ */
+ async function getOrder(orderId) {
+  const req = new messages.OrderRequest();
+  const order = new messages.Order();
+  order.setGuid(orderId);
+  req.setItem(order)
+  const resp = await GetOrder(req);
+  return resp.toObject();
+}
+
+/**
+ * Places a new order.
+ * @returns 
+ */
+ async function addOrder(spId, data) {
+  // { providerId: data.spId, item: data }
+  const req = new messages.OrderRequest();
+  req.setProviderId(spId);
+  const order = new messages.Order();
+
+  // Populate item.
+  order.setStatus(1);
+  order.setTableNumber(data.tableNumber || "");
+  order.setCustomerName(data.customerName || "");
+  order.setCustomerNotes(data.customerNotes || "");
+  order.setOrderRows(data.orderRows);
+  order.setTotalPrice(data.totalPrice);
+  order.setTotalDiscount(data.totalDiscount);
+  req.setItem(order)
+  const resp = await AddOrder(req);
+  return resp.toObject();
+}
+
+export { getServiceProvider, getServiceProviderList, getOrder, addOrder, authExchange };
