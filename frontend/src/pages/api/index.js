@@ -3,7 +3,7 @@
 // service providers route
 
 let data = {
-  name: "kaape",
+  name: "kaabe",
   version: 1.0,
 };
 export default function handler(req, res) {

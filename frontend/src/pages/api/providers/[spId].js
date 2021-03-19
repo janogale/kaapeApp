@@ -5,6 +5,6 @@ export default async function handler(req, res) {
     query: { spId },
   } = req;
 
-  var provider = await getServiceProvider({ guid: spId, includeItems: true });
+  var provider = await getServiceProvider(spId, true);
   res.status(200).json(provider);
 }
