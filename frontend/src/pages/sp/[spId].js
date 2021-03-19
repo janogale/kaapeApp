@@ -36,7 +36,7 @@ export default function ServiceProviderPage({ spData }) {
     window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
   }, []);
 
-  const { categories, menuItems, provider } = spData;
+  const { categoriesList: categories, menuItemsList: menuItems, provider } = spData;
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
@@ -90,11 +90,11 @@ export default function ServiceProviderPage({ spData }) {
 }
 
 export async function getStaticPaths() {
-  const providerList = await getServiceProviderList({});
+  const providerList = await getServiceProviderList();
 
   // get paths.
 
-  let paths = providerList.providers.map((sp) => {
+  let paths = providerList.providersList.map((sp) => {
     return {
       params: { spId: sp.code + "" },
     };
@@ -106,10 +106,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  var provider = await getServiceProvider({
-    guid: context.params.spId,
-    includeItems: true,
-  });
+  var provider = await getServiceProvider(context.params.spId, true);
 
   const spData = provider;
 
