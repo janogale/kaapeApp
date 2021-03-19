@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import { getServiceProviderList } from "../../service/kaabe";
 
 export default function ServiceProviderPage({ spData }) {
-  let serviceProviders = spData.providers.map((sp) => {
+  let serviceProviders = spData.map((sp) => {
     return (
       <Box
         key={sp.guid}
@@ -39,8 +39,8 @@ export default function ServiceProviderPage({ spData }) {
 }
 
 export async function getStaticProps(context) {
-  var providerList = await getServiceProviderList({});
-  const spData = providerList;
+  var resp = await getServiceProviderList();
+  const spData = resp.providersList;
 
   console.log("process.env.protosDir");
   console.log(process.env.protosDir);
