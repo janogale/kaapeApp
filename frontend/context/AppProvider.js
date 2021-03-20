@@ -97,13 +97,21 @@ const reducer = (state, action) => {
 
       return { ...state, cart: [] };
     }
-    case "signout": {
-      Router.push("/login");
+    case "signin": {
+      let newState = { ...state, ...action.payload };
 
       // save to local storage
-      saveToLocal(state);
+      saveToLocal(newState);
 
-      return state;
+      return newState;
+    }
+    case "signout": {
+      let newState = { ...state, ...action.payload };
+
+      // save to local storage
+      saveToLocal(newState);
+
+      return newState;
     }
     default:
       return state;
@@ -117,6 +125,10 @@ const AppProvider = (props) => {
     boxed: false,
     darkMode: false,
     cart: [],
+    account: {
+      isloggedIn: false,
+      name: null,
+    },
   });
 
   return <Provider value={[state, dispatch]}>{props.children}</Provider>;

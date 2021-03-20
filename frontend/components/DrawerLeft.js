@@ -6,7 +6,10 @@ import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { loginRequest } from "../src/authConfig";
 
 import { BiMenuAltLeft, BiFoodMenu } from "react-icons/bi";
-import { MdSettings } from "react-icons/md";
+
+// context
+import { useAppState } from "../context/AppProvider";
+
 import {
   Box,
   Drawer,
@@ -33,37 +36,8 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 
-// signin button
-const SignInButton = () => {
-  const { instance } = useMsal();
-
-  const handleLogin = (loginType) => {
-    if (loginType === "popup") {
-      instance.loginPopup(loginRequest);
-    } else if (loginType === "redirect") {
-      instance.loginRedirect(loginRequest);
-    }
-  };
-
-  return (
-    <Button onClick={() => handleLogin("popup")} key="loginPopup">
-      Sign in
-    </Button>
-  );
-};
-
-// signin button
-const SignOutButton = () => {
-  const { instance } = useMsal();
-
-  const handleLogout = () => {
-    instance.logout();
-  };
-
-  return <Button onClick={handleLogout}>Sign out</Button>;
-};
-
 function DrawerLeft() {
+  const [state, dispatch] = useAppState();
   // msal
   const isAuthenticated = useIsAuthenticated();
   const { accounts } = useMsal();
@@ -74,19 +48,73 @@ function DrawerLeft() {
   const { colorMode, toggleColorMode } = useColorMode();
   const btnRef = React.useRef();
 
+  // signin button
+  const SignInButton = () => {
+    const { instance } = useMsal();
+
+    const handleLogin = (loginType) => {
+      if (loginType === "popup") {
+        instance.loginPopup(loginRequest);
+      } else if (loginType === "redirect") {
+        instance.loginRedirect(loginRequest);
+      }
+    };
+
+    return (
+      <Button
+        size="xs"
+        variant="outline"
+        onClick={() => handleLogin("popup")}
+        key="loginPopup"
+      >
+        Sign in
+      </Button>
+    );
+  };
+
+  // signin button
+  const SignOutButton = () => {
+    const { instance } = useMsal();
+
+    const handleLogout = () => {
+      instance.logout();
+      dispatch({
+        type: "signout",
+        payload: {
+          account: {
+            isloggedIn: false,
+            name: null,
+          },
+        },
+      });
+    };
+
+    return (
+      <Button size="xs" variant="outline" onClick={handleLogout}>
+        Sign out
+      </Button>
+    );
+  };
+
   React.useEffect(() => {
     if (accounts.length > 0) {
-      console.log(accounts);
-      //setName(accounts[0].name.split(" ")[0]);
+      let fname = accounts[0].idTokenClaims?.given_name || "";
+      let lname = accounts[0].idTokenClaims?.family_name || "";
+      setName(fname + " " + lname);
+      dispatch({
+        type: "signin",
+        payload: {
+          account: {
+            isloggedIn: true,
+            name: fname + " " + lname,
+          },
+        },
+      });
     }
   }, [accounts]);
 
   return (
     <>
-      {/* <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
-      </Button> */}
-
       <IconButton
         bg="transparent"
         ref={btnRef}
