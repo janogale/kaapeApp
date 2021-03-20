@@ -3,7 +3,12 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Flex, Text, Icon, Box } from "@chakra-ui/react";
 import { IoMdArrowBack } from "react-icons/io";
-import { RiShoppingCartFill, RiShoppingCartLine } from "react-icons/ri";
+import {
+  RiShoppingCartFill,
+  RiShoppingCartLine,
+  RiHome2Fill,
+  RiHome2Line,
+} from "react-icons/ri";
 
 // context
 import { useAppState } from "../context/AppProvider";
@@ -40,37 +45,49 @@ export default function Goback({ title = "", icon = "", cart }) {
           <Text>{title}</Text>
         </Box>
 
-        <Link href="/cart" onClick={() => router.back()}>
-          <a>
-            <Box
-              position="relative"
-              _hover={{
-                cursor: "pointer",
-              }}
-            >
-              <Flex
-                display={state.cart.length ? "flex" : "none"}
-                position="absolute"
-                zIndex="10"
-                justify="center"
-                align="center"
-                right="-2"
-                fontSize=".5rem"
-                fontWeight="bold"
-                color="gray.100"
-                bg="green.500"
-                borderRadius="100%"
-                width="14px"
-                height="14px"
+        <Flex justify="space-between" width="60px">
+          <Box
+            _hover={{
+              cursor: "pointer",
+            }}
+            onClick={() => router.push("/")}
+          >
+            <Icon as={RiHome2Line} />
+          </Box>
+          <Link href="/cart">
+            <a>
+              <Box
+                position="relative"
+                _hover={{
+                  cursor: "pointer",
+                }}
               >
-                {state.cart.length}
-              </Flex>
-              <Icon
-                as={state.cart.length ? RiShoppingCartFill : RiShoppingCartLine}
-              />
-            </Box>
-          </a>
-        </Link>
+                <Flex
+                  display={state.cart.length ? "flex" : "none"}
+                  position="absolute"
+                  zIndex="10"
+                  justify="center"
+                  align="center"
+                  right="-2"
+                  fontSize=".5rem"
+                  fontWeight="bold"
+                  color="gray.100"
+                  bg="green.500"
+                  borderRadius="100%"
+                  width="14px"
+                  height="14px"
+                >
+                  {state.cart.length}
+                </Flex>
+                <Icon
+                  as={
+                    state.cart.length ? RiShoppingCartFill : RiShoppingCartLine
+                  }
+                />
+              </Box>
+            </a>
+          </Link>
+        </Flex>
       </Flex>
     </Box>
   );
