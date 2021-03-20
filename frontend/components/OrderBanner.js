@@ -74,6 +74,12 @@ function OrderBanner() {
 }
 
 function ConfirmOrder({ isOpen, onOpen, onClose }) {
+  // msal
+  const isAuthenticated = useIsAuthenticated();
+  const { accounts, instance } = useMsal();
+  const [userAccount, setUserAccount] = React.useState(null);
+
+  // state management
   const [state, dispatch] = useAppState();
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const [status, setStatus] = React.useState(null);
@@ -81,6 +87,32 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
 
   const baseUrl = window.location.origin;
   const spId = JSON.parse(window.sessionStorage.getItem("spId"));
+
+  // handle login
+  const handleLogin = (loginType) => {
+    if (loginType === "popup") {
+      instance.loginPopup(loginRequest);
+    } else if (loginType === "redirect") {
+      instance.loginRedirect(loginRequest);
+    }
+  };
+
+  React.useEffect(() => {
+    if (accounts.length > 0) {
+      let fname = accounts[0].idTokenClaims?.given_name || "";
+      let lname = accounts[0].idTokenClaims?.family_name || "";
+      setUserAccount(fname + " " + lname);
+      dispatch({
+        type: "signin",
+        payload: {
+          account: {
+            isloggedIn: true,
+            name: fname + " " + lname,
+          },
+        },
+      });
+    }
+  }, [accounts]);
 
   // handle order submit
   const handleSubmit = async function () {
@@ -100,16 +132,13 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
         status: 1, // In-queue.
       }),
     };
-    console.log(router.query.spId);
-    console.log("----posted data----");
-    console.log(JSON.parse(requestOptions.body));
+
+    //
 
     const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
 
     const data = await result.json();
 
-    console.log("----returned data----");
-    console.log(data);
     //  order is success
     if (data) {
       setStatus("done");
@@ -147,7 +176,15 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
               />
             </FormControl>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter justifyContent="space-around">
+            {userAccount && (
+              <Box>
+                <Text fontSize="xs">Logged in as</Text>
+                <Text fontSize="0.6rem" fontWeight="bold">
+                  {userAccount}
+                </Text>
+              </Box>
+            )}
             {status ? (
               <Box
                 width="120px"
@@ -158,15 +195,27 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
               >
                 <Spinner color="green.300" size="lg" />
               </Box>
-            ) : (
+            ) : isAuthenticated ? (
               <Button
                 width="120px"
                 onClick={handleSubmit}
                 colorScheme="red"
-                size="md"
+                size="sm"
                 mr={3}
               >
                 Order Now
+              </Button>
+            ) : (
+              <Button
+                width="160px"
+                onClick={() => handleLogin("popup")}
+                key="loginPopup"
+                colorScheme="red"
+                variant="outline"
+                size="sm"
+                mr={3}
+              >
+                Sign in to Order
               </Button>
             )}
 
