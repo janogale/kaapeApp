@@ -1,6 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+// Authentication hooks
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { loginRequest } from "../src/authConfig";
+
 // chakra
 import {
   Flex,

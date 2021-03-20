@@ -1,6 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+// Authentication hooks
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { loginRequest } from "../src/authConfig";
+
 import { BiMenuAltLeft, BiFoodMenu } from "react-icons/bi";
 import { MdSettings } from "react-icons/md";
 import {
@@ -29,10 +33,53 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 
+// signin button
+const SignInButton = () => {
+  const { instance } = useMsal();
+
+  const handleLogin = (loginType) => {
+    if (loginType === "popup") {
+      instance.loginPopup(loginRequest);
+    } else if (loginType === "redirect") {
+      instance.loginRedirect(loginRequest);
+    }
+  };
+
+  return (
+    <Button onClick={() => handleLogin("popup")} key="loginPopup">
+      Sign in
+    </Button>
+  );
+};
+
+// signin button
+const SignOutButton = () => {
+  const { instance } = useMsal();
+
+  const handleLogout = () => {
+    instance.logout();
+  };
+
+  return <Button onClick={handleLogout}>Sign out</Button>;
+};
+
 function DrawerLeft() {
+  // msal
+  const isAuthenticated = useIsAuthenticated();
+  const { accounts } = useMsal();
+  const [name, setName] = React.useState(null);
+
+  // drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const btnRef = React.useRef();
+
+  React.useEffect(() => {
+    if (accounts.length > 0) {
+      console.log(accounts);
+      //setName(accounts[0].name.split(" ")[0]);
+    }
+  }, [accounts]);
 
   return (
     <>
@@ -77,7 +124,14 @@ function DrawerLeft() {
                   </Heading>
                 </Flex>
                 <Flex mt="1rem" justify="space-between">
-                  <Text fontSize="xs">Mukhtar Mahamed</Text>
+                  {isAuthenticated ? (
+                    <>
+                      <Text fontSize="xs">{name}</Text>
+                      <SignOutButton />
+                    </>
+                  ) : (
+                    <SignInButton />
+                  )}
                   <Divider orientation="vertical" colorScheme="gray" />
                   <Text fontSize="xs" color="blue.300">
                     13 Orders

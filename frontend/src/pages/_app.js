@@ -1,6 +1,12 @@
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
 import AppProvider from "context/AppProvider";
 import Head from "next/head";
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { msalConfig } from "../../src/authConfig";
+
+// MSAL Instance
+const msalInstance = new PublicClientApplication(msalConfig);
 
 import theme from "../theme/";
 
@@ -15,9 +21,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ChakraProvider resetCSS theme={theme}>
         <ColorModeProvider options={theme.config.initialColorMode}>
-          <AppProvider>
-            <Component {...pageProps} />
-          </AppProvider>
+          <MsalProvider instance={msalInstance}>
+            <AppProvider>
+              <Component {...pageProps} />
+            </AppProvider>
+          </MsalProvider>
         </ColorModeProvider>
       </ChakraProvider>
     </>
