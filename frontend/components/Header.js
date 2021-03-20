@@ -13,13 +13,13 @@ export const Header = (props) => {
       justify="space-around"
       align="center"
       bg="brand.500"
-      color="brand.100"
+      color="white"
       {...props}
     >
       <DrawerLeft />
       <Heading as="h1" textAlign="center" fontSize="lg" flexGrow={2}>
         <Link href="/">
-          <a>Kaape Menu</a>
+          <a>Digital Menu</a>
         </Link>
       </Heading>
     </Flex>

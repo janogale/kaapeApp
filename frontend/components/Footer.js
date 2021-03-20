@@ -11,7 +11,7 @@ export const Footer = (props) => (
     flexShrink={0}
     justify="space-around"
     bg="brand.500"
-    color="brand.100"
+    color="white"
     {...props}
   >
     <BottomMenu text="scan" icon={ImQrcode} />

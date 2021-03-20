@@ -119,7 +119,7 @@ function DrawerLeft() {
         bg="transparent"
         ref={btnRef}
         fontSize="1.5rem"
-        color="brand.100"
+        color="white"
         onClick={onOpen}
         icon={<BiMenuAltLeft />}
       />
