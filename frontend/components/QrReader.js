@@ -2,13 +2,27 @@ import React from "react";
 import Link from "next/link";
 import QrReader from "react-qr-reader";
 import { useRouter } from "next/router";
-import { Flex, Icon, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Icon,
+  Text,
+  Box,
+  Stack,
+  Input,
+  Button,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@chakra-ui/react";
 import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
 import { IoMdArrowBack } from "react-icons/io";
 
 function QrCodeReader(props) {
   const [result, setResult] = React.useState(null);
   const [qrData, setQrData] = React.useState(null);
+  const [isActiveCam, setIsActiveCam] = React.useState(true);
   const [camera, switchCamera] = React.useState("environment");
   const router = useRouter();
 
@@ -40,7 +54,13 @@ function QrCodeReader(props) {
   };
 
   return (
-    <Flex direction="column" mx="auto" position="relative" width="100%">
+    <Flex
+      direction="column"
+      mx="auto"
+      position="relative"
+      minH="100vh"
+      width="100%"
+    >
       <Flex
         color="brand.500"
         justify="space-between"
@@ -64,37 +84,49 @@ function QrCodeReader(props) {
           h={5}
         />
       </Flex>
-      <QrReader
-        delay={500}
-        style={previewStyle}
-        onError={handleError}
-        onScan={handleScan}
-        facingMode={camera}
-      />
-      <Flex
-        direction="column"
-        boxShadow="sm"
-        py="2"
-        align="center"
-        position="relative"
-        zIndex={100}
-      ></Flex>
-      <Flex
-        boxShadow="sm"
-        direction="column"
-        py="2"
-        mt="4"
-        align="center"
-        position="relative"
-        zIndex={100}
-      >
-        <Text color="brand.300" fontSize="xs">
-          Type Code
-        </Text>
-        <Text color="brand.400" fontSize="xs" mt="2">
-          to Browse Menu
-        </Text>
-      </Flex>
+      <Tabs isFitted>
+        <TabList>
+          <Tab onClick={() => setIsActiveCam(true)}>Scan Code</Tab>
+          <Tab onClick={() => setIsActiveCam(false)}>Type Code</Tab>
+        </TabList>
+
+        <TabPanels>
+          <TabPanel>
+            {isActiveCam && (
+              <QrReader
+                delay={500}
+                style={previewStyle}
+                onError={handleError}
+                onScan={handleScan}
+                facingMode={camera}
+              />
+            )}
+          </TabPanel>
+          <TabPanel>
+            <Stack spacing={12} px="5">
+              <Text fontSize="sm" textAlign="center">
+                Please Enter the Code
+              </Text>
+              <Input
+                placeholder="type code"
+                errorBorderColor="red.300"
+                size="lg"
+                borderColor="red.300"
+                textAlign="center"
+              />
+              <Box></Box>
+              <Button
+                variant="outline"
+                width="100%"
+                border="1px"
+                borderColor="brand.200"
+              >
+                Scan Menu
+              </Button>
+            </Stack>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Flex>
   );
 }
