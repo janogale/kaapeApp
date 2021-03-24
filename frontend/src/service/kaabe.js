@@ -42,7 +42,6 @@ async function getServiceProvider(spId, includeItems = true) {
   const req = new messages.GetServiceProviderRequest();
   req.setGuid(spId);
   req.setIncludeItems(includeItems);
-  console.log(spId, includeItems)
   const resp = await GetServiceProvider(req);
   return resp.toObject();
 }

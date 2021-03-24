@@ -20,22 +20,36 @@ import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
 import { IoMdArrowBack } from "react-icons/io";
 
 function QrCodeReader(props) {
-  const [result, setResult] = React.useState(null);
   const [qrData, setQrData] = React.useState(null);
   const [isActiveCam, setIsActiveCam] = React.useState(true);
   const [camera, switchCamera] = React.useState("environment");
   const router = useRouter();
 
-  React.useEffect(function () {
-    if (qrData) {
-      router.push("/sp/a4337c7a-68b2-45f8-827d-8e4389d5eb51");
-    }
-  });
+  React.useEffect(
+    function () {
+      if (qrData) {
+        router.push(qrData);
+      }
+    },
+    [qrData]
+  );
 
   const handleScan = (data) => {
-    setResult(data);
-    if (data) {
-      setQrData(data);
+    if (data === null) return;
+    if (qrData !== null) return;
+
+    const parsedUrl = new URL(data);
+
+    // check if the URL is valid
+    if (
+      parsedUrl.pathname.includes("sp") &&
+      parsedUrl.origin === window.location.origin
+    ) {
+      // route to the matched url.
+      const path = parsedUrl.pathname;
+      const searchParams = parsedUrl.search;
+
+       setQrData(`${path}${searchParams}`);
     }
   };
   const handleError = (err) => {
@@ -103,31 +117,66 @@ function QrCodeReader(props) {
             )}
           </TabPanel>
           <TabPanel>
-            <Stack spacing={12} px="5">
-              <Text fontSize="sm" textAlign="center">
-                Please Enter the Code
-              </Text>
-              <Input
-                placeholder="type code"
-                errorBorderColor="red.300"
-                size="lg"
-                borderColor="red.300"
-                textAlign="center"
-              />
-              <Box></Box>
-              <Button
-                variant="outline"
-                width="100%"
-                border="1px"
-                borderColor="brand.200"
-              >
-                Scan Menu
-              </Button>
+            <Stack spacing={12} px="12">
+              <TypeCodeBox />
             </Stack>
           </TabPanel>
         </TabPanels>
       </Tabs>
     </Flex>
+  );
+}
+
+function TypeCodeBox() {
+  const [code, setCode] = React.useState("");
+  const [location, setLocation] = React.useState("");
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    if (!code) return;
+
+    if (typeof code !== "string" && code.length < 3) return;
+
+    router.push(`/sp/${code.toUpperCase()}?location=${location}`);
+  };
+
+  return (
+    <>
+      <Text fontSize="sm" textAlign="center">
+        Please Enter the Code & location
+      </Text>
+      <Input
+        placeholder="type code"
+        errorBorderColor="red.300"
+        onChange={(e) => setCode(e.target.value)}
+        value={code}
+        autoCapitalize
+        size="lg"
+        borderColor="red.300"
+        textAlign="center"
+      />
+
+      <Input
+        placeholder="type location"
+        errorBorderColor="red.300"
+        onChange={(e) => setLocation(e.target.value)}
+        value={location}
+        autoCapitalize
+        size="md"
+        borderColor="red.300"
+        textAlign="center"
+      />
+      <Box></Box>
+      <Button
+        variant="outline"
+        onClick={handleSubmit}
+        width="100%"
+        border="1px"
+        borderColor="brand.200"
+      >
+        Scan Menu
+      </Button>
+    </>
   );
 }
 

@@ -42,10 +42,7 @@ export async function getStaticProps(context) {
   var resp = await getServiceProviderList();
   const spData = resp.providersList;
 
-  console.log("process.env.protosDir");
-  console.log(process.env.protosDir);
-
-  return {
+   return {
     props: { spData },
   };
 }
