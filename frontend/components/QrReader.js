@@ -29,6 +29,10 @@ function QrCodeReader(props) {
   React.useEffect(
     function () {
       if (qrData) {
+        // make vibration
+        window.navigator.vibrate([200, 100, 200]);
+
+        // go to matched url
         router.push(qrData);
       }
     },
