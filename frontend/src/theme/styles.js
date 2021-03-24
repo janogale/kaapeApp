@@ -6,6 +6,12 @@ const styles = {
       userSelect: "none",
       WebkitTapHighlightColor: "transparent",
     },
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    "::placeholder": {
+      color: "red",
+      opacity: "0.3",
+      fontSize: "1rem",
+    },
     // default button style
     button: {
       _focus: {

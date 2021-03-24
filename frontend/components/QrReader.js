@@ -15,6 +15,7 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  useToast,
 } from "@chakra-ui/react";
 import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
 import { IoMdArrowBack } from "react-icons/io";
@@ -49,9 +50,13 @@ function QrCodeReader(props) {
       const path = parsedUrl.pathname;
       const searchParams = parsedUrl.search;
 
-       setQrData(`${path}${searchParams}`);
+      setQrData(`${path}${searchParams}`);
+    } else {
+      console.log("url not matched");
+      console.log(data);
     }
   };
+
   const handleError = (err) => {
     console.error(err);
   };
@@ -100,8 +105,20 @@ function QrCodeReader(props) {
       </Flex>
       <Tabs isFitted>
         <TabList>
-          <Tab onClick={() => setIsActiveCam(true)}>Scan Code</Tab>
-          <Tab onClick={() => setIsActiveCam(false)}>Type Code</Tab>
+          <Tab
+            fontWeight="semibold"
+            _selected={{ color: "brand.500", borderColor: "currentColor" }}
+            onClick={() => setIsActiveCam(true)}
+          >
+            Scan Code
+          </Tab>
+          <Tab
+            fontWeight="semibold"
+            _selected={{ color: "brand.500", borderColor: "currentColor" }}
+            onClick={() => setIsActiveCam(false)}
+          >
+            Type Code
+          </Tab>
         </TabList>
 
         <TabPanels>
@@ -131,9 +148,19 @@ function TypeCodeBox() {
   const [code, setCode] = React.useState("");
   const [location, setLocation] = React.useState("");
   const router = useRouter();
-
+  const toast = useToast();
   const handleSubmit = () => {
-    if (!code) return;
+    if (!code) {
+      // inform user to type code
+      toast({
+        title: "Code is Required",
+        description: "Please Type Service Provider Code.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return;
+    }
 
     if (typeof code !== "string" && code.length < 3) return;
 
@@ -142,30 +169,36 @@ function TypeCodeBox() {
 
   return (
     <>
-      <Text fontSize="sm" textAlign="center">
-        Please Enter the Code & location
+      <Text mt="4" fontSize="xs" textAlign="center">
+        Please Enter Service Provider Code & your location.
       </Text>
-      <Input
-        placeholder="type code"
-        errorBorderColor="red.300"
-        onChange={(e) => setCode(e.target.value)}
-        value={code}
-        autoCapitalize
-        size="lg"
-        borderColor="red.300"
-        textAlign="center"
-      />
+      <Box fontSize="2" color="brand.500">
+        <Input
+          mb="8"
+          required
+          placeholder="type code"
+          colorScheme="brand"
+          errorBorderColor="red.300"
+          onChange={(e) => setCode(e.target.value)}
+          value={code}
+          size="lg"
+          fontWeight="bold"
+          letterSpacing="wide"
+          borderColor="red.300"
+          textAlign="center"
+          textTransform="uppercase"
+        />
 
-      <Input
-        placeholder="type location"
-        errorBorderColor="red.300"
-        onChange={(e) => setLocation(e.target.value)}
-        value={location}
-        autoCapitalize
-        size="md"
-        borderColor="red.300"
-        textAlign="center"
-      />
+        <Input
+          placeholder="type location"
+          errorBorderColor="red.300"
+          onChange={(e) => setLocation(e.target.value)}
+          value={location}
+          size="md"
+          borderColor="red.300"
+          textAlign="center"
+        />
+      </Box>
       <Box></Box>
       <Button
         variant="outline"
