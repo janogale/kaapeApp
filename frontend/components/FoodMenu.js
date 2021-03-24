@@ -111,7 +111,7 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
             position: "bottom",
           });
         }}
-        size="sm"
+        size="xs"
         width={width}
         border="1px"
         bg="green.500"
@@ -124,7 +124,7 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
 
   return (
     <ButtonGroup
-      size="sm"
+      size="xs"
       isAttached
       border="1px"
       width={width}

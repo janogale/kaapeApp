@@ -155,7 +155,7 @@ function TypeCodeBox() {
       toast({
         title: "Code is Required",
         description: "Please Type Service Provider Code.",
-        status: "error",
+        status: "warning",
         duration: 2000,
         isClosable: true,
       });

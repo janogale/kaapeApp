@@ -32,7 +32,10 @@ export default function CartMenu({
     amount,
   };
 
-  const thumbnail = (picture || "/menu/f1.jpg").replace("/images/", "/thumbnails/");
+  const thumbnail = (picture || "/menu/f1.jpg").replace(
+    "/images/",
+    "/thumbnails/"
+  );
 
   return (
     <Flex>
@@ -53,7 +56,7 @@ export default function CartMenu({
         <Heading as="h3" fontSize="sm" color="gray.500">
           {saleUnitPrice}
         </Heading>
-        <Flex mt="3" justify="flex-end">
+        <Flex justify="flex-end">
           <AddRemoveButton menuItem={menuItem} />
         </Flex>
       </Box>
@@ -79,7 +82,7 @@ function AddRemoveButton({ menuItem = {} }) {
 
           dispatch({ type: "add", payload: menuItem });
         }}
-        size="sm"
+        size="xs"
         width="100px"
         border="1px"
         bg="green.500"
@@ -92,7 +95,7 @@ function AddRemoveButton({ menuItem = {} }) {
 
   return (
     <ButtonGroup
-      size="sm"
+      size="xs"
       isAttached
       border="1px"
       borderColor="green.500"

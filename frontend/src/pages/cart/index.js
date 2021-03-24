@@ -49,15 +49,17 @@ export default function Cart() {
           <EmptyCart />
         ) : (
           <>
-            {cartData.map((menu) => {
-              return (
-                <Box key={menu.name} p={4} mt="3" flexGrow={2}>
-                  <CartMenu {...menu} />
-                </Box>
-              );
-            })}
-            {/* Order Now Banner */}
-            <Divider mb="12" />
+            <Box flexGrow={2} pb="8">
+              {cartData.map((menu) => {
+                return (
+                  <Box key={menu.name} mt="3" px="4">
+                    <CartMenu {...menu} />
+                  </Box>
+                );
+              })}
+              {/* Order Now Banner */}
+            </Box>
+
             <OrderBanner />
           </>
         )}
