@@ -32,17 +32,21 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function SuccessPage() {
   //const baseUrl = window.location.origin;
+
   const [state, dispatch] = useAppState();
   const router = useRouter();
+  const [orderId, setOrderId] = React.useState(state.orderId);
 
-  const { data, error } = useSWR(
-    `/api/orders/8323fc09-5e82-41b3-8ce8-346dab04e92d`,
-    fetcher
-  );
+  const { data, error } = useSWR(`/api/orders/${orderId}`, fetcher, {
+    refreshInterval: 1000,
+  });
 
-  const { status } = data;
+  const status = data?.status || 0;
 
   React.useEffect(() => {
+    const id = window.location.search.split("=")[1];
+    setOrderId(id);
+    console.log(data);
     // clear state
     dispatch({ type: "clearCart" });
   }, []);
@@ -71,7 +75,7 @@ export default function SuccessPage() {
   );
 }
 
-function OrderStatus({ status }) {
+function OrderStatus({ status = 0 }) {
   return (
     <Flex
       direction="column"
@@ -87,12 +91,12 @@ function OrderStatus({ status }) {
           <TimeLine
             title="Order Received"
             description="Your order is waiting to be accepted"
-            active={status > 1}
+            active={status >= 1}
           />
           <TimeLine
             title="Order Accepted"
             description="Started Cooking your food"
-            active={status > 2}
+            active={status >= 2}
           />
           <TimeLine
             title="Order Ready"

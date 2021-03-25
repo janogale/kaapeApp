@@ -141,6 +141,8 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
 
     //  order is success
     if (data?.guid) {
+      // save order id to that state
+      dispatch({ type: "setOrderId", payload: { orderId: data.guid } });
       setStatus("done");
       router.push(`/cart/success?orderId=${data.guid}`);
     }

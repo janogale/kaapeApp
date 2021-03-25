@@ -92,10 +92,11 @@ const reducer = (state, action) => {
      *  Sign out and clear state
      */
     case "clearCart": {
+      const newState = { ...state, cart: [] };
       // save to local storage
-      saveToLocal(state);
+      saveToLocal(newState);
 
-      return { ...state, cart: [] };
+      return newState;
     }
     case "signin": {
       let newState = { ...state, ...action.payload };
@@ -106,6 +107,15 @@ const reducer = (state, action) => {
       return newState;
     }
     case "signout": {
+      let newState = { ...state, ...action.payload };
+
+      // save to local storage
+      saveToLocal(newState);
+
+      return newState;
+    }
+
+    case "setOrderId": {
       let newState = { ...state, ...action.payload };
 
       // save to local storage
@@ -124,6 +134,7 @@ const AppProvider = (props) => {
     mobile: false,
     boxed: false,
     darkMode: false,
+    orderId: null,
     cart: [],
     account: {
       isloggedIn: false,
