@@ -1,8 +1,10 @@
 import React from "react";
 import NextLink from "next/link";
-import Image from "next/image";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { MdCheckCircle } from "react-icons/md";
+import useSWR from "swr";
 import {
   Heading,
   Text,
@@ -17,21 +19,35 @@ import {
 } from "@chakra-ui/react";
 
 import Layout from "@/components/Layout";
+import LoadingSpinner from "@/components/shared/Spinner";
+import ErrorPage from "@/components/shared/ErrorPage";
 
 import GoBack from "@/components/GoBack";
 
 // context
 import { useAppState } from "../../../context/AppProvider";
-import Head from "next/head";
 
-export default function Cart() {
+// fetcher function for swr library
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+export default function SuccessPage() {
+  //const baseUrl = window.location.origin;
   const [state, dispatch] = useAppState();
-  let [cartData, setCartDat] = React.useState(state);
+  const router = useRouter();
+
+  const { data, error } = useSWR(
+    `/api/orders/8323fc09-5e82-41b3-8ce8-346dab04e92d`,
+    fetcher
+  );
+
+  const { status } = data;
 
   React.useEffect(() => {
     // clear state
     dispatch({ type: "clearCart" });
   }, []);
+
+  // wait data to load
 
   return (
     <Layout hide>
@@ -39,7 +55,15 @@ export default function Cart() {
         <GoBack title="Order Status" cart />
         <Divider />
 
-        <OrderSend />
+        {/*  if */}
+
+        {error ? (
+          <ErrorPage />
+        ) : !data ? (
+          <LoadingSpinner />
+        ) : (
+          <OrderStatus status={status} />
+        )}
 
         <Divider mb="12" />
       </Flex>
@@ -47,7 +71,7 @@ export default function Cart() {
   );
 }
 
-function OrderSend() {
+function OrderStatus({ status }) {
   return (
     <Flex
       direction="column"
@@ -63,21 +87,17 @@ function OrderSend() {
           <TimeLine
             title="Order Received"
             description="Your order is waiting to be accepted"
-            active={true}
+            active={status > 1}
           />
           <TimeLine
             title="Order Accepted"
             description="Started Cooking your food"
-            active={true}
+            active={status > 2}
           />
           <TimeLine
             title="Order Ready"
             description="Your Order is ready to be delivered"
-          />
-          <TimeLine
-            title="Order Delivered"
-            description="Enjoy Your Meal and have great time"
-            last
+            active={status === 3}
           />
         </List>
       </Box>

@@ -140,9 +140,9 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
     const data = await result.json();
 
     //  order is success
-    if (data) {
+    if (data?.guid) {
       setStatus("done");
-      router.push("/cart/success");
+      router.push(`/cart/success?orderId=${data.guid}`);
     }
   };
 
