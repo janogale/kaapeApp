@@ -1,4 +1,4 @@
-import { addOrder } from "../../../service/kaabe";
+import { addOrder, getOrders } from "../../../service/kaabe";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -20,9 +20,10 @@ export default async function handler(req, res) {
     }
     data.orderRows = JSON.stringify(clearedRows);
 
-    var resp = await addOrder(data.spId, data);
+    var resp = await addOrder(data.spId, data, req.headers['authorization']);
     res.status(200).json(resp);
   } else {
-    res.status(400).json({});
+    var orders = await getOrders(req.headers['authorization']);
+    res.status(400).json(orders);
   }
 }
