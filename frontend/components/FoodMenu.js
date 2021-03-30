@@ -42,7 +42,7 @@ export default function FoodMenu({
   };
 
   return (
-    <Flex>
+    <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
       <Box
         _hover={{
           cursor: "pointer",

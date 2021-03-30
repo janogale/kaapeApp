@@ -42,7 +42,7 @@ export default function Cart() {
   return (
     <Layout hide>
       <Flex direction="column" h="100vh">
-        <GoBack title="my Order" cart />
+        <GoBack title="My Order" cart />
         <Divider />
 
         {state?.cart.length === 0 ? (
