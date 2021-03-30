@@ -101,6 +101,7 @@ export default function FoodMenu({
       </Box>
       <MenuItemDetailModal
         menuItem={menuItem}
+        currencySign={currencySign}
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
@@ -113,7 +114,10 @@ export default function FoodMenu({
 function AddRemoveButton({ menuItem = {}, width = "100px" }) {
   const toast = useToast();
   const [state, dispatch] = useAppState();
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(() => {
+    let currentItem = state.cart.filter((item) => item.id === menuItem.id);
+    return currentItem[0]?.amount || 0;
+  });
 
   if (!count) {
     return (
@@ -131,7 +135,7 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
             description: `Added ${menuItem?.name} to the Cart`,
             status: "success",
             duration: 1000,
-            position: "bottom",
+            position: "top",
           });
         }}
         size="xs"
@@ -179,7 +183,13 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
   );
 }
 
-function MenuItemDetailModal({ isOpen, onOpen, onClose, menuItem }) {
+function MenuItemDetailModal({
+  isOpen,
+  onOpen,
+  onClose,
+  menuItem,
+  currencySign,
+}) {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
@@ -202,12 +212,11 @@ function MenuItemDetailModal({ isOpen, onOpen, onClose, menuItem }) {
             </Heading>
             <Text>{menuItem.description}</Text>
             <Heading as="h3" fontSize="sm" color="gray.500">
-              {menuItem.saleUnitPrice}
+              <chakra.small fontSize=".6rem">{currencySign}</chakra.small>{" "}
+              {formatCurrency(menuItem.saleUnitPrice)}
             </Heading>
           </Box>
-          <ModalFooter justifyContent="center">
-            <AddRemoveButton width="80%" menuItem={menuItem} />
-          </ModalFooter>
+          <ModalFooter justifyContent="center"></ModalFooter>
         </ModalContent>
       </Modal>
     </>
