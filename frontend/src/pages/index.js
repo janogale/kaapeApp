@@ -1,7 +1,6 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Text, Flex, Button, Box } from "@chakra-ui/react";
+import { Text, Flex, Button, Box, Image } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
 const Index = () => {
@@ -16,20 +15,12 @@ const Index = () => {
         flexGrow={2}
       >
         <Text color="gray.500">Scan Menu to order Food</Text>
-        <Box
-          mt={["-2rem", "-1rem", null]}
-          position="relative"
-          w="50%"
-          borderRadius="100%"
-          overflow="hidden"
-        >
+        <Box mt={["-2rem", "-1rem", null]} position="relative">
           <Link href="/scan">
             <a>
               <Image
-                style={{ borderRadius: "100%" }}
-                width={626}
-                height={626}
-                objectFit="cover"
+                borderRadius="full"
+                boxSize="200px"
                 src="/qrcodescan.jpg"
                 alt="qr code scan"
               />

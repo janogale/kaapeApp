@@ -33,6 +33,7 @@ import {
   Switch,
   useDisclosure,
   useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 
@@ -130,7 +131,7 @@ function DrawerLeft() {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay>
-          <DrawerContent>
+          <DrawerContent color={useColorModeValue("gray.500", "gray.300")}>
             <DrawerCloseButton />
             {/* header */}
             <DrawerHeader borderBottomWidth="1px">
@@ -145,10 +146,10 @@ function DrawerLeft() {
                   <Heading
                     as="h2"
                     textAlign="center"
-                    fontSize="xl"
+                    fontSize="lg"
                     flexGrow={2}
                   >
-                    Kaape Menu
+                    Kaabe Menu
                   </Heading>
                 </Flex>
                 <Flex mt="1rem" justify="space-between">
@@ -161,13 +162,14 @@ function DrawerLeft() {
                     <SignInButton />
                   )}
                   <Divider orientation="vertical" colorScheme="gray" />
-                  <Text fontSize="xs" color="blue.300">
+                  <Text fontSize="xs" color="green.300">
                     13 Orders
                   </Text>
                 </Flex>
               </Flex>
             </DrawerHeader>
             <DrawerBody>
+              {/* menu */}
               <MenuList />
 
               <Divider orientation="horizontal" my="4rem" colorScheme="gray" />
@@ -228,13 +230,13 @@ function MenuList() {
             _hover={{
               background: "gray.200",
               color: "teal.500",
-              pointer: "pointer",
+              cursor: "pointer",
             }}
             my="1rem"
             py=".5rem"
             px="1rem"
           >
-            <ListIcon as={list.icon} color="green.500" />
+            <ListIcon as={list.icon} color="green.600" />
             {list.name}
           </ListItem>
         );
