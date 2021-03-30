@@ -22,7 +22,6 @@ import GoBack from "@/components/GoBack";
 
 // context
 import { useAppState } from "../../../context/AppProvider";
-import { useRouter } from "next/router";
 
 export default function Cart() {
   const [state, dispatch] = useAppState();

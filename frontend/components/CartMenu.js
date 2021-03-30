@@ -13,6 +13,9 @@ import {
 
 import { MdAdd, MdRemove } from "react-icons/md";
 
+// utils
+import { formatCurrency } from "../utils";
+
 // context
 import { useAppState } from "../context/AppProvider";
 
@@ -59,7 +62,7 @@ export default function CartMenu({
         <Text>{description}</Text>
         <Heading as="h3" fontSize="sm" color="gray.500">
           <chakra.small fontSize=".6rem">{state?.currencySign}</chakra.small>{" "}
-          {saleUnitPrice}
+          {formatCurrency(saleUnitPrice)}
         </Heading>
         <Flex justify="flex-end">
           <AddRemoveButton menuItem={menuItem} />

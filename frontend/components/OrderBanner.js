@@ -30,7 +30,6 @@ import {
 import { RiSendPlane2Line } from "react-icons/ri";
 
 // utils
-
 import { formatCurrency } from "../utils";
 
 // context
@@ -67,13 +66,7 @@ function OrderBanner() {
         }}
       >
         Place Order{" "}
-        <chakra.small
-          color="gray.200"
-          ml="3"
-          fontWeight="thin"
-          fontSize="xs"
-          mb="-2"
-        >
+        <chakra.small ml="3" fontWeight="thin" fontSize="xs" mb="-2">
           {state.currencySign}
         </chakra.small>
         <chakra.span ml="1">{formatCurrency(totalPrice)}</chakra.span>

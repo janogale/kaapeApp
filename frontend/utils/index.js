@@ -20,7 +20,7 @@ function beep() {
 }
 
 // return currency sign
-export const getCurrencySign = (currency) => {
+export const getCurrencySign = (currency = 0) => {
   switch (currency) {
     case 0:
       return "USD";
@@ -43,7 +43,7 @@ export const getCurrencySign = (currency) => {
 
 // format currency
 
-export function formatCurrency(currency) {
+export function formatCurrency(currency = 0) {
   try {
     return new Intl.NumberFormat().format(currency);
   } catch (err) {

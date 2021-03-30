@@ -24,7 +24,7 @@ import { MdAdd, MdRemove } from "react-icons/md";
 
 // utils
 // utils
-import { getCurrencySign } from "../utils";
+import { getCurrencySign, formatCurrency } from "../utils";
 
 // context
 import { useAppState } from "../context/AppProvider";
@@ -92,7 +92,7 @@ export default function FoodMenu({
           <Text>{description}</Text>
           <Heading as="h3" fontSize="sm" color="gray.500">
             <chakra.small fontSize=".6rem">{currencySign}</chakra.small>{" "}
-            {saleUnitPrice}
+            {formatCurrency(saleUnitPrice)}
           </Heading>
         </Box>
         <Flex justify="flex-end">

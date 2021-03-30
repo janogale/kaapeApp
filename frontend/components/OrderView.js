@@ -2,10 +2,13 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // chakra
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { Flex, chakra, Button } from "@chakra-ui/react";
 
 // Icons
 import { RiShoppingCartFill } from "react-icons/ri";
+
+// utils
+import { formatCurrency } from "../utils";
 
 // context
 import { useAppState } from "../context/AppProvider";
@@ -23,8 +26,6 @@ function OrderBanner() {
 
   return (
     <Flex
-      bg="brand.500"
-      color="gray.100"
       border="1px"
       borderColor="brand.100"
       py="2"
@@ -33,20 +34,22 @@ function OrderBanner() {
       width="100%"
       flexShrink={1}
     >
-      <Text>{state?.cart?.length} items</Text>
-      <Text>Total ${totalPrice}</Text>
       <Button
         onClick={() => router.push("/cart")}
         variant="outline"
-        fontWeight="bold"
+        colorScheme="brand"
+        width="80%"
         fontSize="md"
-        rightIcon={<RiShoppingCartFill />}
         _hover={{
           color: "brand.400",
           bg: "gray.300",
         }}
       >
         View Cart
+        <chakra.small ml="3" fontWeight="thin" fontSize=".6rem" mb="-2">
+          {state.currencySign}
+        </chakra.small>
+        <chakra.small ml="1">{formatCurrency(totalPrice)}</chakra.small>
       </Button>
     </Flex>
   );
