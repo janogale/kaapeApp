@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import {
+  chakra,
   Flex,
   Heading,
   Box,
@@ -23,6 +24,9 @@ export default function CartMenu({
   picture,
   amount = 0,
 }) {
+  const [state] = useAppState();
+
+  // combine menu items
   const menuItem = {
     name,
     id,
@@ -38,7 +42,7 @@ export default function CartMenu({
   );
 
   return (
-    <Flex>
+    <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
       <Box>
         <Image
           width={80}
@@ -54,6 +58,7 @@ export default function CartMenu({
         </Heading>
         <Text>{description}</Text>
         <Heading as="h3" fontSize="sm" color="gray.500">
+          <chakra.small fontSize=".6rem">{state?.currencySign}</chakra.small>{" "}
           {saleUnitPrice}
         </Heading>
         <Flex justify="flex-end">

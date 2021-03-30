@@ -10,6 +10,8 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
+
+
 // gRPC functions
 import {
   getServiceProviderList,
@@ -28,7 +30,7 @@ import { groupBy } from "../../../utils";
 import { useAppState } from "../../../context/AppProvider";
 
 export default function ServiceProviderPage({ spData }) {
-  const [state] = useAppState();
+  const [state, dispatch] = useAppState();
 
   // store provider id to localStorage
 
@@ -36,7 +38,13 @@ export default function ServiceProviderPage({ spData }) {
     window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
   }, []);
 
-  const { categoriesList: categories, menuItemsList: menuItems, provider } = spData;
+  const {
+    categoriesList: categories,
+    menuItemsList: menuItems,
+    provider,
+  } = spData;
+
+  // store service prodiver data to state.
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
@@ -74,7 +82,7 @@ export default function ServiceProviderPage({ spData }) {
                   {TapContent[menu].map((menu) => {
                     return (
                       <Box key={menu.id} mt="3">
-                        <FoodMenu {...menu} />
+                        <FoodMenu {...menu} provider={provider} />
                       </Box>
                     );
                   })}

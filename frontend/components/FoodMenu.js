@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import {
+  chakra,
   Flex,
   Heading,
   Box,
@@ -21,6 +22,10 @@ import {
 
 import { MdAdd, MdRemove } from "react-icons/md";
 
+// utils
+// utils
+import { getCurrencySign } from "../utils";
+
 // context
 import { useAppState } from "../context/AppProvider";
 
@@ -30,6 +35,7 @@ export default function FoodMenu({
   description,
   saleUnitPrice,
   picture,
+  provider,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // combine menu to one object
@@ -40,6 +46,22 @@ export default function FoodMenu({
     saleUnitPrice,
     picture,
   };
+
+  const [state, dispatch] = useAppState();
+
+  // extract provider data
+  const { currency } = provider;
+
+  const currencySign = getCurrencySign(currency);
+
+  React.useEffect(() => {
+    dispatch({
+      type: "setCurrency",
+      payload: {
+        currencySign,
+      },
+    });
+  }, []);
 
   return (
     <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
@@ -69,6 +91,7 @@ export default function FoodMenu({
           </Heading>
           <Text>{description}</Text>
           <Heading as="h3" fontSize="sm" color="gray.500">
+            <chakra.small fontSize=".6rem">{currencySign}</chakra.small>{" "}
             {saleUnitPrice}
           </Heading>
         </Box>

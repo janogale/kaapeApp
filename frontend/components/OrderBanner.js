@@ -7,6 +7,7 @@ import { loginRequest } from "../src/authConfig";
 
 // chakra
 import {
+  chakra,
   Flex,
   Text,
   Box,
@@ -28,6 +29,10 @@ import {
 // Icons
 import { RiSendPlane2Line } from "react-icons/ri";
 
+// utils
+
+import { formatCurrency } from "../utils";
+
 // context
 import { useAppState } from "../context/AppProvider";
 
@@ -43,30 +48,35 @@ function OrderBanner() {
 
   return (
     <Flex
-      bg="brand.500"
       color="gray.100"
-      border="1px"
-      borderColor="brand.100"
-      py="2"
       justify="space-around"
       align="center"
       width="100%"
       flexShrink={1}
     >
-      <Text>{state?.cart?.length} Items</Text>
-      <Text>Total ${totalPrice}</Text>
       <Button
         onClick={onOpen}
-        variant="outline"
-        fontWeight="bold"
-        fontSize="xl"
+        rounded="none"
+        colorScheme="brand"
+        width="100%"
+        fontSize="lg"
         rightIcon={<RiSendPlane2Line />}
         _hover={{
           color: "brand.400",
           bg: "gray.300",
         }}
       >
-        Submit
+        Place Order{" "}
+        <chakra.small
+          color="gray.200"
+          ml="3"
+          fontWeight="thin"
+          fontSize="xs"
+          mb="-2"
+        >
+          {state.currencySign}
+        </chakra.small>
+        <chakra.span ml="1">{formatCurrency(totalPrice)}</chakra.span>
       </Button>
       <ConfirmOrder isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Flex>

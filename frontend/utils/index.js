@@ -18,3 +18,37 @@ function beep() {
   );
   snd.play();
 }
+
+// return currency sign
+export const getCurrencySign = (currency) => {
+  switch (currency) {
+    case 0:
+      return "USD";
+    case 1:
+      return "SLS";
+    case 2:
+      return "SOS";
+    case 3:
+      return "DJF";
+    case 4:
+      return "KES";
+    case 5:
+      return "ETB";
+    case 6:
+      return "EUR";
+    default:
+      return "";
+  }
+};
+
+// format currency
+
+export function formatCurrency(currency) {
+  try {
+    return new Intl.NumberFormat().format(currency);
+  } catch (err) {
+    console.log(err);
+
+    return currency;
+  }
+}

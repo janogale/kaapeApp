@@ -98,6 +98,13 @@ const reducer = (state, action) => {
 
       return newState;
     }
+    case "setCurrency": {
+      const newState = { ...state, ...action.payload };
+      // save to local storage
+      saveToLocal(newState);
+
+      return newState;
+    }
     case "signin": {
       let newState = { ...state, ...action.payload };
 
@@ -140,6 +147,7 @@ const AppProvider = (props) => {
       isloggedIn: false,
       name: null,
     },
+    currencySign: "",
   });
 
   return <Provider value={[state, dispatch]}>{props.children}</Provider>;
