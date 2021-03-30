@@ -10,8 +10,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-
-
 // gRPC functions
 import {
   getServiceProviderList,
@@ -73,8 +71,10 @@ export default function ServiceProviderPage({ spData }) {
       <Flex flexDir="column" h="100vh">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
-        <Tabs overflow="auto" flexGrow={2}>
-          <TabList>{Cats}</TabList>
+        <Tabs flexGrow={2} overflow="hidden" width="100%">
+          <TabList overflowX="scroll" width="100%">
+            {Cats}
+          </TabList>
           <TabPanels>
             {Object.keys(TapContent).map((menu, index) => {
               return (
