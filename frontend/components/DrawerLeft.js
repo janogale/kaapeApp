@@ -141,15 +141,15 @@ function DrawerLeft() {
                     borderRadius="full"
                     boxSize="30px"
                     src="/kaape-icon.png"
-                    alt="Kaape Menu App icon"
+                    alt="Kaabe Digital Waiter"
                   />
                   <Heading
                     as="h2"
                     textAlign="center"
-                    fontSize="lg"
+                    fontSize="md"
                     flexGrow={2}
                   >
-                    Kaabe Menu
+                    Kaabe Waiter
                   </Heading>
                 </Flex>
                 <Flex mt="1rem" justify="space-between">

@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Kaabe Digital Menu",
+    "name": "Kaabe Digital Waiter",
     "short_name": "Kaabe",
-    "description": "Kaabe Digital Menu App, new innovation for Food Menu",
+    "description": "Kaabe App - Digital Waiter, new innovation for Food Menu",
     "icons": [
         {
             "src": "/icons/android-launchericon-512-512.png",

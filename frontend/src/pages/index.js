@@ -14,7 +14,7 @@ const Index = () => {
         justify="space-around"
         flexGrow={2}
       >
-        <Text color="gray.500">Scan Menu to order Food</Text>
+        <Text color="gray.500">Scan QR Code to order Food</Text>
         <Box mt={["-2rem", "-1rem", null]} position="relative">
           <Link href="/scan">
             <a>
@@ -36,7 +36,7 @@ const Index = () => {
               border="1px"
               borderColor="brand.200"
             >
-              Scan Menu
+              Scan Now
             </Button>
           </a>
         </Link>
