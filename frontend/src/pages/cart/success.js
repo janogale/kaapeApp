@@ -15,6 +15,12 @@ import {
   List,
   ListItem,
   ListIcon,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
 } from "@chakra-ui/react";
 
 import Layout from "@/components/Layout";
@@ -39,22 +45,31 @@ export default function SuccessPage() {
   const router = useRouter();
   const [orderId, setOrderId] = React.useState(state.orderId);
 
-  console.log(state.accessToken);
-
   const { data, error } = useSWR(
     [`/api/orders/${orderId}`, state.accessToken],
     fetcher,
     {
-      refreshInterval: 1000,
+      refreshInterval: 4000,
     }
   );
 
   const status = data?.status || 0;
 
+  console.log(data);
+
+  React.useEffect(() => {
+    let audio = new Audio("/sounds/bell.mp3");
+    const play = () => {
+      audio.play();
+    };
+    if (status > 0) {
+      play();
+    }
+  }, [status]);
+
   React.useEffect(() => {
     const id = window.location.search.split("=")[1];
     setOrderId(id);
-    console.log(data);
     // clear state
     dispatch({ type: "clearCart" });
   }, []);
@@ -94,8 +109,16 @@ function OrderStatus({ status = 0 }) {
       minH="75vh"
     >
       <Icon color="green.500" as={AiOutlineFileDone} boxSize={16} />
-      <Box my="4">
-        <List spacing={3}>
+      <Box boxShadow="lg" width="40%">
+        <Stat p="3" m="0">
+          <StatLabel>Order Number</StatLabel>
+          <StatNumber>4652</StatNumber>
+          <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+        </Stat>
+      </Box>
+
+      <Box my="1">
+        <List spacing={2}>
           <TimeLine
             title="Order Received"
             description="Your order is waiting to be accepted"
