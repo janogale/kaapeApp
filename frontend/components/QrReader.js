@@ -98,7 +98,7 @@ function QrCodeReader(props) {
             <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
           </a>
         </Link>
-        <Text>Scan Menu to Order</Text>
+        <Text>Scan QR-code and Start Ordering</Text>
         <Icon
           bg="transparent"
           onClick={handleSwitchCamera}
