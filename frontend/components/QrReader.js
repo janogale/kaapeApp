@@ -8,6 +8,7 @@ import {
   Text,
   Box,
   Stack,
+  VStack,
   Input,
   Button,
   Tabs,
@@ -18,6 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
+import { AiOutlineQrcode, AiFillFileText } from "react-icons/Ai";
 import { IoMdArrowBack } from "react-icons/io";
 
 function QrCodeReader(props) {
@@ -74,6 +76,7 @@ function QrCodeReader(props) {
 
   const previewStyle = {
     width: "100%",
+    marginTop: "10%",
   };
 
   return (
@@ -107,21 +110,25 @@ function QrCodeReader(props) {
           h={5}
         />
       </Flex>
-      <Tabs isFitted>
+      <Tabs isFitted mt="2">
         <TabList>
           <Tab
-            fontWeight="semibold"
             _selected={{ color: "brand.500", borderColor: "currentColor" }}
             onClick={() => setIsActiveCam(true)}
           >
-            Scan
+            <VStack>
+              <Icon as={AiOutlineQrcode} w={6} h={6} />
+              <Text>Scan</Text>
+            </VStack>
           </Tab>
           <Tab
-            fontWeight="semibold"
             _selected={{ color: "brand.500", borderColor: "currentColor" }}
             onClick={() => setIsActiveCam(false)}
           >
-            Type
+            <VStack>
+              <Icon as={AiFillFileText} w={6} h={6} />
+              <Text>Type</Text>
+            </VStack>
           </Tab>
         </TabList>
 

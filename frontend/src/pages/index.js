@@ -36,7 +36,7 @@ const Index = () => {
               border="1px"
               borderColor="brand.200"
             >
-              Scan QR-code
+              Scan Now
             </Button>
           </a>
         </Link>

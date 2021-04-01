@@ -79,13 +79,15 @@ function OrderBanner() {
 function ConfirmOrder({ isOpen, onOpen, onClose }) {
   // msal
   const isAuthenticated = useIsAuthenticated();
-  const { accounts, instance } = useMsal();
+  const { accounts, instance, inProgress } = useMsal();
   const [userAccount, setUserAccount] = React.useState(null);
 
   // state management
   const [state, dispatch] = useAppState();
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const [status, setStatus] = React.useState(null);
+  const [accessToken, setAcessToken] = React.useState(null);
+
   const router = useRouter();
 
   const baseUrl = window.location.origin;
@@ -99,6 +101,39 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
       instance.loginRedirect(loginRequest);
     }
   };
+
+  React.useEffect(() => {
+    if (inProgress === "none" && accounts.length > 0) {
+      // Retrieve an access token
+      instance
+        .acquireTokenSilent({
+          account: accounts[0],
+          scopes: [
+            "openid",
+            "profile",
+            "offline_access",
+            "https://kaabeapp.onmicrosoft.com/24eee6ed-1a3a-4bb7-8c5b-36b49f9c4d19/Kaabe.Api",
+          ],
+        })
+        .then((response) => {
+          if (response.accessToken) {
+            // set access token
+            setAcessToken(response.accessToken);
+
+            return response.accessToken;
+          }
+          return null;
+        });
+    }
+  }, [inProgress, accounts, instance]);
+
+  if (inProgress === "login") {
+    // Render loading component
+  } else if (accessToken) {
+    // Call your api and render component
+    //console.log(accessToken);
+    accessToken;
+  }
 
   React.useEffect(() => {
     if (accounts.length > 0) {
@@ -123,10 +158,12 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
 
     const requestOptions = {
       method: "POST",
-      headers: {
+      credentials: "include",
+      headers: new Headers({
+        Authorization: "Bearer " + accessToken,
         "Content-Type": "application/json",
         Accept: "application/json",
-      },
+      }),
       body: JSON.stringify({
         spId: spId,
         tableNumber: router.query.tn || "",
@@ -136,8 +173,7 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
       }),
     };
 
-    //
-
+    // send order data
     const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
 
     const data = await result.json();
@@ -145,7 +181,10 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
     //  order is success
     if (data?.guid) {
       // save order id to that state
-      dispatch({ type: "setOrderId", payload: { orderId: data.guid } });
+      dispatch({
+        type: "setOrderId",
+        payload: { orderId: data.guid, accessToken: accessToken },
+      });
       setStatus("done");
       router.push(`/cart/success?orderId=${data.guid}`);
     }

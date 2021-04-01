@@ -1,6 +1,5 @@
 import React from "react";
 import NextLink from "next/link";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { MdCheckCircle } from "react-icons/md";
@@ -28,7 +27,10 @@ import GoBack from "@/components/GoBack";
 import { useAppState } from "../../../context/AppProvider";
 
 // fetcher function for swr library
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (url, token) =>
+  fetch(url, {
+    headers: { Authorization: "Bearer " + token },
+  }).then((res) => res.json());
 
 export default function SuccessPage() {
   //const baseUrl = window.location.origin;
@@ -37,9 +39,15 @@ export default function SuccessPage() {
   const router = useRouter();
   const [orderId, setOrderId] = React.useState(state.orderId);
 
-  const { data, error } = useSWR(`/api/orders/${orderId}`, fetcher, {
-    refreshInterval: 1000,
-  });
+  console.log(state.accessToken);
+
+  const { data, error } = useSWR(
+    [`/api/orders/${orderId}`, state.accessToken],
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
+  );
 
   const status = data?.status || 0;
 
