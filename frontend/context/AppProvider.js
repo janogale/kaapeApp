@@ -130,6 +130,14 @@ const reducer = (state, action) => {
 
       return newState;
     }
+    case "setAccessToken": {
+      let newState = { ...state, ...action.payload };
+
+      // save to local storage
+      saveToLocal(newState);
+
+      return newState;
+    }
     default:
       return state;
   }
@@ -148,6 +156,7 @@ const AppProvider = (props) => {
       name: null,
     },
     currencySign: "",
+    accessToken: null,
   });
 
   return <Provider value={[state, dispatch]}>{props.children}</Provider>;

@@ -41,8 +41,9 @@ function DrawerLeft() {
   const [state, dispatch] = useAppState();
   // msal
   const isAuthenticated = useIsAuthenticated();
-  const { accounts } = useMsal();
+  const { accounts, inProgress, instance } = useMsal();
   const [name, setName] = React.useState(null);
+  const [accessToken, setAcessToken] = React.useState(null);
 
   // drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -114,9 +115,44 @@ function DrawerLeft() {
     }
   }, [accounts]);
 
+  React.useEffect(() => {
+    if (inProgress === "none" && accounts.length > 0) {
+      // Retrieve an access token
+      instance
+        .acquireTokenSilent({
+          account: accounts[0],
+          scopes: [
+            "openid",
+            "profile",
+            "offline_access",
+            "https://kaabeapp.onmicrosoft.com/24eee6ed-1a3a-4bb7-8c5b-36b49f9c4d19/Kaabe.Api",
+          ],
+        })
+        .then((response) => {
+          if (response.accessToken) {
+            // set access token
+            setAcessToken(response.accessToken);
+
+            return response.accessToken;
+          }
+          return null;
+        });
+    }
+  }, [inProgress, accounts, instance]);
+
+  if (inProgress === "login") {
+    // Render loading component
+  } else if (accessToken) {
+    // Call your api and render component
+    // console.log(accessToken)
+    accessToken;
+  }
+
   return (
     <>
       <IconButton
+        _hover={{ background: "transparent" }}
+        _active={{ background: "transparent" }}
         bg="transparent"
         ref={btnRef}
         fontSize="1.5rem"
@@ -226,6 +262,7 @@ function MenuList() {
       {MenuPaths.map((list) => {
         return (
           <ListItem
+            key={list.path}
             onClick={() => router.push(`${list.path}`)}
             _hover={{
               background: "gray.200",
