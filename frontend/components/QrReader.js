@@ -19,7 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { RiCameraSwitchLine, RiCameraSwitchFill } from "react-icons/ri";
-import { AiOutlineQrcode, AiFillFileText } from "react-icons/Ai";
+import { AiOutlineQrcode, AiFillFileText } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
 
 function QrCodeReader(props) {
