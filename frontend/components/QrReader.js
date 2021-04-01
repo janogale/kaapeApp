@@ -209,9 +209,10 @@ function TypeCodeBox() {
         onClick={handleSubmit}
         width="100%"
         border="1px"
-        borderColor="brand.200"
+        bg="green.500"
+        color="gray.100"
       >
-        OK
+        ENTER
       </Button>
     </>
   );
