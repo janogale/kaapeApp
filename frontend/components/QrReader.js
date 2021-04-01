@@ -101,7 +101,7 @@ function QrCodeReader(props) {
             <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
           </a>
         </Link>
-        <Text>Scan QR Code to Order</Text>
+        <Text>Scan Or Type</Text>
         <Icon
           bg="transparent"
           onClick={handleSwitchCamera}
@@ -118,7 +118,7 @@ function QrCodeReader(props) {
           >
             <VStack>
               <Icon as={AiOutlineQrcode} w={6} h={6} />
-              <Text>Scan Code</Text>
+              <Text>Scan</Text>
             </VStack>
           </Tab>
           <Tab
@@ -127,7 +127,7 @@ function QrCodeReader(props) {
           >
             <VStack>
               <Icon as={AiFillFileText} w={6} h={6} />
-              <Text>Type Code</Text>
+              <Text>Type</Text>
             </VStack>
           </Tab>
         </TabList>
@@ -181,13 +181,13 @@ function TypeCodeBox() {
   return (
     <>
       <Text mt="4" fontSize="xs" textAlign="center">
-        Please Enter Service Provider Code & your location.
+        Enter Restaurant Code & Your Location or Table Number.
       </Text>
       <Box fontSize="2" color="brand.500">
         <Input
           mb="8"
           required
-          placeholder="type code"
+          placeholder="Type Restaurant Code"
           colorScheme="brand"
           errorBorderColor="red.300"
           onChange={(e) => setCode(e.target.value)}
@@ -201,7 +201,7 @@ function TypeCodeBox() {
         />
 
         <Input
-          placeholder="type location"
+          placeholder="Your Location or table number"
           errorBorderColor="red.300"
           onChange={(e) => setLocation(e.target.value)}
           value={location}
@@ -216,9 +216,10 @@ function TypeCodeBox() {
         onClick={handleSubmit}
         width="100%"
         border="1px"
-        borderColor="brand.200"
+        bg="green.500"
+        color="gray.100"
       >
-        Browse Menu
+        OK
       </Button>
     </>
   );

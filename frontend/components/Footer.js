@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Flex, Text, Icon } from "@chakra-ui/react";
-import { ImQrcode, ImShare2 } from "react-icons/im";
+import { ImQrcode, ImShare2, ImFolderOpen } from "react-icons/im";
 
 export const Footer = (props) => (
   <Flex
@@ -14,8 +14,8 @@ export const Footer = (props) => (
     color="white"
     {...props}
   >
-    <BottomMenu text="scan" icon={ImQrcode} />
-    <BottomMenu text="Browse" icon={ImQrcode} />
+    <BottomMenu text="Scan" icon={ImQrcode} />
+    <BottomMenu text="Browse" icon={ImFolderOpen} />
     <BottomMenu text="Share" icon={ImShare2} />
   </Flex>
 );
