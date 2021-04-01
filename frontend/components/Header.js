@@ -18,13 +18,7 @@ export const Header = (props) => {
     >
       <DrawerLeft />
       <Heading as="h1" textAlign="center" fontSize="lg" flexGrow={2}>
-<<<<<<< HEAD
-        <Link href="/">
-          <a>Kaabe Digital Waiter</a>
-        </Link>
-=======
         Digital Waiter
->>>>>>> origin/master
       </Heading>
     </Flex>
   );
