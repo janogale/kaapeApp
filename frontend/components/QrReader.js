@@ -212,7 +212,7 @@ function TypeCodeBox() {
         bg="green.500"
         color="gray.100"
       >
-        ENTER
+        OK
       </Button>
     </>
   );
