@@ -165,8 +165,8 @@ function TypeCodeBox() {
       // inform user to type code
       toast({
         title: "Code is Required",
-        description: "Please Type Service Provider Code.",
-        status: "warning",
+        description: "Please Type Restaurant Code.",
+        status: "info",
         duration: 2000,
         isClosable: true,
       });

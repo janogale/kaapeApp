@@ -198,9 +198,6 @@ function DrawerLeft() {
                     <SignInButton />
                   )}
                   <Divider orientation="vertical" colorScheme="gray" />
-                  <Text fontSize="xs" color="green.300">
-                    13 Orders
-                  </Text>
                 </Flex>
               </Flex>
             </DrawerHeader>

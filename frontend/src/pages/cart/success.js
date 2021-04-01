@@ -49,13 +49,11 @@ export default function SuccessPage() {
     [`/api/orders/${orderId}`, state.accessToken],
     fetcher,
     {
-      refreshInterval: 4000,
+      refreshInterval: 30000,
     }
   );
 
   const status = data?.status || 0;
-
-  console.log(data);
 
   React.useEffect(() => {
     let audio = new Audio("/sounds/bell.mp3");
@@ -89,7 +87,7 @@ export default function SuccessPage() {
         ) : !data ? (
           <LoadingSpinner />
         ) : (
-          <OrderStatus status={status} />
+          <OrderStatus status={status} orderNumber={data?.orderNumber} />
         )}
 
         <Divider mb="12" />
@@ -98,22 +96,21 @@ export default function SuccessPage() {
   );
 }
 
-function OrderStatus({ status = 0 }) {
+function OrderStatus({ status = 0, orderNumber }) {
   return (
     <Flex
       direction="column"
       px="4"
       align="center"
-      mt="10"
+      mt="4"
       justify="space-around"
       minH="75vh"
     >
       <Icon color="green.500" as={AiOutlineFileDone} boxSize={16} />
-      <Box boxShadow="lg" width="40%">
-        <Stat p="3" m="0">
+      <Box boxShadow="lg" width="70%">
+        <Stat p="3" m="0" textAlign="center">
           <StatLabel>Order Number</StatLabel>
-          <StatNumber>4652</StatNumber>
-          <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+          <StatNumber>{orderNumber}</StatNumber>
         </Stat>
       </Box>
 

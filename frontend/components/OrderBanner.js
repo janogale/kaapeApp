@@ -167,7 +167,8 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
       body: JSON.stringify({
         spId: spId,
         tableNumber: router.query.tn || "",
-        additionalInfo: additionalInfo,
+        customerNotes: additionalInfo,
+        customerName: userAccount || "",
         orderRows: JSON.stringify(state.cart),
         status: 1, // In-queue.
       }),

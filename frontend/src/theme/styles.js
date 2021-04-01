@@ -17,7 +17,7 @@ const styles = {
     "::placeholder": {
       color: "red",
       opacity: "0.3",
-      fontSize: "1rem",
+      fontSize: "0.8rem",
     },
     // default button style
     button: {

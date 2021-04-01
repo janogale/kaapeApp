@@ -79,7 +79,7 @@ export default function FoodMenu({
           alt={description}
         />
       </Box>
-      <Box ml="4" flexGrow={2}>
+      <Box ml="3" flexGrow={2}>
         <Box
           onClick={onOpen}
           _hover={{
@@ -90,12 +90,12 @@ export default function FoodMenu({
             {name}
           </Heading>
           <Text>{description}</Text>
+        </Box>
+        <Flex mt="2" justify="space-around" align="center">
           <Heading as="h3" fontSize="sm" color="gray.500">
             <chakra.small fontSize=".6rem">{currencySign}</chakra.small>{" "}
             {formatCurrency(saleUnitPrice)}
           </Heading>
-        </Box>
-        <Flex justify="flex-end">
           <AddRemoveButton menuItem={menuItem} />
         </Flex>
       </Box>
