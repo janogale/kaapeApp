@@ -149,7 +149,7 @@ function DrawerLeft() {
                     fontSize="lg"
                     flexGrow={2}
                   >
-                    Kaabe Menu
+                    Kaabe Digital Waiter
                   </Heading>
                 </Flex>
                 <Flex mt="1rem" justify="space-between">

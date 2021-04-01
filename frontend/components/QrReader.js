@@ -98,7 +98,7 @@ function QrCodeReader(props) {
             <Icon borderRadius="100%" as={IoMdArrowBack} w={5} h={5} />
           </a>
         </Link>
-        <Text>Scan QR-code and Start Ordering</Text>
+        <Text>Scan Or Type</Text>
         <Icon
           bg="transparent"
           onClick={handleSwitchCamera}
@@ -114,14 +114,14 @@ function QrCodeReader(props) {
             _selected={{ color: "brand.500", borderColor: "currentColor" }}
             onClick={() => setIsActiveCam(true)}
           >
-            Scan Code
+            Scan
           </Tab>
           <Tab
             fontWeight="semibold"
             _selected={{ color: "brand.500", borderColor: "currentColor" }}
             onClick={() => setIsActiveCam(false)}
           >
-            Type Code
+            Type
           </Tab>
         </TabList>
 
@@ -174,13 +174,13 @@ function TypeCodeBox() {
   return (
     <>
       <Text mt="4" fontSize="xs" textAlign="center">
-        Please Enter Service Provider Code & your location.
+        Enter Restaurant Code & Your Location or Table Number.
       </Text>
       <Box fontSize="2" color="brand.500">
         <Input
           mb="8"
           required
-          placeholder="type code"
+          placeholder="Type Restaurant Code"
           colorScheme="brand"
           errorBorderColor="red.300"
           onChange={(e) => setCode(e.target.value)}
@@ -194,7 +194,7 @@ function TypeCodeBox() {
         />
 
         <Input
-          placeholder="type location"
+          placeholder="Your Location or table number"
           errorBorderColor="red.300"
           onChange={(e) => setLocation(e.target.value)}
           value={location}
@@ -211,7 +211,7 @@ function TypeCodeBox() {
         border="1px"
         borderColor="brand.200"
       >
-        Browse Menu
+        OK
       </Button>
     </>
   );
