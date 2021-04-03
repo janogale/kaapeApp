@@ -1,5 +1,5 @@
 # kApp
-App component Kaabe
+App component KaabeApp
 
 
 ```graphql

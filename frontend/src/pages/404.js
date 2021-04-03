@@ -15,7 +15,7 @@ const Index = () => {
         justify="space-around"
         flexGrow={2}
       >
-        <Text color="gray.300">Kaabe Digital Menu</Text>
+        <Text color="gray.300">KaabeApp Digital Menu</Text>
         <Box
           mt={["-2rem", "-1rem", null]}
           position="relative"

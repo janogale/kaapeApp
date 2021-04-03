@@ -18,7 +18,7 @@ export const Header = (props) => {
     >
       <DrawerLeft />
       <Heading as="h1" textAlign="center" fontSize="lg" flexGrow={2}>
-        Kaabe Digital Waiter
+        KaabeApp Digital Waiter
       </Heading>
     </Flex>
   );

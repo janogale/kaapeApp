@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Kaabe Digital Waiter",
-    "short_name": "Kaabe",
-    "description": "Kaabe - safe and efficient dining experience",
+    "name": "KaabeApp Digital Waiter",
+    "short_name": "KaabeApp",
+    "description": "KaabeApp - safe and efficient dining experience",
     "icons": [
         {
             "src": "/icons/android-launchericon-512-512.png",

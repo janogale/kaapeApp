@@ -9,8 +9,8 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          <meta name="application-name" content="Kaabe" />
-          <meta name="description" content="Kaabe Digital Menu" />
+          <meta name="application-name" content="KaabeApp" />
+          <meta name="description" content="KaabeApp Digital Waiter" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -19,37 +19,37 @@ export default class Document extends NextDocument {
           {/* Splash Screen for iOS*/}
           <link
             href="kaape-icon.png"
-            media="(device-width: 414px) and (device-height: 896px) 
+            media="(device-width: 414px) and (device-height: 896px)
     and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
             href="kaape-icon.png"
-            media="(device-width: 375px) and (device-height: 812px) 
+            media="(device-width: 375px) and (device-height: 812px)
     and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
           <link
             href="kaape-icon.png"
-            media="(device-width: 414px) and (device-height: 896px) 
+            media="(device-width: 414px) and (device-height: 896px)
     and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
           <link
             href="kaape-icon.png"
-            media="(device-width: 414px) and (device-height: 896px) 
+            media="(device-width: 414px) and (device-height: 896px)
     and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
             href="kaape-icon.png"
-            media="(device-width: 375px) and (device-height: 812px) 
+            media="(device-width: 375px) and (device-height: 812px)
     and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
           <link
             href="kaape-icon.png"
-            media="(device-width: 414px) and (device-height: 896px) 
+            media="(device-width: 414px) and (device-height: 896px)
     and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
@@ -73,24 +73,23 @@ export default class Document extends NextDocument {
             name="twitter:url"
             content="https://kaape.janagale.vercel.app/"
           />
-          <meta name="twitter:title" content="Kaabe" />
-          <meta name="twitter:description" content="Best Kaabe in the world" />
+          <meta name="twitter:title" content="KaabeApp" />
+          <meta name="twitter:description" content="KaabeApp Digital Waiter" />
           <meta
             name="twitter:image"
             content="https://yourdomain.com/icons/android-chrome-192x192.png"
           />
           <meta name="twitter:creator" content="@mmjanagale" />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content="Kaabe" />
-          <meta property="og:description" content="Kaabe Digital Menu" />
-          <meta property="og:site_name" content="Kaabe" />
+          <meta property="og:title" content="KaabeApp" />
+          <meta property="og:description" content="KaabeApp Digital Waiter" />
+          <meta property="og:site_name" content="KaabeApp" />
           <meta
             property="og:url"
-            content="https://kaape.janagale.vercel.app/"
+            content="https://app.kaabeapp.com/"
           />
         </Head>
         <body>
-          {/* Make Color mode to persists when you refresh the page. */}
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
           <NextScript />
