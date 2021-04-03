@@ -1,9 +1,29 @@
 import React from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Text, Flex, Button, Box, Image } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
+// import on browser
+const Offline = dynamic(() => import("../../components/Offline"), {
+  ssr: false,
+});
+
+// network status
+
+import { useNetworkStatus } from "../../utils/hooks";
+
 const Index = () => {
+  const status = useNetworkStatus();
+
+  React.useEffect(() => {
+    console.log(status);
+  }, [status]);
+
+  if (!status) {
+    return <Offline />;
+  }
+
   return (
     <Layout>
       <Flex

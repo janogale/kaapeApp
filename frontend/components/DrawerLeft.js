@@ -136,6 +136,16 @@ function DrawerLeft() {
             return response.accessToken;
           }
           return null;
+        })
+        .catch(async (error) => {
+          console.log(error);
+          if (error instanceof InteractionRequiredAuthError) {
+            // fallback to interaction when silent call fails
+            return instance.acquireTokenPopup(request);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
         });
     }
   }, [inProgress, accounts, instance]);

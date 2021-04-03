@@ -9,7 +9,7 @@ const msalConfig = {
     postLogoutRedirectUri: "/",
   },
   cache: {
-    cacheLocation: "localStorage",
+    cacheLocation: "sessionStorage",
     storeAuthStateInCookie: false,
   },
 };
