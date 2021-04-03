@@ -63,6 +63,11 @@ export default function FoodMenu({
     });
   }, []);
 
+  const thumbnail = (picture || "/menu/f1.jpg").replace(
+    "/images/",
+    "/thumbnails/"
+  );
+
   return (
     <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
       <Box
@@ -71,11 +76,8 @@ export default function FoodMenu({
         }}
         onClick={onOpen}
       >
-        <Image
-          width={80}
-          height={60}
-          objectFit="cover"
-          src={picture}
+        <img
+          src={thumbnail}
           alt={description}
         />
       </Box>
@@ -196,10 +198,7 @@ function MenuItemDetailModal({
         <ModalOverlay />
         <ModalContent width="90%" p={0}>
           <ModalHeader mt={8}>
-            <Image
-              width={240}
-              height={180}
-              objectFit="cover"
+            <img
               src={menuItem.picture}
               alt={menuItem.description}
             />
