@@ -16,8 +16,7 @@ import {
 
 import Layout from "@/components/Layout";
 
-import CartMenu from "@/components/CartMenu";
-import OrderBanner from "@/components/OrderBanner";
+import OrderHistoryCard from "@/components/OrderHistoryCard";
 import GoBack from "@/components/GoBack";
 
 // context
@@ -25,15 +24,17 @@ import { useAppState } from "../../../context/AppProvider";
 
 export default function Cart() {
   const [state, dispatch] = useAppState();
-  let [cartData, setCartDat] = React.useState(state.cart);
+  let [orderHistory, setOrderHistory] = React.useState(
+    state.orderHistory || []
+  );
 
   React.useEffect(
     function () {
       // sort array to preverse render order
-      let sortedCart = [...state.cart].sort((a, b) =>
+      let sortedOrders = [...state.orderHistory].sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-      setCartDat(sortedCart);
+      setOrderHistory(sortedOrders);
     },
     [state]
   );
@@ -44,22 +45,20 @@ export default function Cart() {
         <GoBack title="My Order" cart />
         <Divider />
 
-        {state?.cart.length === 0 ? (
-          <EmptyCart />
+        {state?.orderHistory.length === 0 ? (
+          <OrderHistoryEmpty />
         ) : (
           <>
-            <Box flexGrow={2} pb="8">
-              {cartData.map((menu) => {
+            <Box flexGrow={2} pb="12">
+              {orderHistory.map((menu) => {
                 return (
-                  <Box key={menu.name} mt="3" px="4">
-                    <CartMenu {...menu} />
+                  <Box key={menu.name} mt="6" px="4">
+                    <OrderHistoryCard {...menu} />
                   </Box>
                 );
               })}
               {/* Order Now Banner */}
             </Box>
-
-            <OrderBanner />
           </>
         )}
       </Flex>
@@ -67,14 +66,14 @@ export default function Cart() {
   );
 }
 
-function EmptyCart() {
+function OrderHistoryEmpty() {
   return (
-    <Stack spacing={8} align="center" mt="20" textAlign="center">
+    <Stack spacing={4} align="center" mt="20" textAlign="center">
       <Icon color="brand.500" as={GiShoppingCart} w={150} h={150} />
 
-      <Stack spacing={4}>
+      <Stack spacing={12}>
         <Heading as="h4" fontSize="lg">
-          Your Cart is empty
+          Your Order history is empty
         </Heading>
         <Text fontSize="md">let's fill it now</Text>
       </Stack>

@@ -234,7 +234,9 @@ function DrawerLeft() {
             <DrawerFooter justifyContent="center" alignItems="center">
               <Text fontSize="sm" color="gray.400">
                 &copy; 2021 -{" "}
-                <a href="https://bigiltech.com">Bigil Technologies</a>
+                <a href="https://bigiltech.com" target="_blank">
+                  Bigil Technologies
+                </a>
               </Text>
             </DrawerFooter>
           </DrawerContent>
@@ -248,7 +250,7 @@ function MenuList() {
   const router = useRouter();
   const MenuPaths = [
     {
-      path: "/cart",
+      path: "/orders",
       name: "Orders",
       icon: BiFoodMenu,
     },

@@ -150,6 +150,15 @@ const AppProvider = (props) => {
     boxed: false,
     darkMode: false,
     orderId: null,
+    orderHistory: [
+      { name: "pizza" },
+      { name: "sandwich" },
+      { name: "grill fish" },
+      { name: "grill fish" },
+      { name: "grill fish" },
+      { name: "grill fish" },
+      { name: "grill fish" },
+    ],
     cart: [],
     account: {
       isloggedIn: false,
