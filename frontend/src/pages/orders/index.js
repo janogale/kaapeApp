@@ -41,7 +41,7 @@ export default function Cart() {
 
   return (
     <Layout hide>
-      <Flex direction="column" h="100vh">
+      <Flex direction="column" minH="100vh">
         <GoBack title="My Order" cart />
         <Divider />
 
