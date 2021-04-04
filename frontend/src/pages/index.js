@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Text, Flex, Button, Box, Image } from "@chakra-ui/react";
+import { Text, Flex, Button, Box, Img } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 
 // import on browser
@@ -38,7 +38,7 @@ const Index = () => {
         <Box mt={["-2rem", "-1rem", null]} position="relative">
           <Link href="/scan">
             <a>
-              <Image
+              <Img
                 borderRadius="full"
                 boxSize="200px"
                 src="/qrcodescan.jpg"

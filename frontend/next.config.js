@@ -2,6 +2,9 @@ const path = require("path");
 const withPWA = require("next-pwa");
 
 module.exports = withPWA({
+  future: {
+    webpack5: true,
+  },
   images: {
     domains: ["kaabeapp.blob.core.windows.net"],
   },
