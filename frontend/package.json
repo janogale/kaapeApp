@@ -19,6 +19,7 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@grpc/grpc-js": "^1.2.8",
+    "es6-promisify": "^6.1.1",
     "framer-motion": "^2.9.4",
     "google-protobuf": "^3.15.6",
     "grpc": "^1.24.5",
