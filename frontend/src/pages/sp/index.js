@@ -2,8 +2,20 @@ import Link from "next/link";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
 import { getServiceProviderList } from "../../service/kaabe";
+import React from "react";
 
 export default function ServiceProviderPage({ spData }) {
+  React.useEffect(function () {
+    getData();
+
+    async function getData() {
+      let spData = await getServiceProviderList();
+      console.log(spData);
+    }
+  }, []);
+
+  return <h1>Loading..</h1>;
+
   let serviceProviders = spData.map((sp) => {
     return (
       <Box
@@ -38,11 +50,11 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-export async function getStaticProps(context) {
-  var resp = await getServiceProviderList();
-  const spData = resp.providersList;
+// export async function getStaticProps(context) {
+//   var resp = await getServiceProviderList();
+//   const spData = resp.providersList;
 
-   return {
-    props: { spData },
-  };
-}
+//    return {
+//     props: { spData },
+//   };
+// }

@@ -76,10 +76,7 @@ export default function FoodMenu({
         }}
         onClick={onOpen}
       >
-        <img
-          src={thumbnail}
-          alt={description}
-        />
+        <Image height={80} width={80} src={thumbnail} alt={description} />
       </Box>
       <Box ml="3" flexGrow={2}>
         <Box
@@ -198,10 +195,7 @@ function MenuItemDetailModal({
         <ModalOverlay />
         <ModalContent width="90%" p={0}>
           <ModalHeader mt={8}>
-            <img
-              src={menuItem.picture}
-              alt={menuItem.description}
-            />
+            <img src={menuItem.picture} alt={menuItem.description} />
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={3}></ModalBody>
