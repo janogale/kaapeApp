@@ -19,8 +19,6 @@ const GetOrders = promisify(staticClient.getOrders).bind(staticClient);
 const AddOrder = promisify(staticClient.addOrder).bind(staticClient);
 
 function getMetadata(token) {
-  // const metadata = new grpc.Metadata();
-  // metadata.add("authorization", token);
   return { authorization: token };
 }
 
@@ -69,9 +67,6 @@ function getServiceProvider(spId, includeItems = true) {
       reject(err);
     });
   });
-
-  // const resp = await GetServiceProvider(req);
-  // return resp.toObject();
 }
 
 /**
@@ -79,12 +74,18 @@ function getServiceProvider(spId, includeItems = true) {
  * @returns
  */
 async function getOrder(orderId, token) {
-  const req = new messages.OrderRequest();
-  const order = new messages.Order();
-  order.setGuid(orderId);
-  req.setItem(order);
-  const resp = await GetOrder(req, getMetadata(token));
-  return resp.toObject();
+  return new Promise((resolve, reject) => {
+    const req = new messages.OrderRequest();
+    const order = new messages.Order();
+    order.setGuid(orderId);
+    req.setItem(order);
+    staticClient.getOrder(req, {}, function (err, res) {
+      if (!err) {
+        resolve(res.toObject(false));
+      }
+      reject(err);
+    });
+  });
 }
 
 /**
@@ -92,9 +93,15 @@ async function getOrder(orderId, token) {
  * @returns
  */
 async function getOrders(token) {
-  const req = new messages.GetOrdersRequest();
-  const resp = await GetOrders(req, getMetadata(token));
-  return resp.toObject();
+  return new Promise((resolve, reject) => {
+    const req = new messages.GetOrdersRequest();
+    staticClient.GetOrders(req, getMetadata(token), function (err, res) {
+      if (!err) {
+        resolve(res.toObject(false));
+      }
+      reject(err);
+    });
+  });
 }
 
 /**
@@ -102,22 +109,28 @@ async function getOrders(token) {
  * @returns
  */
 async function addOrder(spId, data, token) {
-  // { providerId: data.spId, item: data }
-  const req = new messages.OrderRequest();
-  req.setProviderId(spId);
-  const order = new messages.Order();
 
-  // Populate item.
-  order.setStatus(1); // In queue
-  order.setTableNumber(data.tableNumber || "");
-  order.setCustomerName(data.customerName || "");
-  order.setCustomerNotes(data.customerNotes || "");
-  order.setOrderRows(data.orderRows);
-  order.setTotalPrice(data.totalPrice);
-  order.setTotalDiscount(data.totalDiscount);
-  req.setItem(order);
-  const resp = await AddOrder(req, getMetadata(token));
-  return resp.toObject();
+  return new Promise((resolve, reject) => {
+    const req = new messages.OrderRequest();
+    req.setProviderId(spId);
+    const order = new messages.Order();
+
+    // Populate item.
+    order.setStatus(1); // In queue
+    order.setTableNumber(data.tableNumber || "");
+    order.setCustomerName(data.customerName || "");
+    order.setCustomerNotes(data.customerNotes || "");
+    order.setOrderRows(data.orderRows);
+    order.setTotalPrice(data.totalPrice);
+    order.setTotalDiscount(data.totalDiscount);
+    req.setItem(order);
+    staticClient.addOrder(req, getMetadata(token), function (err, res) {
+      if (!err) {
+        resolve(res.toObject(false));
+      }
+      reject(err);
+    });
+  });
 }
 
 export {
