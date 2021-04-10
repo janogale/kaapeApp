@@ -2,6 +2,7 @@ const path = require("path");
 const withPWA = require("next-pwa");
 
 module.exports = {
+  distDir: 'build',
   future: {
     webpack5: true,
   },
