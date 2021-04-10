@@ -46,7 +46,7 @@ async function getServiceProviderList() {
     staticClient.getServiceProviderList(req, {}, function (err, res) {
       console.log(res);
       if (!err) {
-        resolve(res.providerList.toObject());
+        resolve(res.toObject(false));
       }
       reject(err);
     });

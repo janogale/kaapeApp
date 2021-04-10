@@ -10,6 +10,9 @@ export default function ServiceProviderPage({ spData }) {
 
     async function getData() {
       let spData = await getServiceProviderList();
+      for (let p of spData.providersList) {
+        console.log(p.code);
+      }
       console.log(spData);
     }
   }, []);
