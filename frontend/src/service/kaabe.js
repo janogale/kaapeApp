@@ -1,8 +1,7 @@
 //const grpc = require("@grpc/grpc-js");
-const { promisify } = require("es6-promisify");
+const { promisify } = require("util");
 const messages = require("./kaabe_pb");
 const kaabeService = require("./kaabe_grpc_web_pb");
-
 const target = "https://kaabeapi.azurewebsites.net";
 
 const staticClient = new kaabeService.KaabeServiceClient(target);
@@ -41,28 +40,38 @@ async function authExchange(token) {
  * @returns
  */
 async function getServiceProviderList() {
-  const resp = await GetServiceProviderList(
-    new messages.GetServiceProviderListRequest()
-  );
-  return resp.toObject();
+  return new Promise((resolve, reject) => {
+    const req = new messages.GetServiceProviderListRequest();
+
+    staticClient.getServiceProviderList(req, {}, function (err, res) {
+      console.log(res);
+      if (!err) {
+        resolve(res.providerList.toObject());
+      }
+      reject(err);
+    });
+  });
 }
 
 /**
  * Get provider.
  * @returns
  */
-async function getServiceProvider(spId, includeItems = true) {
-  const req = new messages.GetServiceProviderRequest();
-  req.setGuid(spId);
-  req.setIncludeItems(includeItems);
-  // staticClient.getServiceProvider(req, {}, function (err, res) {
-  //   if (!err) {
-  //     return res.toObject();
-  //   }
-  //   return err;
-  // });
-  const resp = await GetServiceProvider(req);
-  return resp.toObject();
+function getServiceProvider(spId, includeItems = true) {
+  return new Promise((resolve, reject) => {
+    const req = new messages.GetServiceProviderRequest();
+    req.setGuid(spId);
+    req.setIncludeItems(includeItems);
+    staticClient.getServiceProvider(req, {}, function (err, res) {
+      if (!err) {
+        resolve(res.toObject());
+      }
+      reject(err);
+    });
+  });
+
+  // const resp = await GetServiceProvider(req);
+  // return resp.toObject();
 }
 
 /**

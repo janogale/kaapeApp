@@ -24,14 +24,17 @@
     "google-protobuf": "^3.15.6",
     "grpc": "^1.24.5",
     "grpc-web": "^1.2.1",
+    "install": "^0.13.0",
     "next": "10.0.4",
     "next-pwa": "^5.0.5",
+    "npm": "^7.9.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-qr-reader": "^2.2.1",
     "swr": "^0.5.4",
-    "use-sound": "^2.0.1"
+    "use-sound": "^2.0.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "license": "MIT"
 }

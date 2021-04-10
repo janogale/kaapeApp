@@ -35,16 +35,20 @@ export default function ServiceProviderPage() {
   // }, []);
 
   React.useEffect(function () {
-    let spData = getServiceProvider("5A1F2A0D-81B2-4808-A554-02B2EC91B333");
-    console.log(spData);
-    setSpData(spData);
+    getData();
+
+    async function getData() {
+      let spData = await getServiceProvider("HDH");
+      console.log(spData);
+      setSpData(spData);
+    }
   }, []);
+
+  console.log(spData);
 
   if (!spData) {
     return <h1>Loading</h1>;
   }
-
-  return null;
 
   const {
     categoriesList: categories,
@@ -123,8 +127,10 @@ export default function ServiceProviderPage() {
 //   };
 // }
 
-// export async function getStaticProps(context) {
-//   var provider = await getServiceProvider(context.params.spId, true);
+// export async function getServerSideProps(context) {
+//   var provider = await await getServiceProvider(
+//     "5A1F2A0D-81B2-4808-A554-02B2EC91B333"
+//   );
 
 //   const spData = provider;
 
