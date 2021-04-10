@@ -11,10 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 // gRPC functions
-import {
-  getServiceProviderList,
-  getServiceProvider,
-} from "../../service/kaabe";
+import { getServiceProvider } from "../../service/kaabe";
 
 import Layout from "@/components/Layout";
 
@@ -27,14 +24,27 @@ import { groupBy } from "../../../utils";
 // context
 import { useAppState } from "../../../context/AppProvider";
 
-export default function ServiceProviderPage({ spData }) {
+export default function ServiceProviderPage() {
   const [state, dispatch] = useAppState();
+  const [spData, setSpData] = React.useState(null);
 
   // store provider id to localStorage
 
-  React.useEffect(() => {
-    window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
+  // React.useEffect(() => {
+  //   window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
+  // }, []);
+
+  React.useEffect(function () {
+    let spData = getServiceProvider("5A1F2A0D-81B2-4808-A554-02B2EC91B333");
+    console.log(spData);
+    setSpData(spData);
   }, []);
+
+  if (!spData) {
+    return <h1>Loading</h1>;
+  }
+
+  return null;
 
   const {
     categoriesList: categories,
@@ -97,28 +107,28 @@ export default function ServiceProviderPage({ spData }) {
   );
 }
 
-export async function getStaticPaths() {
-  const providerList = await getServiceProviderList();
+// export async function getStaticPaths() {
+//   const providerList = await getServiceProviderList();
 
-  // get paths.
+//   // get paths.
 
-  let paths = providerList.providersList.map((sp) => {
-    return {
-      params: { spId: sp.code + "" },
-    };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   let paths = providerList.providersList.map((sp) => {
+//     return {
+//       params: { spId: sp.code + "" },
+//     };
+//   });
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
-export async function getStaticProps(context) {
-  var provider = await getServiceProvider(context.params.spId, true);
+// export async function getStaticProps(context) {
+//   var provider = await getServiceProvider(context.params.spId, true);
 
-  const spData = provider;
+//   const spData = provider;
 
-  return {
-    props: { spData },
-  };
-}
+//   return {
+//     props: { spData },
+//   };
+// }

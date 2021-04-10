@@ -1,28 +1,34 @@
-const grpc = require('@grpc/grpc-js');
-const { promisify } = require("util");
-const messages = require('./kaabe_pb');
-const kaabeService = require('./kaabe_grpc_pb');
+//const grpc = require("@grpc/grpc-js");
+const { promisify } = require("es6-promisify");
+const messages = require("./kaabe_pb");
+const kaabeService = require("./kaabe_grpc_web_pb");
 
-const target = "staff.kaabeapp.com:8443";
+const target = "https://kaabeapi.azurewebsites.net";
 
-const staticClient = new kaabeService.KaabeServiceClient(target, grpc.credentials.createSsl());
+const staticClient = new kaabeService.KaabeServiceClient(target);
+
 const AuthExchange = promisify(staticClient.authExchange).bind(staticClient);
-const GetServiceProviderList = promisify(staticClient.getServiceProviderList).bind(staticClient);
-const GetServiceProvider = promisify(staticClient.getServiceProvider).bind(staticClient);
+
+const GetServiceProviderList = promisify(
+  staticClient.getServiceProviderList
+).bind(staticClient);
+const GetServiceProvider = promisify(staticClient.getServiceProvider).bind(
+  staticClient
+);
 const GetOrder = promisify(staticClient.getOrder).bind(staticClient);
 const GetOrders = promisify(staticClient.getOrders).bind(staticClient);
 const AddOrder = promisify(staticClient.addOrder).bind(staticClient);
 
 function getMetadata(token) {
-  const metadata = new grpc.Metadata();
-  metadata.add('authorization', token);
-  return metadata;
+  // const metadata = new grpc.Metadata();
+  // metadata.add("authorization", token);
+  return { authorization: token };
 }
 
 /**
  * Exchange auth token.
- * @param {*} token 
- * @returns 
+ * @param {*} token
+ * @returns
  */
 async function authExchange(token) {
   const request = new messages.EmptyRequest();
@@ -32,44 +38,51 @@ async function authExchange(token) {
 
 /**
  * Providers list.
- * @returns 
+ * @returns
  */
 async function getServiceProviderList() {
-  const resp = await GetServiceProviderList(new messages.GetServiceProviderListRequest());
+  const resp = await GetServiceProviderList(
+    new messages.GetServiceProviderListRequest()
+  );
   return resp.toObject();
 }
 
 /**
  * Get provider.
- * @returns 
+ * @returns
  */
 async function getServiceProvider(spId, includeItems = true) {
   const req = new messages.GetServiceProviderRequest();
   req.setGuid(spId);
   req.setIncludeItems(includeItems);
+  // staticClient.getServiceProvider(req, {}, function (err, res) {
+  //   if (!err) {
+  //     return res.toObject();
+  //   }
+  //   return err;
+  // });
   const resp = await GetServiceProvider(req);
   return resp.toObject();
 }
 
 /**
  * Gets a specific order.
- * @returns 
+ * @returns
  */
- async function getOrder(orderId, token) {
+async function getOrder(orderId, token) {
   const req = new messages.OrderRequest();
   const order = new messages.Order();
   order.setGuid(orderId);
-  req.setItem(order)
+  req.setItem(order);
   const resp = await GetOrder(req, getMetadata(token));
   return resp.toObject();
 }
 
-
 /**
  * Gets a specific order.
- * @returns 
+ * @returns
  */
- async function getOrders(token) {
+async function getOrders(token) {
   const req = new messages.GetOrdersRequest();
   const resp = await GetOrders(req, getMetadata(token));
   return resp.toObject();
@@ -77,25 +90,32 @@ async function getServiceProvider(spId, includeItems = true) {
 
 /**
  * Places a new order.
- * @returns 
+ * @returns
  */
- async function addOrder(spId, data, token) {
+async function addOrder(spId, data, token) {
   // { providerId: data.spId, item: data }
   const req = new messages.OrderRequest();
   req.setProviderId(spId);
   const order = new messages.Order();
 
   // Populate item.
-  order.setStatus(1);  // In queue
+  order.setStatus(1); // In queue
   order.setTableNumber(data.tableNumber || "");
   order.setCustomerName(data.customerName || "");
   order.setCustomerNotes(data.customerNotes || "");
   order.setOrderRows(data.orderRows);
   order.setTotalPrice(data.totalPrice);
   order.setTotalDiscount(data.totalDiscount);
-  req.setItem(order)
+  req.setItem(order);
   const resp = await AddOrder(req, getMetadata(token));
   return resp.toObject();
 }
 
-export { getServiceProvider, getServiceProviderList, getOrder, getOrders, addOrder, authExchange };
+export {
+  getServiceProvider,
+  getServiceProviderList,
+  getOrder,
+  getOrders,
+  addOrder,
+  authExchange,
+};
