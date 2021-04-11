@@ -46,13 +46,7 @@ function OrderBanner() {
   );
 
   return (
-    <Flex
-      color="gray.100"
-      justify="space-around"
-      align="center"
-      width="100%"
-      flexShrink={1}
-    >
+    <Flex justify="space-around" align="center" width="100%" flexShrink={1}>
       <Button
         onClick={onOpen}
         rounded="none"
