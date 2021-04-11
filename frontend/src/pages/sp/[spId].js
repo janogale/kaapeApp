@@ -1,5 +1,7 @@
 import React from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import LoadingSpinner from "@/components/shared/Spinner";
+
 import {
   Tabs,
   TabList,
@@ -28,27 +30,27 @@ export default function ServiceProviderPage() {
   const [state, dispatch] = useAppState();
   const [spData, setSpData] = React.useState(null);
 
-  // store provider id to localStorage
+  const router = useRouter();
+
+  // // store provider id to localStorage
 
   // React.useEffect(() => {
   //   window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
   // }, []);
 
   React.useEffect(function () {
+    const spId = window.location?.pathname?.split("/").slice(-1).join();
+
     getData();
 
     async function getData() {
-      let spData = await getServiceProvider("HDH");
-      console.log(spData);
+      let spData = await getServiceProvider(router.query.spId || spId);
       setSpData(spData);
     }
   }, []);
 
-  console.log(spData);
-
-  if (!spData) {
-    return <h1>Loading</h1>;
-  }
+  // show loading spinner if data is not fetched yet.
+  if (!spData) return <LoadingSpinner />;
 
   const {
     categoriesList: categories,
@@ -110,31 +112,3 @@ export default function ServiceProviderPage() {
     </Layout>
   );
 }
-
-// export async function getStaticPaths() {
-//   const providerList = await getServiceProviderList();
-
-//   // get paths.
-
-//   let paths = providerList.providersList.map((sp) => {
-//     return {
-//       params: { spId: sp.code + "" },
-//     };
-//   });
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
-
-// export async function getServerSideProps(context) {
-//   var provider = await await getServiceProvider(
-//     "5A1F2A0D-81B2-4808-A554-02B2EC91B333"
-//   );
-
-//   const spData = provider;
-
-//   return {
-//     props: { spData },
-//   };
-// }
