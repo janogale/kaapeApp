@@ -1,6 +1,5 @@
 import React from "react";
 import NextLink from "next/link";
-import Image from "next/image";
 
 import { GiShoppingCart } from "react-icons/gi";
 import {

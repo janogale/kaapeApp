@@ -1,6 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+
 import { Text, Flex, Button, Box } from "@chakra-ui/react";
 import Layout from "./Layout";
 
@@ -17,13 +16,18 @@ const Offline = () => {
       >
         <Text color="gray.300">Oops, you are offline! </Text>
         <Box>
-          <Image
+          {/* <Image
             width={96}
             height={96}
             objectFit="cover"
             src="/images/noconnection.png"
             alt="qr code scan"
+          /> */}
+          <img height="96" width="96"
+            src="/images/noconnection.png"
+            alt="qr code scan"
           />
+
         </Box>
         <Text color="gray.300">Please connect to Internet to use App </Text>
 

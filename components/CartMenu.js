@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+
 import {
   chakra,
   Flex,
@@ -43,7 +43,8 @@ export default function CartMenu({
   return (
     <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
       <Box>
-        <Image height={80} width={80} src={menuPhoto} alt={description} />
+        {/* <Image height={80} width={80} src={menuPhoto} alt={description} /> */}
+        <img height="60" width="80" src={menuPhoto} alt={description} />
       </Box>
       <Box ml="4" flexGrow={2}>
         <Heading as="h3" fontSize="md">

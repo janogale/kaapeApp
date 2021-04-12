@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Text, Flex, Button, Box } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
@@ -24,7 +23,7 @@ const Index = () => {
         >
           <Link href="/scan">
             <a>
-              <Image
+              <img
                 width={960}
                 height={538}
                 objectFit="cover"
