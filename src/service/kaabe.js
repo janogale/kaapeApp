@@ -42,7 +42,6 @@ async function getServiceProviderList() {
     const req = new messages.GetServiceProviderListRequest();
 
     staticClient.getServiceProviderList(req, {}, function (err, res) {
-      console.log(res);
       if (!err) {
         resolve(res.toObject(false));
       }
@@ -109,7 +108,6 @@ async function getOrders(token) {
  * @returns
  */
 async function addOrder(spId, data, token) {
-
   return new Promise((resolve, reject) => {
     const req = new messages.OrderRequest();
     req.setProviderId(spId);

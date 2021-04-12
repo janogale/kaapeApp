@@ -1,27 +1,29 @@
+import React from "react";
 import Link from "next/link";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
-import {
-  getServiceProviderList,
-} from "../../service/kaabe";
-import React from "react";
+import { getServiceProviderList } from "../../service/kaabe";
+import LoadingSpinner from "@/components/shared/Spinner";
 
-export default function ServiceProviderPage({ spData }) {
-  React.useEffect(function () {
+export default function ServiceProviderPage() {
+  const [serviceProvider, setServiceProvider] = React.useState(null);
+
+  React.useEffect(() => {
+    console.log("rendered");
     getData();
 
     async function getData() {
       let spData = await getServiceProviderList();
       for (let p of spData.providersList) {
-        console.log(p.code);
       }
-      console.log(spData);
+      setServiceProvider(spData.providersList);
     }
   }, []);
 
-  return <h1>Loading..</h1>;
+  // show loading spinner if data is not fetched yet.
+  if (!serviceProvider) return <LoadingSpinner />;
 
-  let serviceProviders = spData.map((sp) => {
+  let serviceProviders = serviceProvider.map((sp) => {
     return (
       <Box
         key={sp.guid}

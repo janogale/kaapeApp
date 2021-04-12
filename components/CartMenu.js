@@ -38,19 +38,12 @@ export default function CartMenu({
     picture,
     amount,
   };
-
-  const thumbnail = (picture || "/menu/f1.jpg").replace(
-    "/images/",
-    "/thumbnails/"
-  );
+  const menuPhoto = picture || "/menu/menuplaceholder.jpg";
 
   return (
     <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
       <Box>
-        <img
-          src={thumbnail}
-          alt={description}
-         />
+        <Image height={80} width={80} src={menuPhoto} alt={description} />
       </Box>
       <Box ml="4" flexGrow={2}>
         <Heading as="h3" fontSize="md">

@@ -63,10 +63,7 @@ export default function FoodMenu({
     });
   }, []);
 
-  const thumbnail = (picture || "/menu/f1.jpg").replace(
-    "/images/",
-    "/thumbnails/"
-  );
+  const menuPhoto = picture || "/menu/menuplaceholder.jpg";
 
   return (
     <Flex border="1px" borderColor="#d5546045" rounded="md" p="2">
@@ -76,7 +73,7 @@ export default function FoodMenu({
         }}
         onClick={onOpen}
       >
-        <Image height={80} width={80} src={thumbnail} alt={description} />
+        <Image height={80} width={80} src={menuPhoto} alt={description} />
       </Box>
       <Box ml="3" flexGrow={2}>
         <Box
@@ -141,7 +138,6 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
         width={width}
         border="1px"
         bg="green.500"
-        color="gray.100"
       >
         Add
       </Button>
@@ -189,26 +185,28 @@ function MenuItemDetailModal({
   menuItem,
   currencySign,
 }) {
+  const menuPhoto = menuItem.picture || "/menu/menuplaceholder.jpg";
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent width="90%" p={0}>
           <ModalHeader mt={8}>
-            <img src={menuItem.picture} alt={menuItem.description} />
+            <img src={menuPhoto} alt={menuItem.description} />
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={3}></ModalBody>
-          <Box ml="4" flexGrow={2}>
-            <Heading as="h3" fontSize="md">
-              {menuItem.name}
-            </Heading>
-            <Text>{menuItem.description}</Text>
-            <Heading as="h3" fontSize="sm" color="gray.500">
-              <chakra.small fontSize=".6rem">{currencySign}</chakra.small>{" "}
-              {formatCurrency(menuItem.saleUnitPrice)}
-            </Heading>
-          </Box>
+          <ModalBody pb={3}>
+            <Box ml="4" flexGrow={2}>
+              <Heading as="h3" fontSize="md">
+                {menuItem.name}
+              </Heading>
+              <Text>{menuItem.description}</Text>
+              <Heading as="h3" fontSize="sm">
+                <chakra.small fontSize=".6rem">{currencySign}</chakra.small>{" "}
+                {formatCurrency(menuItem.saleUnitPrice)}
+              </Heading>
+            </Box>
+          </ModalBody>
           <ModalFooter justifyContent="center"></ModalFooter>
         </ModalContent>
       </Modal>
