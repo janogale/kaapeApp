@@ -1,6 +1,31 @@
 {
   "routes": [
     {
+      "route": "/sp/HDH",
+      "serve": "/index.html",
+      "statusCode": 200
+    },
+    {
+      "route": "/sp/CNHC",
+      "serve": "/index.html",
+      "statusCode": 200
+    },
+    {
+      "route": "/sp/RCR",
+      "serve": "/index.html",
+      "statusCode": 200
+    },
+    {
+      "route": "/sp/RCL",
+      "serve": "/index.html",
+      "statusCode": 200
+    },
+    {
+      "route": "/sp/RHS",
+      "serve": "/index.html",
+      "statusCode": 200
+    },
+    {
       "route": "/*",
       "serve": "/index.html",
       "statusCode": 200
