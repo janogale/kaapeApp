@@ -26,7 +26,6 @@ const Index = () => {
               <img
                 width={960}
                 height={538}
-                objectFit="cover"
                 src="/images/notfound.webp"
                 alt="qr code scan"
               />
