@@ -138,6 +138,7 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
         width={width}
         border="1px"
         bg="green.500"
+        border="none"
       >
         Add
       </Button>

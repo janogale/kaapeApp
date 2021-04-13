@@ -71,7 +71,13 @@ export default function ServiceProviderPage() {
 
     return (
       <Tab
-        _selected={{ color: "brand.500", borderColor: "currentColor" }}
+        _selected={{
+          color: "brand.500",
+          borderColor: "currentColor",
+          fontWeight: "bold",
+          borderBottom: "1px solid",
+        }}
+        whiteSpace="nowrap"
         _focus={{
           boxShadow: "none",
         }}
@@ -87,8 +93,8 @@ export default function ServiceProviderPage() {
       <Flex flexDir="column" h="100vh">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
-        <Tabs flexGrow={2} overflow="hidden" width="100%">
-          <TabList overflowX="scroll" width="100%">
+        <Tabs py="2" flexGrow={2} overflow="hidden" width="100%" size="sm">
+          <TabList overflowX="scroll" width="100%" py="2">
             {Cats}
           </TabList>
           <TabPanels>

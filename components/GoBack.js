@@ -6,7 +6,6 @@ import { IoMdArrowBack } from "react-icons/io";
 import {
   RiShoppingCartFill,
   RiShoppingCartLine,
-  RiHome2Fill,
   RiHome2Line,
 } from "react-icons/ri";
 
@@ -18,7 +17,7 @@ export default function Goback({ title = "", icon = "", cart }) {
   const router = useRouter();
 
   return (
-    <Box mb="12" position="relative" zIndex="sticky">
+    <Box mb="10" position="relative" zIndex="sticky">
       <Flex
         justify="space-between"
         align="center"
