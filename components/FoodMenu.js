@@ -17,6 +17,7 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { MdAdd, MdRemove } from "react-icons/md";
@@ -197,7 +198,11 @@ function MenuItemDetailModal({
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={3}>
-            <Box ml="4" flexGrow={2}>
+            <Box
+              ml="4"
+              flexGrow={2}
+              color={useColorModeValue("gray.600", "gray.400")}
+            >
               <Heading as="h3" fontSize="md">
                 {menuItem.name}
               </Heading>
