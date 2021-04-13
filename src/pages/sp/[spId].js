@@ -118,3 +118,32 @@ export default function ServiceProviderPage() {
     </Layout>
   );
 }
+
+/**
+ * Providers list maintained by hand for now.
+ */
+const PROVIDERS = [
+  'HDH',
+  'CNHC',
+  'RCR',
+  'RCL',
+  'RHS',
+];
+
+export async function getStaticPaths() {
+  let paths = PROVIDERS.map((sp) => {
+    return {
+      params: { spId: sp },
+    };
+  });
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
+  return {
+    props: {}, 
+  }
+}
