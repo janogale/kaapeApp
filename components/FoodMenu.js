@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   chakra,
   Flex,
@@ -73,8 +74,15 @@ export default function FoodMenu({
         }}
         onClick={onOpen}
       >
-        {/* <Image height={80} width={80} src={menuPhoto} alt={description} /> */}
-        <img height="60" width="80" src={menuPhoto} alt={description} />
+        <Image
+          height={80}
+          width={80}
+          layout="fixed"
+          priority={true}
+          src={menuPhoto}
+          alt={description}
+        />
+        {/* <img height="60" width="80" src={menuPhoto} alt={description} /> */}
       </Box>
       <Box ml="3" flexGrow={2}>
         <Box
