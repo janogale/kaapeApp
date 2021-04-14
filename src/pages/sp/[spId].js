@@ -94,7 +94,7 @@ export default function ServiceProviderPage() {
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
         <Tabs py="2" flexGrow={2} overflow="hidden" width="100%" size="sm">
-          <TabList overflowX="scroll" width="100%" py="2">
+          <TabList overflowX="scroll" width="100%" py="2" border="none">
             {Cats}
           </TabList>
           <TabPanels>
@@ -122,13 +122,7 @@ export default function ServiceProviderPage() {
 /**
  * Providers list maintained by hand for now.
  */
-const PROVIDERS = [
-  'HDH',
-  'CNHC',
-  'RCR',
-  'RCL',
-  'RHS',
-];
+const PROVIDERS = ["HDH", "CNHC", "RCR", "RCL", "RHS"];
 
 export async function getStaticPaths() {
   let paths = PROVIDERS.map((sp) => {
@@ -144,6 +138,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   return {
-    props: {}, 
-  }
+    props: {},
+  };
 }

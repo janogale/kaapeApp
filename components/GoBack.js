@@ -13,8 +13,13 @@ import {
 import { useAppState } from "../context/AppProvider";
 
 export default function Goback({ title = "", icon = "", cart }) {
+  const [historyLength, setHistoryLength] = React.useState(null);
   const [state] = useAppState();
   const router = useRouter();
+
+  React.useEffect(function () {
+    setHistoryLength(window.history.length);
+  }, []);
 
   return (
     <Box mb="10" position="relative" zIndex="sticky">
@@ -33,7 +38,13 @@ export default function Goback({ title = "", icon = "", cart }) {
         maxWidth="48rem"
       >
         <Box
-          onClick={() => router.back()}
+          onClick={() => {
+            if (historyLength > 2) {
+              router.back();
+            } else {
+              router.push("/");
+            }
+          }}
           _hover={{
             cursor: "pointer",
           }}

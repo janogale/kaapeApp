@@ -26,8 +26,6 @@ function OrderBanner() {
 
   return (
     <Flex
-      border="1px"
-      borderColor="brand.100"
       py="2"
       justify="space-around"
       align="center"
@@ -36,7 +34,7 @@ function OrderBanner() {
     >
       <Button
         onClick={() => router.push("/cart")}
-        variant="outline"
+        variant="solid"
         colorScheme="brand"
         width="80%"
         fontSize="md"
