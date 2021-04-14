@@ -74,15 +74,21 @@ export default function FoodMenu({
         }}
         onClick={onOpen}
       >
-        <Image
+        {/* <Image
           height={80}
           width={80}
           layout="fixed"
           priority={true}
           src={menuPhoto}
           alt={description}
+        /> */}
+        <img
+          height="60px"
+          width="80px"
+          style={{ minHeight: "60px", minWidth: "80px" }}
+          src={menuPhoto}
+          alt={description}
         />
-        {/* <img height="60" width="80" src={menuPhoto} alt={description} /> */}
       </Box>
       <Box ml="3" flexGrow={2}>
         <Box

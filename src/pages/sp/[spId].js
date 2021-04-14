@@ -122,14 +122,22 @@ export default function ServiceProviderPage() {
 /**
  * Providers list maintained by hand for now.
  */
-const PROVIDERS = ["HDH", "CNHC", "RCR", "RCL", "RHS"];
 
 export async function getStaticPaths() {
+  const result = await fetch(
+    "https://ktasks.azurewebsites.net/api/Providers?code=n6P5xtOcSa9tbLIbgTIiudpNiSqqGZHaIfxFKJkDdnHGaplHK2Uy7Q=="
+  );
+
+  const PROVIDERS = await result.json();
+
+  // validate the data
+
   let paths = PROVIDERS.map((sp) => {
     return {
-      params: { spId: sp },
+      params: { spId: sp.Code },
     };
   });
+
   return {
     paths,
     fallback: false,
@@ -137,6 +145,23 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  const result = await fetch(
+    `https://ktasks.azurewebsites.net/api/Providers?code=n6P5xtOcSa9tbLIbgTIiudpNiSqqGZHaIfxFKJkDdnHGaplHK2Uy7Q==&spCode=${context.params.spId}`
+  );
+
+  const data = await result.json();
+
+  let key,
+    keys = Object.keys(data);
+
+  let n = keys.length;
+  let newobj = {};
+  while (n--) {
+    key = keys[n];
+    newobj[key.toLowerCase()] = data[key];
+  }
+
+  console.log(newobj);
   return {
     props: {},
   };
