@@ -4,6 +4,8 @@ const styles = {
     body: {
       userSelect: "none",
       WebkitTapHighlightColor: "transparent",
+      minHeight: "100vh",
+      minHeight: "-webkit-fill-available",
     },
     "::-webkit-scrollbar": {
       width: 0,
