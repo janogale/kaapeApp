@@ -155,9 +155,10 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
     setStatus("pending");
     const data = await addOrder(spId, {
       spId: spId,
-      tableNumber: location ?? "",
-      customerNotes: additionalInfo ?? "",
-      customerName: userAccount ?? "",
+      tableNumber: location || "",
+      customerNotes: additionalInfo || "",
+      customerName: userAccount || "",
+      totalPrice: state.cart.map(item => item.amount * item.saleUnitPrice).reduce((a, b) => a + b, 0),
       orderRows: JSON.stringify(state.cart.map(item => ({id: item.id, amount: item.amount, saleUnitPrice: item.saleUnitPrice, name: item.name}))),
     }, "Bearer " + accessToken);
 

@@ -39,7 +39,8 @@ export default function ServiceProviderPage({ serviceProviderData }) {
     window.sessionStorage.setItem("spId", provider.guid);
 
     // Save also possible location information.
-    window.sessionStorage.setItem("location", router.query.location);
+
+    window.sessionStorage.setItem("location", router.query.location || "");
 
   }, [serviceProviderData]);
 
