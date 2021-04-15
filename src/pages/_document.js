@@ -54,12 +54,7 @@ export default class Document extends NextDocument {
             rel="apple-touch-startup-image"
           />
           {/* end Splash screen */}
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/icons/favicon-32x32.png"
-          />
+
           <link
             rel="icon"
             type="image/png"
@@ -84,10 +79,7 @@ export default class Document extends NextDocument {
           <meta property="og:title" content="KaabeApp" />
           <meta property="og:description" content="KaabeApp Digital Waiter" />
           <meta property="og:site_name" content="KaabeApp" />
-          <meta
-            property="og:url"
-            content="https://app.kaabeapp.com/"
-          />
+          <meta property="og:url" content="https://app.kaabeapp.com/" />
         </Head>
         <body>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />

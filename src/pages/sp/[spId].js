@@ -26,37 +26,37 @@ import { groupBy } from "../../../utils";
 // context
 import { useAppState } from "../../../context/AppProvider";
 
-export default function ServiceProviderPage() {
+export default function ServiceProviderPage({ serviceProviderData }) {
   const [state, dispatch] = useAppState();
   const [spData, setSpData] = React.useState(null);
 
   const router = useRouter();
 
-  // // store provider id to localStorage
+  // // // store provider id to localStorage
 
-  // React.useEffect(() => {
-  //   window.sessionStorage.setItem("spId", JSON.stringify(spData.provider.guid));
+  // React.useEffect(function () {
+  //   const spId = window.location?.pathname?.split("/").slice(-1).join();
+
+  //   getData();
+
+  //   async function getData() {
+  //     let spData = await getServiceProvider(router.query.spId || spId);
+
+  //     // save service provider id to session for later use in order processing
+  //     window.sessionStorage.setItem("spId", spData.provider.guid);
+
+  //     setSpData(spData);
+  //   }
   // }, []);
 
-  React.useEffect(function () {
-    const spId = window.location?.pathname?.split("/").slice(-1).join();
-
-    getData();
-
-    async function getData() {
-      let spData = await getServiceProvider(router.query.spId || spId);
-      setSpData(spData);
-    }
-  }, []);
-
   // show loading spinner if data is not fetched yet.
-  if (!spData) return <LoadingSpinner />;
+  if (!serviceProviderData) return <LoadingSpinner />;
 
   const {
     categoriesList: categories,
     menuItemsList: menuItems,
     provider,
-  } = spData;
+  } = serviceProviderData;
 
   // store service prodiver data to state.
 
@@ -134,7 +134,7 @@ export async function getStaticPaths() {
 
   let paths = PROVIDERS.map((sp) => {
     return {
-      params: { spId: sp.Code },
+      params: { spId: sp.code },
     };
   });
 
@@ -149,20 +149,9 @@ export async function getStaticProps(context) {
     `https://ktasks.azurewebsites.net/api/Providers?code=n6P5xtOcSa9tbLIbgTIiudpNiSqqGZHaIfxFKJkDdnHGaplHK2Uy7Q==&spCode=${context.params.spId}`
   );
 
-  const data = await result.json();
+  const serviceProviderData = await result.json();
 
-  let key,
-    keys = Object.keys(data);
-
-  let n = keys.length;
-  let newobj = {};
-  while (n--) {
-    key = keys[n];
-    newobj[key.toLowerCase()] = data[key];
-  }
-
-  console.log(newobj);
   return {
-    props: {},
+    props: { serviceProviderData },
   };
 }

@@ -78,7 +78,7 @@ async function getOrder(orderId, token) {
     const order = new messages.Order();
     order.setGuid(orderId);
     req.setItem(order);
-    staticClient.getOrder(req, {}, function (err, res) {
+    staticClient.getOrder(req, getMetadata(token), function (err, res) {
       if (!err) {
         resolve(res.toObject(false));
       }

@@ -18,10 +18,10 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
 } from "@chakra-ui/react";
+
+// gRPC functions
+import { getOrder } from "../../service/kaabe";
 
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/shared/Spinner";
@@ -44,16 +44,37 @@ export default function SuccessPage() {
   const [state, dispatch] = useAppState();
   const router = useRouter();
   const [orderId, setOrderId] = React.useState(state.orderId);
+  const [order, setOrder] = React.useState(null);
+  const [error, setError] = React.useState(null);
+  const [orderData, setOrderData] = React.useState(null);
 
-  const { data, error } = useSWR(
-    [`/api/orders/${orderId}`, state.accessToken],
-    fetcher,
-    {
-      refreshInterval: 30000,
+  // const { data, error } = useSWR(
+  //   [`/api/orders/${orderId}`, state.accessToken],
+  //   fetcher,
+  //   {
+  //     refreshInterval: 30000,
+  //   }
+  // );
+
+  React.useEffect(function () {
+    const orderId = window.location.search.split("=")[1];
+    const accessToken =
+      state.accessToken ||
+      JSON.parse(window.localStorage.getItem("appState"))?.accessToken;
+
+    getAsyncOrder();
+    async function getAsyncOrder() {
+      try {
+        const response = await getOrder(orderId, "Bearer " + accessToken);
+        setOrderData(response);
+      } catch (err) {
+        console.log(err);
+        setError(err);
+      }
     }
-  );
+  }, []);
 
-  const status = data?.status || 0;
+  const status = orderData?.status || 0;
 
   React.useEffect(() => {
     let audio = new Audio("/sounds/bell.mp3");
@@ -64,13 +85,6 @@ export default function SuccessPage() {
       play();
     }
   }, [status]);
-
-  React.useEffect(() => {
-    const id = window.location.search.split("=")[1];
-    setOrderId(id);
-    // clear state
-    dispatch({ type: "clearCart" });
-  }, []);
 
   // wait data to load
 
@@ -84,10 +98,10 @@ export default function SuccessPage() {
 
         {error ? (
           <ErrorPage />
-        ) : !data ? (
+        ) : !orderData ? (
           <LoadingSpinner />
         ) : (
-          <OrderStatus status={status} orderNumber={data?.orderNumber} />
+          <OrderStatus status={status} orderNumber={orderData?.orderNumber} />
         )}
 
         <Divider mb="12" />

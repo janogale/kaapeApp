@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { loginRequest } from "../src/authConfig";
 
+// gRPC functions
+import { addOrder } from "../src/service/kaabe";
+
 // chakra
 import {
   chakra,
@@ -84,8 +87,8 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
 
   const router = useRouter();
 
-  const baseUrl = window.location.origin;
-  const spId = JSON.parse(window.sessionStorage.getItem("spId"));
+  //const baseUrl = window.location.origin;
+  const spId = window.sessionStorage.getItem("spId");
 
   // handle login
   const handleLogin = (loginType) => {
@@ -150,28 +153,30 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
   const handleSubmit = async function () {
     setStatus("pending");
 
-    const requestOptions = {
-      method: "POST",
-      credentials: "include",
-      headers: new Headers({
-        Authorization: "Bearer " + accessToken,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }),
-      body: JSON.stringify({
-        spId: spId,
-        tableNumber: router.query.tn || "",
-        customerNotes: additionalInfo,
-        customerName: userAccount || "",
-        orderRows: JSON.stringify(state.cart),
-        status: 1, // In-queue.
-      }),
-    };
+    // const requestOptions = {
+    //   method: "POST",
+    //   credentials: "include",
+    //   headers: new Headers({
+    //     Authorization: "Bearer " + accessToken,
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   }),
+    //   body: JSON.stringify({
+    //     spId: spId,
+    //     tableNumber: router.query.tn || "",
+    //     customerNotes: additionalInfo,
+    //     customerName: userAccount || "",
+    //     orderRows: JSON.stringify(state.cart),
+    //     status: 1, // In-queue.
+    //   }),
+    // };
 
     // send order data
-    const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
+    //const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
 
-    const data = await result.json();
+    //const data = await result.json();
+
+    const data = await addOrder(spId, state.cart, "Bearer " + accessToken);
 
     //  order is success
     if (data?.guid) {
