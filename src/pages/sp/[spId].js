@@ -35,8 +35,12 @@ export default function ServiceProviderPage({ serviceProviderData }) {
   // // // store provider id to localStorage
 
   React.useEffect(function () {
-    // save service provider id to session for later use in order processing
+    // Save service provider id to session for later use in order processing
     window.sessionStorage.setItem("spId", provider.guid);
+
+    // Save also possible location information.
+    window.sessionStorage.setItem("location", router.query.location);
+
   }, [serviceProviderData]);
 
   // show loading spinner if data is not fetched yet.

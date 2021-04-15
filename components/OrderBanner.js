@@ -89,6 +89,7 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
 
   //const baseUrl = window.location.origin;
   const spId = window.sessionStorage.getItem("spId");
+  const location = window.sessionStorage.getItem("location");
 
   // handle login
   const handleLogin = (loginType) => {
@@ -152,31 +153,13 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
   // handle order submit
   const handleSubmit = async function () {
     setStatus("pending");
-
-    // const requestOptions = {
-    //   method: "POST",
-    //   credentials: "include",
-    //   headers: new Headers({
-    //     Authorization: "Bearer " + accessToken,
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   }),
-    //   body: JSON.stringify({
-    //     spId: spId,
-    //     tableNumber: router.query.tn || "",
-    //     customerNotes: additionalInfo,
-    //     customerName: userAccount || "",
-    //     orderRows: JSON.stringify(state.cart),
-    //     status: 1, // In-queue.
-    //   }),
-    // };
-
-    // send order data
-    //const result = await fetch(`${baseUrl}/api/orders`, requestOptions);
-
-    //const data = await result.json();
-
-    const data = await addOrder(spId, state.cart, "Bearer " + accessToken);
+    const data = await addOrder(spId, {
+      spId: spId,
+      tableNumber: location ?? "",
+      customerNotes: additionalInfo ?? "",
+      customerName: userAccount ?? "",
+      orderRows: JSON.stringify(state.cart.map(item => ({id: item.id, amount: item.amount, saleUnitPrice: item.saleUnitPrice, name: item.name}))),
+    }, "Bearer " + accessToken);
 
     //  order is success
     if (data?.guid) {
