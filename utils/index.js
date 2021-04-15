@@ -1,5 +1,7 @@
 // group Array of Object by object property
 export function groupBy(objectArray, property) {
+  if (!objectArray) return [];
+
   return objectArray.reduce(function (acc, obj) {
     let key = obj[property];
     if (!acc[key]) {

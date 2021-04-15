@@ -52,13 +52,16 @@ export default function ServiceProviderPage({ serviceProviderData }) {
   // show loading spinner if data is not fetched yet.
   if (!serviceProviderData) return <LoadingSpinner />;
 
-  const {
+  let {
     categoriesList: categories,
     menuItemsList: menuItems,
     provider,
   } = serviceProviderData;
 
   // store service prodiver data to state.
+
+  categories = categories || [];
+  menuItems = menuItems || [];
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
