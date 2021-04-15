@@ -147,7 +147,7 @@ function OrderStatus({ status = 0, orderNumber }) {
           />
         </List>
       </Box>
-      <NextLink href="/sp/RCR">
+      <NextLink href="/">
         <Link
           fontSize="md"
           border="1px"
@@ -156,7 +156,7 @@ function OrderStatus({ status = 0, orderNumber }) {
           px="4"
           py="2"
         >
-          Order aditional Food
+          Place another order
         </Link>
       </NextLink>
     </Flex>

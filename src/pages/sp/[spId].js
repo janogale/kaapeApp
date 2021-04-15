@@ -34,20 +34,10 @@ export default function ServiceProviderPage({ serviceProviderData }) {
 
   // // // store provider id to localStorage
 
-  // React.useEffect(function () {
-  //   const spId = window.location?.pathname?.split("/").slice(-1).join();
-
-  //   getData();
-
-  //   async function getData() {
-  //     let spData = await getServiceProvider(router.query.spId || spId);
-
-  //     // save service provider id to session for later use in order processing
-  //     window.sessionStorage.setItem("spId", spData.provider.guid);
-
-  //     setSpData(spData);
-  //   }
-  // }, []);
+  React.useEffect(function () {
+    // save service provider id to session for later use in order processing
+    window.sessionStorage.setItem("spId", provider.guid);
+  }, [serviceProviderData]);
 
   // show loading spinner if data is not fetched yet.
   if (!serviceProviderData) return <LoadingSpinner />;
@@ -57,8 +47,6 @@ export default function ServiceProviderPage({ serviceProviderData }) {
     menuItemsList: menuItems,
     provider,
   } = serviceProviderData;
-
-  // store service prodiver data to state.
 
   categories = categories || [];
   menuItems = menuItems || [];

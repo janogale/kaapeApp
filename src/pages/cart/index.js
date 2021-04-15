@@ -77,9 +77,9 @@ function EmptyCart() {
         </Heading>
         <Text fontSize="md">let's fill it now</Text>
       </Stack>
-      <NextLink href="/sp/RCR">
+      <NextLink href="/">
         <Link bg="brand.500" fontSize="lg" borderRadius="sm" px="2" py="1">
-          Start Ordering Now
+        Scan QR-code & Place Your Order
         </Link>
       </NextLink>
     </Stack>

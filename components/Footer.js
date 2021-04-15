@@ -26,7 +26,7 @@ function BottomMenu({ text = "", icon }) {
     <Flex
       direction="column"
       align="center"
-      onClick={() => router.push("/sp/RCR?tn=123")}
+      onClick={() => router.push("/")}
       _hover={{
         cursor: "pointer",
       }}
