@@ -212,11 +212,9 @@ function DrawerLeft() {
               </Flex>
             </DrawerHeader>
             <DrawerBody>
-              {/* menu */}
-              <MenuList />
+              {/* <MenuList /> */}
 
-              <Divider orientation="horizontal" my="4rem" colorScheme="gray" />
-              {/* switch color mode */}
+              {/* <Divider orientation="horizontal" my="4rem" colorScheme="gray" /> */}
 
               <Box display="flex" alignItems="center">
                 <FormLabel htmlFor="darkmode" mb="0" fontSize=".8rem">
