@@ -17,7 +17,7 @@ const Layout = ({ children, hide = false }) => {
     <Container minH="100vh" id="container">
       {hide || <Header />}
       <Main>{children}</Main>
-      {hide || <Footer />}
+      {true || <Footer />}
     </Container>
   );
 };

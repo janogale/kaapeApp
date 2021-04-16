@@ -29,6 +29,7 @@ const Index = () => {
       <Flex
         mx="4"
         mt="8"
+        mb="10"
         direction="column"
         align="center"
         justify="space-around"
