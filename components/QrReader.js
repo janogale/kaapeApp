@@ -191,6 +191,11 @@ function TypeCodeBox() {
           colorScheme="brand"
           errorBorderColor="red.300"
           onChange={(e) => setCode(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.code === "Enter") {
+              handleSubmit();
+            }
+          }}
           value={code}
           size="lg"
           fontWeight="bold"
