@@ -57,6 +57,24 @@ export default function SuccessPage() {
   //   }
   // );
 
+  // call api function
+  async function getAsyncOrder(orderId, accessToken) {
+    try {
+      const response = await getOrder(orderId, "Bearer " + accessToken);
+      console.log(response);
+      setOrderData(response);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
+  }
+
+  // clear cart
+
+  React.useEffect(() => {
+    dispatch({ type: "clearCart" });
+  }, []);
+
   React.useEffect(function () {
     // parse URL to get OrderId
     const url = new URL(window.location);
@@ -65,17 +83,26 @@ export default function SuccessPage() {
     const accessToken =
       state.accessToken ||
       JSON.parse(window.localStorage.getItem("appState"))?.accessToken;
+    getAsyncOrder(orderId, accessToken);
+  }, []);
 
-    getAsyncOrder();
-    async function getAsyncOrder() {
-      try {
-        const response = await getOrder(orderId, "Bearer " + accessToken);
-        setOrderData(response);
-      } catch (err) {
-        console.log(err);
-        setError(err);
-      }
-    }
+  React.useEffect(() => {
+    let intervalId;
+
+    const url = new URL(window.location);
+    const orderId = url.searchParams.get("orderId");
+
+    const accessToken =
+      state.accessToken ||
+      JSON.parse(window.localStorage.getItem("appState"))?.accessToken;
+    getAsyncOrder(orderId, accessToken);
+
+    intervalId = setInterval(function () {
+      console.log("call api");
+      getAsyncOrder(orderId, accessToken);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const status = orderData?.status || 0;

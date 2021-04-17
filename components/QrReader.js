@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import QrReader from "react-qr-reader";
+import QrReader from "modern-react-qr-reader";
 import { useRouter } from "next/router";
 import {
   Flex,
@@ -136,7 +136,7 @@ function QrCodeReader(props) {
           <TabPanel>
             {isActiveCam && (
               <QrReader
-                delay={500}
+                delay={2000}
                 style={previewStyle}
                 onError={handleError}
                 onScan={handleScan}
