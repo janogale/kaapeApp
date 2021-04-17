@@ -68,12 +68,17 @@ function OrderBanner() {
         </chakra.small>
         <chakra.span ml="1">{formatCurrency(totalPrice)}</chakra.span>
       </Button>
-      <ConfirmOrder isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      <ConfirmOrder
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        totalPrice={totalPrice}
+      />
     </Flex>
   );
 }
 
-function ConfirmOrder({ isOpen, onOpen, onClose }) {
+function ConfirmOrder({ isOpen, onOpen, onClose, totalPrice }) {
   // msal
   const isAuthenticated = useIsAuthenticated();
   const { accounts, instance, inProgress } = useMsal();
@@ -153,14 +158,27 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
   // handle order submit
   const handleSubmit = async function () {
     setStatus("pending");
-    const data = await addOrder(spId, {
-      spId: spId,
-      tableNumber: location || "",
-      customerNotes: additionalInfo || "",
-      customerName: userAccount || "",
-      totalPrice: state.cart.map(item => item.amount * item.saleUnitPrice).reduce((a, b) => a + b, 0),
-      orderRows: JSON.stringify(state.cart.map(item => ({id: item.id, amount: item.amount, saleUnitPrice: item.saleUnitPrice, name: item.name}))),
-    }, "Bearer " + accessToken);
+    const data = await addOrder(
+      spId,
+      {
+        spId: spId,
+        tableNumber: location || "",
+        customerNotes: additionalInfo || "",
+        customerName: userAccount || "",
+        totalPrice: state.cart
+          .map((item) => item.amount * item.saleUnitPrice)
+          .reduce((a, b) => a + b, 0),
+        orderRows: JSON.stringify(
+          state.cart.map((item) => ({
+            id: item.id,
+            amount: item.amount,
+            saleUnitPrice: item.saleUnitPrice,
+            name: item.name,
+          }))
+        ),
+      },
+      "Bearer " + accessToken
+    );
 
     //  order is success
     if (data?.guid) {
@@ -170,7 +188,9 @@ function ConfirmOrder({ isOpen, onOpen, onClose }) {
         payload: { orderId: data.guid, accessToken: accessToken },
       });
       setStatus("done");
-      router.push(`/cart/success?orderId=${data.guid}`);
+      router.push(
+        `/cart/success?orderId=${data.guid}&totalprice=${totalPrice}`
+      );
     }
   };
 
