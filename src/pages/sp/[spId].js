@@ -32,26 +32,34 @@ export default function ServiceProviderPage({ serviceProviderData }) {
 
   const router = useRouter();
 
-  // // // store provider id to localStorage
-
-  React.useEffect(function () {
-    // Save service provider id to session for later use in order processing
-    window.sessionStorage.setItem("spId", provider.guid);
-
-    // Save also possible location information.
-
-    window.sessionStorage.setItem("location", router.query.location || "");
-
-  }, [serviceProviderData]);
-
-  // show loading spinner if data is not fetched yet.
-  if (!serviceProviderData) return <LoadingSpinner />;
-
   let {
     categoriesList: categories,
     menuItemsList: menuItems,
     provider,
   } = serviceProviderData;
+
+  // // // store provider id to localStorage
+
+  React.useEffect(
+    function () {
+      // Save service provider id to session for later use in order processing
+      window.sessionStorage.setItem("spId", provider.guid);
+
+      // Save also possible location information.
+
+      window.sessionStorage.setItem("location", router.query.location || "");
+    },
+    [serviceProviderData]
+  );
+
+  // save service provider data to state
+
+  React.useEffect(() => {
+    dispatch({ type: "setProvider", payload: { provider } });
+  }, []);
+
+  // show loading spinner if data is not fetched yet.
+  if (!serviceProviderData) return <LoadingSpinner />;
 
   categories = categories || [];
   menuItems = menuItems || [];

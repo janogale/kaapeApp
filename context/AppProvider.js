@@ -98,6 +98,13 @@ const reducer = (state, action) => {
 
       return newState;
     }
+    case "setProvider": {
+      const newState = { ...state, ...action.payload };
+      // save to local storage
+      saveToLocal(newState);
+
+      return newState;
+    }
     case "setCurrency": {
       const newState = { ...state, ...action.payload };
       // save to local storage
@@ -153,12 +160,13 @@ const AppProvider = (props) => {
     orderHistory: [
       { name: "pizza" },
       { name: "sandwich" },
+      { name: "Tuna fish" },
       { name: "grill fish" },
-      { name: "grill fish" },
-      { name: "grill fish" },
-      { name: "grill fish" },
-      { name: "grill fish" },
+      { name: "Salad fish" },
+      { name: "Kabeb fish" },
+      { name: "Mixed fish" },
     ],
+    provider: null,
     cart: [],
     account: {
       isloggedIn: false,

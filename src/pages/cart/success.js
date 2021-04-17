@@ -12,12 +12,14 @@ import {
   Icon,
   Flex,
   Divider,
+  Button,
   List,
   ListItem,
   ListIcon,
   Stat,
   StatLabel,
   StatNumber,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 // gRPC functions
@@ -44,7 +46,6 @@ export default function SuccessPage() {
   const [state, dispatch] = useAppState();
   const router = useRouter();
   const [orderId, setOrderId] = React.useState(state.orderId);
-  const [order, setOrder] = React.useState(null);
   const [error, setError] = React.useState(null);
   const [orderData, setOrderData] = React.useState(null);
 
@@ -57,7 +58,10 @@ export default function SuccessPage() {
   // );
 
   React.useEffect(function () {
-    const orderId = window.location.search.split("=")[1];
+    // parse URL to get OrderId
+    const url = new URL(window.location);
+    const orderId = url.searchParams.get("orderId");
+
     const accessToken =
       state.accessToken ||
       JSON.parse(window.localStorage.getItem("appState"))?.accessToken;
@@ -86,8 +90,6 @@ export default function SuccessPage() {
     }
   }, [status]);
 
-  // wait data to load
-
   return (
     <Layout hide>
       <Flex direction="column">
@@ -111,6 +113,26 @@ export default function SuccessPage() {
 }
 
 function OrderStatus({ status = 0, orderNumber }) {
+  const [providerData, setProviderData] = React.useState(null);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+
+  // get provider data from localstorage
+
+  React.useEffect(() => {
+    const stateFromLocalStorage = JSON.parse(
+      window.localStorage.getItem("appState")
+    );
+    const provider = JSON.parse(stateFromLocalStorage?.provider?.configuration);
+
+    setProviderData(provider);
+
+    // get totalprice from url
+    const url = new URL(window.location);
+    const price = url.searchParams.get("totalprice");
+
+    setTotalPrice(price);
+  }, []);
+
   return (
     <Flex
       direction="column"
@@ -118,7 +140,7 @@ function OrderStatus({ status = 0, orderNumber }) {
       align="center"
       mt="4"
       justify="space-around"
-      minH="75vh"
+      minH="85vh"
     >
       <Icon color="green.500" as={AiOutlineFileDone} boxSize={16} />
       <Box boxShadow="lg" width="70%">
@@ -129,7 +151,7 @@ function OrderStatus({ status = 0, orderNumber }) {
       </Box>
 
       <Box my="1">
-        <List spacing={2}>
+        <List spacing={1}>
           <TimeLine
             title="Order Received"
             description="Your order is waiting to be accepted"
@@ -147,6 +169,57 @@ function OrderStatus({ status = 0, orderNumber }) {
           />
         </List>
       </Box>
+
+      {providerData && (
+        <Flex mt="6" direction="column" flexGrow={2}>
+          <Heading
+            fontSize="xl"
+            mb="3"
+            textAlign="center"
+            color="green.400"
+            fontWeight="bold"
+          >
+            Pay with
+          </Heading>
+          <Flex justify="space-around" flexWrap="wrap">
+            {/* Payment Methods */}
+            {Object.entries(providerData).map((service) => {
+              if (service[1] !== true) return null;
+
+              switch (service[0]) {
+                case "Zaad": {
+                  return (
+                    <PayWith
+                      service="Zaad"
+                      number={providerData.ZaadNumber}
+                      code={`*223*${providerData.ZaadNumber}*${totalPrice}#`}
+                    />
+                  );
+                }
+                case "Edahab": {
+                  return (
+                    <PayWith
+                      service="Edahab"
+                      number={providerData.EdahabNumber}
+                      code={`*773*${providerData.EdahabNumber}*${totalPrice}#`}
+                    />
+                  );
+                }
+                case "EvcPlus": {
+                  return (
+                    <PayWith
+                      service="EvcPlus"
+                      number={providerData.EvcPlusNumber}
+                      code={`*712*${providerData.EvcPlusNumber}*${totalPrice}#`}
+                    />
+                  );
+                }
+              }
+            })}
+          </Flex>
+        </Flex>
+      )}
+
       <NextLink href="/">
         <Link
           fontSize="md"
@@ -189,5 +262,25 @@ function TimeLine({ title, description, active = false, last = false }) {
         <Text color="gray.400">{description}</Text>
       </Flex>
     </ListItem>
+  );
+}
+
+function PayWith({ service, icon, number, code = number }) {
+  return (
+    <Button
+      mx="3"
+      mb="2"
+      size="sm"
+      height="3rem"
+      variant="outline"
+      colorScheme="brand"
+      px="3"
+      py="3"
+    >
+      <Link href={`tel:${code}`}>
+        {service} <br />
+        {number}
+      </Link>
+    </Button>
   );
 }
