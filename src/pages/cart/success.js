@@ -62,6 +62,7 @@ export default function SuccessPage() {
       if(orderData && orderData.createdAt) {
         // Do something.
         const timeDelta = getTimeDifferenceInMinutes(new Date(), new Date(orderData.createdAt));
+        console.log(orderData.status, timeDelta);
         if(orderData.status === 3 || timeDelta > 20) {
           console.warn('This order is completed or too old, not auto refreshing.');
           return;
