@@ -34,11 +34,10 @@ import GoBack from "@/components/GoBack";
 // context
 import { useAppState } from "../../../context/AppProvider";
 
-// fetcher function for swr library
-const fetcher = (url, token) =>
-  fetch(url, {
-    headers: { Authorization: "Bearer " + token },
-  }).then((res) => res.json());
+
+function getTimeDifferenceInMinutes(time1, time2) {
+  return (time1 - time2) / 60000;
+}
 
 export default function SuccessPage() {
   //const baseUrl = window.location.origin;
@@ -60,6 +59,14 @@ export default function SuccessPage() {
   // call api function
   async function getAsyncOrder(orderId, accessToken) {
     try {
+      if(orderData && orderData.createdAt) {
+        // Do something.
+        const timeDelta = getTimeDifferenceInMinutes(new Date(), new Date(orderData.createdAt));
+        if(orderData.status === 3 || timeDelta > 20) {
+          console.warn('This order is completed or too old, not auto refreshing.');
+          return;
+        }
+      }
       const response = await getOrder(orderId, "Bearer " + accessToken);
       console.log(response);
       setOrderData(response);
@@ -93,7 +100,7 @@ export default function SuccessPage() {
 
     intervalId = setInterval(function () {
       getAsyncOrder(orderId, accessToken);
-    }, 15000);
+    }, 30000);  // I think 30s is OK :).
 
     return () => clearInterval(intervalId);
   }, []);
