@@ -73,7 +73,7 @@ export default function SuccessPage() {
       setOrderData(response);
     } catch (err) {
       console.log(err);
-      setError(err);
+      // setError(err);  // Don't set error if refresh fails
     }
   }
 
