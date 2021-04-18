@@ -13,13 +13,7 @@ const saveToLocal = (state) => {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "darkmode": {
-      const newState = { ...state, darkMode: !state.darkMode };
-
-      // save to local storage
-      saveToLocal(newState);
-      return newState;
-    }
+  
     case "add": {
       // add menu item to cart
 
@@ -92,7 +86,7 @@ const reducer = (state, action) => {
      *  Sign out and clear state
      */
     case "clearCart": {
-      const newState = { ...state, cart: [] };
+      const newState = { ...state, ...action.payload };
       // save to local storage
       saveToLocal(newState);
 

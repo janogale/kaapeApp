@@ -187,10 +187,12 @@ function ConfirmOrder({ isOpen, onOpen, onClose, totalPrice }) {
         type: "setOrderId",
         payload: { orderId: data.guid, accessToken: accessToken },
       });
+
+      // clear cart
+      dispatch({ type: "clearCart", payload: { cart: [] } });
+
       setStatus("done");
-      router.push(
-        `/cart/success?orderId=${data.guid}&totalprice=${totalPrice}`
-      );
+      router.push(`/cart/success?orderId=${data.guid}`);
     }
   };
 

@@ -69,12 +69,6 @@ export default function SuccessPage() {
     }
   }
 
-  // clear cart
-
-  React.useEffect(() => {
-    dispatch({ type: "clearCart" });
-  }, []);
-
   React.useEffect(function () {
     // parse URL to get OrderId
     const url = new URL(window.location);
@@ -98,9 +92,8 @@ export default function SuccessPage() {
     getAsyncOrder(orderId, accessToken);
 
     intervalId = setInterval(function () {
-      console.log("call api");
       getAsyncOrder(orderId, accessToken);
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -130,7 +123,11 @@ export default function SuccessPage() {
         ) : !orderData ? (
           <LoadingSpinner />
         ) : (
-          <OrderStatus status={status} orderNumber={orderData?.orderNumber} />
+          <OrderStatus
+            status={status}
+            orderNumber={orderData?.orderNumber}
+            totalPrice={orderData?.totalPrice}
+          />
         )}
 
         <Divider mb="12" />
@@ -139,9 +136,8 @@ export default function SuccessPage() {
   );
 }
 
-function OrderStatus({ status = 0, orderNumber }) {
+function OrderStatus({ status = 0, orderNumber, totalPrice }) {
   const [providerData, setProviderData] = React.useState(null);
-  const [totalPrice, setTotalPrice] = React.useState(0);
 
   // get provider data from localstorage
 
@@ -152,12 +148,6 @@ function OrderStatus({ status = 0, orderNumber }) {
     const provider = JSON.parse(stateFromLocalStorage?.provider?.configuration);
 
     setProviderData(provider);
-
-    // get totalprice from url
-    const url = new URL(window.location);
-    const price = url.searchParams.get("totalprice");
-
-    setTotalPrice(price);
   }, []);
 
   return (
