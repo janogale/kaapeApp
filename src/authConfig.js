@@ -2,7 +2,7 @@ const msalConfig = {
   auth: {
     clientId: "1f3638e6-110b-40cf-b34e-1cd82dbc7908",
     authority:
-      "https://kaabeapp.b2clogin.com/kaabeapp.onmicrosoft.com/b2c_1_susi",
+      "https://kaabeapp.b2clogin.com/kaabeapp.onmicrosoft.com/b2c_1_asusi",
     audience: "1f3638e6-110b-40cf-b34e-1cd82dbc7908",
     //redirectUri: 'http://localhost:3000/callback'
     redirectUri: "/",
