@@ -1,8 +1,8 @@
 const path = require("path");
 const withPWA = require("next-pwa");
 
-module.exports = {
-  distDir: 'build',
+module.exports = withPWA({
+  distDir: "build",
   future: {
     webpack5: true,
   },
@@ -14,4 +14,9 @@ module.exports = {
   env: {
     protosDir: path.join(__dirname, "Protos"),
   },
-};
+
+  // PWA config
+  pwa: {
+    dest: "public",
+  },
+});
