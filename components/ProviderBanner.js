@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text, Link } from "@chakra-ui/react";
+import { PhoneIcon } from "@chakra-ui/icons";
 
 export default function ProviderBanner({
   name,
@@ -30,19 +31,27 @@ export default function ProviderBanner({
       key={id}
       borderWidth="1px"
       overflow="hidden"
-      _hover={{
-        cursor: "pointer",
-      }}
     >
-      <Heading m="5" mb="0" as="h4" size="lg">
+      <Heading mx="5" my="3" mb="0" as="h4" size="lg">
         {name}
       </Heading>
-      <Text m="5" textColor="gray.300">
+      <Text mx="5" my="3" textColor="gray.300">
         {description}
       </Text>
-      <Text mx="5" mb="5" textColor="gray.300">
-        Tel: {phoneNumber || "-"}
-      </Text>
+      {phoneNumber && (
+        <Text
+          mx="5"
+          mb="5"
+          textColor="gray.300"
+          position="relative"
+          zIndex="200"
+        >
+          <PhoneIcon />
+          <Link ml="2" href={`tel:${phoneNumber}`}>
+            {phoneNumber}
+          </Link>
+        </Text>
+      )}
     </Box>
   );
 }
