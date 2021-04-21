@@ -64,6 +64,9 @@ export default function ServiceProviderPage({ serviceProviderData }) {
   categories = categories || [];
   menuItems = menuItems || [];
 
+  // Filter out unpublished items.
+  menuItems = menuItems.filter(m => m.status === 1);
+
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
   // get only category IDs with items
