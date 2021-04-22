@@ -14,7 +14,7 @@ const Offline = () => {
         justify="space-around"
         flexGrow={2}
       >
-        <Text color="gray.300">Oops, something went wrong </Text>
+        <Text color="gray.300">Oops, you are offline! </Text>
         <Box>
           {/* <Image
             width={96}
@@ -26,15 +26,15 @@ const Offline = () => {
           <img
             height="96"
             width="96"
-            src="/images/error.png"
+            src="/images/noconnection.png"
             alt="qr code scan"
           />
         </Box>
-        <Text color="gray.300">Please try again. </Text>
+        <Text color="gray.300">Please connect to Internet to use App </Text>
 
         <Button
           onClick={() => {
-            window.location.replace("/");
+            window.location.reload();
           }}
           variant="outline"
           border="1px"
