@@ -3,6 +3,7 @@ import Link from "next/link";
 import QrReader from "modern-react-qr-reader";
 import { useRouter } from "next/router";
 import {
+  chakra,
   Flex,
   Icon,
   Text,
@@ -135,13 +136,23 @@ function QrCodeReader(props) {
         <TabPanels>
           <TabPanel>
             {isActiveCam && (
-              <QrReader
-                delay={2000}
-                style={previewStyle}
-                onError={handleError}
-                onScan={handleScan}
-                facingMode={camera}
-              />
+              <VStack spacing="12">
+                <QrReader
+                  delay={2000}
+                  style={previewStyle}
+                  onError={handleError}
+                  onScan={handleScan}
+                  facingMode={camera}
+                />
+
+                <VStack textAlign="center" spacing="4">
+                  <Text>Scan QR Code on the Table, to view Food Menu</Text>
+                  <chakra.small>
+                    Hold the Camera on QR Code for 3 seconds and you will
+                    automatically see the Food Menu
+                  </chakra.small>
+                </VStack>
+              </VStack>
             )}
           </TabPanel>
           <TabPanel>
