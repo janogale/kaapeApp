@@ -16,10 +16,6 @@ import { useNetworkStatus } from "../../utils/hooks";
 const Index = () => {
   const status = useNetworkStatus();
 
-  React.useEffect(() => {
-    console.log(status);
-  }, [status]);
-
   if (!status) {
     return <Offline />;
   }
@@ -35,7 +31,7 @@ const Index = () => {
         justify="space-around"
         flexGrow={2}
       >
-        <Text color="gray.500">Scan QR-code & Place Your Order</Text>
+        <Text color="gray.500">Scan QR-code & Place Your Order status</Text>
         <Box mt={["-2rem", "-1rem", null]} position="relative">
           <Link href="/scan">
             <a>
