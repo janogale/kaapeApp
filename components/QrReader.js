@@ -135,13 +135,19 @@ function QrCodeReader(props) {
         <TabPanels>
           <TabPanel>
             {isActiveCam && (
-              <QrReader
-                delay={2000}
-                style={previewStyle}
-                onError={handleError}
-                onScan={handleScan}
-                facingMode={camera}
-              />
+              <VStack spacing="8">
+                <QrReader
+                  delay={2000}
+                  style={previewStyle}
+                  onError={handleError}
+                  onScan={handleScan}
+                  facingMode={camera}
+                />
+
+                <Text textAlign="center">
+                  Scan QR Code on the Table, to view Food Menu
+                </Text>
+              </VStack>
             )}
           </TabPanel>
           <TabPanel>
