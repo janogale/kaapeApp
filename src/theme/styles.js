@@ -17,9 +17,7 @@ const styles = {
     },
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     "::placeholder": {
-      color: "red",
-      opacity: "0.3",
-      fontSize: "0.8rem",
+      fontSize: "0.6em",
     },
     // default button style
     button: {
