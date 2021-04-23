@@ -1,6 +1,7 @@
 import React from "react";
 
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 import { Container } from "./Container";
 import { Main } from "./Main";
@@ -14,11 +15,16 @@ const Layout = ({ children, hide = false }) => {
   });
 
   return (
-    <Container minH="100vh" id="container">
-      {hide || <Header />}
-      <Main>{children}</Main>
-      {true || <Footer />}
-    </Container>
+    <>
+      <Head>
+          <title>KaabeApp</title>
+      </Head>
+      <Container minH="100vh" id="container">
+        {hide || <Header />}
+        <Main>{children}</Main>
+        {true || <Footer />}
+      </Container>
+    </>
   );
 };
 

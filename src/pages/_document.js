@@ -80,7 +80,6 @@ export default class Document extends NextDocument {
           <meta property="og:description" content="KaabeApp Digital Waiter" />
           <meta property="og:site_name" content="KaabeApp" />
           <meta property="og:url" content="https://app.kaabeapp.com/" />
-          <title>KaabeApp</title>
         </Head>
         <body>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
