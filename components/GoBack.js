@@ -35,7 +35,6 @@ export default function Goback({ title = "", icon = "", cart }) {
         position="fixed"
         top={0}
         width="100%"
-        maxWidth="48rem"
       >
         <Box
           onClick={() => {

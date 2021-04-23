@@ -6,7 +6,6 @@ export const Header = (props) => {
     <Flex
       as="header"
       w="100%"
-      maxWidth="48rem"
       py=".3rem"
       px="1rem"
       flexShrink={0}
