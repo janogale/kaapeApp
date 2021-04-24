@@ -10,6 +10,7 @@ import {
   TabPanel,
   Box,
   Flex,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 // gRPC functions
@@ -28,7 +29,7 @@ import { useAppState } from "../../../context/AppProvider";
 
 export default function ServiceProviderPage({ serviceProviderData }) {
   const [state, dispatch] = useAppState();
-  const [spData, setSpData] = React.useState(null);
+  const [pageScroll, setPageScroll] = React.useState(0);
 
   const router = useRouter();
 
@@ -57,6 +58,18 @@ export default function ServiceProviderPage({ serviceProviderData }) {
   React.useEffect(() => {
     dispatch({ type: "setProvider", payload: { provider } });
   }, []);
+
+  // detect scroll
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    // remove event
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  function handleScroll() {
+    setPageScroll(Math.round(window.pageYOffset));
+  }
 
   // show loading spinner if data is not fetched yet.
   if (!serviceProviderData) return <LoadingSpinner />;
@@ -97,25 +110,28 @@ export default function ServiceProviderPage({ serviceProviderData }) {
 
   return (
     <Layout hide>
-      <Flex flexDir="column" minH="100vh">
+      <Flex flexDir="column" minH="100vh" pos="relative">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
         {/* sticky header */}
-        <Tabs
-          py="2"
-          flexGrow={2}
-          overflow="hidden"
-          width="100%"
-          size="sm"
-          pos="relative"
-        >
-          <TabList overflowX="scroll" width="100%" py="2" border="none">
+        <Tabs py="2" flexGrow={2} overflow="hidden" width="100%" size="sm">
+          <TabList
+            overflowX="scroll"
+            width="100%"
+            py="3"
+            bg={useColorModeValue("#fff", "gray.900")}
+            border="none"
+            pos={pageScroll > 150 ? "fixed" : "relative"}
+            overflow="overlay"
+            top="40px"
+            zIndex="1000"
+          >
             {Cats}
           </TabList>
-          <TabPanels>
+          <TabPanels mt="4">
             {Object.keys(TapContent).map((menu, index) => {
               return (
-                <TabPanel p={4} key={index} class="food-menu">
+                <TabPanel p={4} key={index} className="food-menu">
                   {TapContent[menu].map((menu) => {
                     return (
                       <Box key={menu.id} mt="3">
