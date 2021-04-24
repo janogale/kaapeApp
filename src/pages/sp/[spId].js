@@ -65,7 +65,7 @@ export default function ServiceProviderPage({ serviceProviderData }) {
   menuItems = menuItems || [];
 
   // Filter out unpublished items.
-  menuItems = menuItems.filter(m => m.status === 1);
+  menuItems = menuItems.filter((m) => m.status === 1);
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
@@ -97,17 +97,25 @@ export default function ServiceProviderPage({ serviceProviderData }) {
 
   return (
     <Layout hide>
-      <Flex flexDir="column" h="100vh">
+      <Flex flexDir="column" minH="100vh">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
-        <Tabs py="2" flexGrow={2} overflow="hidden" width="100%" size="sm">
+        {/* sticky header */}
+        <Tabs
+          py="2"
+          flexGrow={2}
+          overflow="hidden"
+          width="100%"
+          size="sm"
+          pos="relative"
+        >
           <TabList overflowX="scroll" width="100%" py="2" border="none">
             {Cats}
           </TabList>
           <TabPanels>
             {Object.keys(TapContent).map((menu, index) => {
               return (
-                <TabPanel p={4} key={index}>
+                <TabPanel p={4} key={index} class="food-menu">
                   {TapContent[menu].map((menu) => {
                     return (
                       <Box key={menu.id} mt="3">
