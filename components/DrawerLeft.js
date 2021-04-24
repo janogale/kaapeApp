@@ -211,12 +211,15 @@ function DrawerLeft() {
                 </Flex>
               </Flex>
             </DrawerHeader>
-            <DrawerBody>
+            <DrawerBody
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyItems="center"
+            >
               {/* <MenuList /> */}
 
-              {/* <Divider orientation="horizontal" my="4rem" colorScheme="gray" /> */}
-
-              <Box display="flex" alignItems="center">
+              <Box display="flex" alignItems="center" mt="auto">
                 <FormLabel htmlFor="darkmode" mb="0" fontSize=".8rem">
                   Enable Dark Mode
                 </FormLabel>
@@ -227,6 +230,7 @@ function DrawerLeft() {
                   isChecked={colorMode == "dark"}
                 />
               </Box>
+              <Divider orientation="horizontal" my="2rem" />
             </DrawerBody>
 
             <DrawerFooter justifyContent="center" alignItems="center">
