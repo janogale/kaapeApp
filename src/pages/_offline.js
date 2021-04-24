@@ -14,15 +14,8 @@ const Offline = () => {
         justify="space-around"
         flexGrow={2}
       >
-        <Text color="gray.300">Oops, something went wrong </Text>
+        <Text color="gray.300">Oops, something went wrong</Text>
         <Box>
-          {/* <Image
-            width={96}
-            height={96}
-            objectFit="cover"
-            src="/images/noconnection.png"
-            alt="qr code scan"
-          /> */}
           <img
             height="96"
             width="96"
@@ -30,7 +23,7 @@ const Offline = () => {
             alt="qr code scan"
           />
         </Box>
-        <Text color="gray.300">Please try again. </Text>
+        <Text color="gray.300">Please try again.</Text>
 
         <Button
           onClick={() => {

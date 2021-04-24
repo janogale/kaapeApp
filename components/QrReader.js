@@ -146,10 +146,9 @@ function QrCodeReader(props) {
                 />
 
                 <VStack textAlign="center" spacing="4">
-                  <Text>Scan QR Code on the Table, to view Food Menu</Text>
+                  <Text>Scan QR-code on the table to browse menu and place an order</Text>
                   <chakra.small>
-                    Hold the Camera on QR Code for 3 seconds and you will
-                    automatically see the Food Menu
+                    Hold the camera on the QR-code for 3 seconds and menu will be automatically displayed
                   </chakra.small>
                 </VStack>
               </VStack>
