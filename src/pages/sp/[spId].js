@@ -110,32 +110,25 @@ export default function ServiceProviderPage({ serviceProviderData }) {
 
   return (
     <Layout hide>
-      <Flex flexDir="column" minH="100vh" pos="relative">
+      <Flex flexDir="column" minH="100vh">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
         {/* sticky header */}
-        <Tabs
-          py="2"
-          pb="12"
-          flexGrow={2}
-          overflow="hidden"
-          width="100%"
-          size="sm"
-        >
+        <Tabs pb="12" flexGrow={2} overflow="hidden" width="100%" size="sm">
           <TabList
             overflowX="scroll"
             width="100%"
             py="3"
             bg={useColorModeValue("#fff", "gray.900")}
             border="none"
-            pos={pageScroll > 150 ? "fixed" : "relative"}
+            pos={pageScroll > 180 ? "fixed" : ""}
             overflow="overlay"
             top="40px"
             zIndex="1000"
           >
             {Cats}
           </TabList>
-          <TabPanels mt="4">
+          <TabPanels>
             {Object.keys(TapContent).map((menu, index) => {
               return (
                 <TabPanel p={4} key={index} className="food-menu">

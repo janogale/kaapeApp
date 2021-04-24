@@ -47,7 +47,7 @@ export default function Cart() {
           <EmptyCart />
         ) : (
           <>
-            <Box flexGrow={2} pb="8">
+            <Box flexGrow={2} pb="16">
               {cartData.map((menu) => {
                 return (
                   <Box key={menu.name} mt="3" px="4">
@@ -79,7 +79,7 @@ function EmptyCart() {
       </Stack>
       <NextLink href="/">
         <Link bg="brand.500" fontSize="lg" borderRadius="sm" px="2" py="1">
-        Scan QR-code & Place Your Order
+          Scan QR-code & Place Your Order
         </Link>
       </NextLink>
     </Stack>
