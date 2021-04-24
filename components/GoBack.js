@@ -34,7 +34,7 @@ export default function Goback({ title = "", icon = "", cart }) {
         borderColor="brand.100"
         position="fixed"
         top={0}
-        width="100%"
+        width={["100%", "100%", "48rem"]}
       >
         <Box
           onClick={() => {
