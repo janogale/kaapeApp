@@ -114,7 +114,14 @@ export default function ServiceProviderPage({ serviceProviderData }) {
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
         {/* sticky header */}
-        <Tabs py="2" flexGrow={2} overflow="hidden" width="100%" size="sm">
+        <Tabs
+          py="2"
+          pb="12"
+          flexGrow={2}
+          overflow="hidden"
+          width="100%"
+          size="sm"
+        >
           <TabList
             overflowX="scroll"
             width="100%"

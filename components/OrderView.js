@@ -26,28 +26,34 @@ function OrderBanner() {
 
   return (
     <Flex
-      py="2"
       justify="space-around"
       align="center"
       width="100%"
+      position="fixed"
+      overflow="overlay"
+      bottom="0"
+      zIndex="1000"
       flexShrink={1}
     >
       <Button
         onClick={() => router.push("/cart")}
         variant="solid"
+        borderRadius="none"
         colorScheme="brand"
-        width="80%"
+        width="100%"
         fontSize="md"
         _hover={{
           color: "brand.400",
-          bg: "gray.300",
+          bg: "gray.200",
         }}
       >
         View Cart
-        <chakra.small ml="3" fontWeight="thin" fontSize=".6rem" mb="-2">
+        <chakra.small ml="3" fontSize=".6rem" mb="-1">
           {state.currencySign}
         </chakra.small>
-        <chakra.small ml="1">{formatCurrency(totalPrice)}</chakra.small>
+        <chakra.small ml="1" fontWeight="bold" fontSize="1rem">
+          {formatCurrency(totalPrice)}
+        </chakra.small>
       </Button>
     </Flex>
   );
