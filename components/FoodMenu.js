@@ -144,7 +144,7 @@ function AddRemoveButton({ menuItem = {}, width = "100px" }) {
           toast({
             description: `Added ${menuItem?.name} to the Cart`,
             status: "success",
-            duration: 1000,
+            duration: 3000,
             position: "top",
           });
         }}

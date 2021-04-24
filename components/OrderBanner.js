@@ -49,7 +49,16 @@ function OrderBanner() {
   );
 
   return (
-    <Flex justify="space-around" align="center" width="100%" flexShrink={1}>
+    <Flex
+      justify="space-around"
+      align="center"
+      width="100%"
+      flexShrink={1}
+      position="fixed"
+      zIndex="1000"
+      overflow="overlay"
+      bottom="0"
+    >
       <Button
         onClick={onOpen}
         rounded="none"

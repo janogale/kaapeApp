@@ -10,6 +10,7 @@ import {
   TabPanel,
   Box,
   Flex,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 // gRPC functions
@@ -28,7 +29,7 @@ import { useAppState } from "../../../context/AppProvider";
 
 export default function ServiceProviderPage({ serviceProviderData }) {
   const [state, dispatch] = useAppState();
-  const [spData, setSpData] = React.useState(null);
+  const [pageScroll, setPageScroll] = React.useState(0);
 
   const router = useRouter();
 
@@ -58,6 +59,18 @@ export default function ServiceProviderPage({ serviceProviderData }) {
     dispatch({ type: "setProvider", payload: { provider } });
   }, []);
 
+  // detect scroll
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    // remove event
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  function handleScroll() {
+    setPageScroll(Math.round(window.pageYOffset));
+  }
+
   // show loading spinner if data is not fetched yet.
   if (!serviceProviderData) return <LoadingSpinner />;
 
@@ -65,7 +78,7 @@ export default function ServiceProviderPage({ serviceProviderData }) {
   menuItems = menuItems || [];
 
   // Filter out unpublished items.
-  menuItems = menuItems.filter(m => m.status === 1);
+  menuItems = menuItems.filter((m) => m.status === 1);
 
   const TapContent = groupBy(menuItems, "itemCategoryId");
 
@@ -97,17 +110,28 @@ export default function ServiceProviderPage({ serviceProviderData }) {
 
   return (
     <Layout hide>
-      <Flex flexDir="column" h="100vh">
+      <Flex flexDir="column" minH="100vh">
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
-        <Tabs py="2" flexGrow={2} overflow="hidden" width="100%" size="sm">
-          <TabList overflowX="scroll" width="100%" py="2" border="none">
+        {/* sticky header */}
+        <Tabs pb="12" flexGrow={2} overflow="hidden" width="100%" size="sm">
+          <TabList
+            overflowX="scroll"
+            width="100%"
+            py="3"
+            bg={useColorModeValue("#fff", "gray.900")}
+            border="none"
+            pos={pageScroll > 180 ? "fixed" : ""}
+            overflow="overlay"
+            top="40px"
+            zIndex="1000"
+          >
             {Cats}
           </TabList>
           <TabPanels>
             {Object.keys(TapContent).map((menu, index) => {
               return (
-                <TabPanel p={4} key={index}>
+                <TabPanel p={4} key={index} className="food-menu">
                   {TapContent[menu].map((menu) => {
                     return (
                       <Box key={menu.id} mt="3">
