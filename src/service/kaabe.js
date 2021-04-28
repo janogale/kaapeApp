@@ -2,7 +2,7 @@
 const { promisify } = require("util");
 const messages = require("./kaabe_pb");
 const kaabeService = require("./kaabe_grpc_web_pb");
-const target = "https://localhost:5000";
+const target = "https://kaabeapi.azurewebsites.net";
 
 const staticClient = new kaabeService.KaabeServiceClient(target);
 
