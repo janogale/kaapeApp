@@ -27,6 +27,7 @@ import {
   Textarea,
   Spinner,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 
 // Icons
@@ -97,9 +98,10 @@ function ConfirmOrder({ isOpen, onOpen, onClose, totalPrice }) {
   const [state, dispatch] = useAppState();
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const [status, setStatus] = React.useState(null);
-  const [accessToken, setAcessToken] = React.useState(null);
+  const [accessToken, setAccessToken] = React.useState(null);
 
   const router = useRouter();
+  const toast = useToast();
 
   //const baseUrl = window.location.origin;
   const spId = window.sessionStorage.getItem("spId");
@@ -130,7 +132,7 @@ function ConfirmOrder({ isOpen, onOpen, onClose, totalPrice }) {
         .then((response) => {
           if (response.accessToken) {
             // set access token
-            setAcessToken(response.accessToken);
+            setAccessToken(response.accessToken);
 
             return response.accessToken;
           }
@@ -167,27 +169,41 @@ function ConfirmOrder({ isOpen, onOpen, onClose, totalPrice }) {
   // handle order submit
   const handleSubmit = async function () {
     setStatus("pending");
-    const data = await addOrder(
-      spId,
-      {
-        spId: spId,
-        tableNumber: location || "",
-        customerNotes: additionalInfo || "",
-        customerName: userAccount || "",
-        totalPrice: state.cart
-          .map((item) => item.amount * item.saleUnitPrice)
-          .reduce((a, b) => a + b, 0),
-        orderRows: JSON.stringify(
-          state.cart.map((item) => ({
-            id: item.id,
-            amount: item.amount,
-            saleUnitPrice: item.saleUnitPrice,
-            name: item.name,
-          }))
-        ),
-      },
-      "Bearer " + accessToken
-    );
+
+    let data = null;
+    try {
+      data = await addOrder(
+        spId,
+        {
+          spId: spId,
+          tableNumber: location || "",
+          customerNotes: additionalInfo || "",
+          customerName: userAccount || "",
+          totalPrice: state.cart
+            .map((item) => item.amount * item.saleUnitPrice)
+            .reduce((a, b) => a + b, 0),
+          orderRows: JSON.stringify(
+            state.cart.map((item) => ({
+              id: item.id,
+              amount: item.amount,
+              saleUnitPrice: item.saleUnitPrice,
+              name: item.name,
+            }))
+          ),
+        },
+        "Bearer " + accessToken
+      );
+    } catch (error) {
+      setStatus(null);
+      toast({
+        title: "Failed to place your order",
+        description: "Please contact customer service or restaurant directly.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return;
+    }
 
     //  order is success
     if (data?.guid) {
