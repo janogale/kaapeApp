@@ -52,7 +52,7 @@ function OrderBanner() {
     <Flex
       justify="space-around"
       align="center"
-      width="100%"
+      width={["100%", "100%", "48rem"]}
       flexShrink={1}
       position="fixed"
       zIndex="1000"

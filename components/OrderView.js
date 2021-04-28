@@ -28,7 +28,7 @@ function OrderBanner() {
     <Flex
       justify="space-around"
       align="center"
-      width="100%"
+      width={["100%", "100%", "48rem"]}
       position="fixed"
       overflow="overlay"
       bottom="0"

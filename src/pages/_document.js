@@ -54,6 +54,18 @@ export default class Document extends NextDocument {
             rel="apple-touch-startup-image"
           />
           {/* end Splash screen */}
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/icons/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/icons/favicon-16x16.png"
+          />
 
           <link
             rel="icon"
@@ -64,15 +76,12 @@ export default class Document extends NextDocument {
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/icons/favicon-16x16.png" />
           <meta name="twitter:card" content="summary" />
-          <meta
-            name="twitter:url"
-            content="https://kaape.janagale.vercel.app/"
-          />
+          <meta name="twitter:url" content="http://app.kaabeapp.com/" />
           <meta name="twitter:title" content="KaabeApp" />
           <meta name="twitter:description" content="KaabeApp Digital Waiter" />
           <meta
             name="twitter:image"
-            content="https://yourdomain.com/icons/android-chrome-192x192.png"
+            content="http://app.kaabeapp.com/icons/android-chrome-192x192.png"
           />
           <meta name="twitter:creator" content="@mmjanagale" />
           <meta property="og:type" content="website" />

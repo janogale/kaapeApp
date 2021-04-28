@@ -3,6 +3,7 @@ import { Stack } from "@chakra-ui/react";
 export const Main = (props) => (
   <Stack
     as="main"
+    position="relative"
     spacing="1.5rem"
     flexGrow={1}
     width="100%"
