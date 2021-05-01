@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useSwipeable } from "react-swipeable";
 import LoadingSpinner from "@/components/shared/Spinner";
 
 import {
@@ -30,6 +31,32 @@ import { useAppState } from "../../../context/AppProvider";
 export default function ServiceProviderPage({ serviceProviderData }) {
   const [state, dispatch] = useAppState();
   const [pageScroll, setPageScroll] = React.useState(0);
+  const [tabSize, setTabSize] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(0);
+
+  function handleTabsChange(index) {
+    setTabIndex(index);
+  }
+
+  // swipe tabs
+  React.useEffect(() => {
+    let tabs = window.document.querySelectorAll('div[role="tablist"] > button');
+
+    let tabsLength = tabs?.length || 0;
+
+    setTabSize(tabsLength - 1);
+  }, []);
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      if (tabIndex == tabSize) return;
+      setTabIndex(tabIndex + 1);
+    },
+    onSwipedRight: () => {
+      if (tabIndex == 0) return;
+      setTabIndex(tabIndex - 1);
+    },
+    preventDefaultTouchmoveEvent: true,
+  });
 
   const router = useRouter();
 
@@ -114,7 +141,15 @@ export default function ServiceProviderPage({ serviceProviderData }) {
         <GoBack title={provider.name} cart />
         <ProviderBanner {...provider} />
         {/* sticky header */}
-        <Tabs pb="12" flexGrow={2} overflow="hidden" width="100%" size="sm">
+        <Tabs
+          index={tabIndex}
+          onChange={handleTabsChange}
+          pb="12"
+          flexGrow={2}
+          overflow="hidden"
+          width="100%"
+          size="sm"
+        >
           <TabList
             overflowX="scroll"
             width="100%"
@@ -128,7 +163,7 @@ export default function ServiceProviderPage({ serviceProviderData }) {
           >
             {Cats}
           </TabList>
-          <TabPanels>
+          <TabPanels {...swipeHandlers}>
             {Object.keys(TapContent).map((menu, index) => {
               return (
                 <TabPanel p={4} key={index} className="food-menu">
