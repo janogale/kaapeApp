@@ -146,16 +146,19 @@ function QrCodeReader(props) {
                 />
 
                 <VStack textAlign="center" spacing="4">
-                  <Text>Scan QR-code on the table to browse menu and place an order</Text>
+                  <Text>
+                    Scan QR-code on the table to browse menu and place an order
+                  </Text>
                   <chakra.small>
-                    Hold the camera on the QR-code for 3 seconds and menu will be automatically displayed
+                    Hold the camera on the QR-code for 3 seconds and menu will
+                    be automatically displayed
                   </chakra.small>
                 </VStack>
               </VStack>
             )}
           </TabPanel>
           <TabPanel>
-            <Stack spacing={12} px="12">
+            <Stack spacing={10} px="12">
               <TypeCodeBox />
             </Stack>
           </TabPanel>
@@ -190,12 +193,12 @@ function TypeCodeBox() {
 
   return (
     <>
-      <Text mt="4" fontSize="xs" textAlign="center">
+      <Text mt="2" fontSize="xs" textAlign="center">
         Enter Restaurant Code & Your Location or Table Number.
       </Text>
       <Box fontSize="2" color="brand.500">
         <Input
-          mb="8"
+          mb="4"
           required
           placeholder="Type Restaurant Code"
           colorScheme="brand"
@@ -207,7 +210,7 @@ function TypeCodeBox() {
             }
           }}
           value={code}
-          size="lg"
+          size="md"
           fontWeight="bold"
           letterSpacing="wide"
           borderColor="red.300"
@@ -225,7 +228,7 @@ function TypeCodeBox() {
           textAlign="center"
         />
       </Box>
-      <Box></Box>
+
       <Button
         variant="outline"
         onClick={handleSubmit}
