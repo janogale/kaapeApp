@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { MdCheckCircle } from "react-icons/md";
-import useSWR from "swr";
+
 import {
   Heading,
   Text,
@@ -19,7 +19,14 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  SimpleGrid,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
 } from "@chakra-ui/react";
 
 // gRPC functions
@@ -33,7 +40,6 @@ import GoBack from "@/components/GoBack";
 
 // context
 import { useAppState } from "../../../context/AppProvider";
-
 
 function getTimeDifferenceInMinutes(time1, time2) {
   return (time1 - time2) / 60000;
@@ -59,12 +65,17 @@ export default function SuccessPage() {
   // call api function
   async function getAsyncOrder(orderId, accessToken) {
     try {
-      if(orderData && orderData.createdAt) {
+      if (orderData && orderData.createdAt) {
         // Do something.
-        const timeDelta = getTimeDifferenceInMinutes(new Date(), new Date(orderData.createdAt));
-        console.log(orderData.status, timeDelta);
-        if(orderData.status === 3 || timeDelta > 20) {
-          console.warn('This order is completed or too old, not auto refreshing.');
+        const timeDelta = getTimeDifferenceInMinutes(
+          new Date(),
+          new Date(orderData.createdAt)
+        );
+
+        if (orderData.status === 3 || timeDelta > 20) {
+          console.warn(
+            "This order is completed or too old, not auto refreshing."
+          );
           return;
         }
       }
@@ -101,7 +112,7 @@ export default function SuccessPage() {
 
     intervalId = setInterval(function () {
       getAsyncOrder(orderId, accessToken);
-    }, 30000);  // I think 30s is OK :).
+    }, 30000); // I think 30s is OK :).
 
     return () => clearInterval(intervalId);
   }, []);
@@ -133,18 +144,17 @@ export default function SuccessPage() {
         ) : (
           <OrderStatus
             status={status}
+            orderData={orderData}
             orderNumber={orderData?.orderNumber}
             totalPrice={orderData?.totalPrice}
           />
         )}
-
-        <Divider mb="12" />
       </Flex>
     </Layout>
   );
 }
 
-function OrderStatus({ status = 0, orderNumber, totalPrice }) {
+function OrderStatus({ status = 0, orderNumber, totalPrice, orderData = {} }) {
   const [providerData, setProviderData] = React.useState(null);
 
   // get provider data from localstorage
@@ -161,22 +171,34 @@ function OrderStatus({ status = 0, orderNumber, totalPrice }) {
   return (
     <Flex
       direction="column"
-      px="4"
+      px="3"
       align="center"
       mt="4"
       justify="space-around"
-      minH="85vh"
+      minH="80vh"
     >
       <Icon color="green.500" as={AiOutlineFileDone} boxSize={16} />
-      <Box boxShadow="lg" width="70%">
-        <Stat p="3" m="0" textAlign="center">
-          <StatLabel>Order Number</StatLabel>
-          <StatNumber>{orderNumber}</StatNumber>
-        </Stat>
+      <Box boxShadow="lg" my="3">
+        <Table size="sm" variant="striped">
+          <Tbody>
+            <Tr>
+              <Td>Items</Td>
+              <Td isNumeric>25</Td>
+            </Tr>
+            <Tr>
+              <Td>Total Price</Td>
+              <Td isNumeric>30.48</Td>
+            </Tr>
+            <Tr>
+              <Td>Order Number</Td>
+              <Td isNumeric>91444</Td>
+            </Tr>
+          </Tbody>
+        </Table>
       </Box>
 
       <Box my="1">
-        <List spacing={1}>
+        <List spacing={1} size="sm">
           <TimeLine
             title="Order Received"
             description="Your order is waiting to be accepted"
@@ -196,9 +218,10 @@ function OrderStatus({ status = 0, orderNumber, totalPrice }) {
       </Box>
 
       {providerData && (
-        <Flex mt="6" direction="column" flexGrow={2}>
+        <Flex mt="4" direction="column" flexGrow={2}>
           <Heading
-            fontSize="xl"
+            fontSize="md"
+            as="h3"
             mb="3"
             textAlign="center"
             color="green.400"
@@ -251,8 +274,9 @@ function OrderStatus({ status = 0, orderNumber, totalPrice }) {
           border="1px"
           borderRadius="sm"
           color="brand.500"
-          px="4"
-          py="2"
+          px="3"
+          py="1"
+          mt="3"
         >
           Place another order
         </Link>
@@ -281,10 +305,12 @@ function TimeLine({ title, description, active = false, last = false }) {
         <ListIcon fontSize="2xl" as={MdCheckCircle} color={bgColor} />
       </Box>
       <Flex direction="column" ml="4">
-        <Heading as="h5" fontSize="lg">
+        <Heading as="h6" fontSize=".8rem">
           {title}
         </Heading>
-        <Text color="gray.400">{description}</Text>
+        <Text fontSize=".78rem" color="gray.400">
+          {description}
+        </Text>
       </Flex>
     </ListItem>
   );
@@ -296,13 +322,13 @@ function PayWith({ service, icon, number, code = number }) {
       mx="3"
       mb="2"
       size="sm"
-      height="3rem"
+      height="2.5rem"
       variant="outline"
       colorScheme="brand"
       px="3"
       py="3"
     >
-      <Link href={`tel:${code}`}>
+      <Link href={`tel:${code}`} fontSize=".65rem">
         {service} <br />
         {number}
       </Link>

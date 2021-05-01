@@ -78,7 +78,15 @@ function EmptyCart() {
         <Text fontSize="md">let's fill it now</Text>
       </Stack>
       <NextLink href="/">
-        <Link bg="brand.500" fontSize="lg" borderRadius="sm" px="2" py="1">
+        <Link
+          bg="brand.100"
+          borderRadius="2xl"
+          color="brand.700"
+          fontSize="lg"
+          borderRadius="sm"
+          px="3"
+          py="2"
+        >
           Scan QR-code & Place Your Order
         </Link>
       </NextLink>
