@@ -9,8 +9,8 @@
     "short_name": "KaabeApp",
     "description": "KaabeApp - safe and efficient dining experience",
     "categories": [
-        "Food and Drink",
-        "Shopping"
+        "food and drink",
+        "shopping"
     ],
     "shortcuts": [
         {
@@ -101,7 +101,7 @@
         },
         {
             "src": "/images/maskable_icon.png",
-            "sizes": "196x196",
+            "sizes": "640x640",
             "type": "image/png",
             "purpose": "maskable"
         }
