@@ -205,7 +205,11 @@ function MenuItemDetailModal({
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent width="90%" p={0}>
+        <ModalContent
+          width="90%"
+          p={0}
+          color={useColorModeValue("gray.800", "white")}
+        >
           <ModalHeader mt={8}>
             <img src={menuPhoto} alt={menuItem.description} />
           </ModalHeader>

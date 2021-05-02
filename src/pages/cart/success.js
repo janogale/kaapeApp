@@ -5,6 +5,7 @@ import { AiOutlineFileDone } from "react-icons/ai";
 import { MdCheckCircle } from "react-icons/md";
 
 import {
+  chakra,
   Heading,
   Text,
   Link,
@@ -16,17 +17,10 @@ import {
   List,
   ListItem,
   ListIcon,
-  Stat,
-  StatLabel,
-  StatNumber,
   Table,
-  Thead,
   Tbody,
-  Tfoot,
   Tr,
-  Th,
   Td,
-  TableCaption,
 } from "@chakra-ui/react";
 
 // gRPC functions
@@ -53,14 +47,6 @@ export default function SuccessPage() {
   const [orderId, setOrderId] = React.useState(state.orderId);
   const [error, setError] = React.useState(null);
   const [orderData, setOrderData] = React.useState(null);
-
-  // const { data, error } = useSWR(
-  //   [`/api/orders/${orderId}`, state.accessToken],
-  //   fetcher,
-  //   {
-  //     refreshInterval: 30000,
-  //   }
-  // );
 
   // call api function
   async function getAsyncOrder(orderId, accessToken) {
@@ -93,9 +79,12 @@ export default function SuccessPage() {
     const url = new URL(window.location);
     const orderId = url.searchParams.get("orderId");
 
-    const accessToken =
-      state.accessToken ||
-      JSON.parse(window.localStorage.getItem("appState"))?.accessToken;
+    const stateLocalStorage = JSON.parse(
+      window.localStorage.getItem("appState")
+    );
+
+    const accessToken = state.accessToken || stateLocalStorage?.accessToken;
+
     getAsyncOrder(orderId, accessToken);
   }, []);
 
@@ -156,6 +145,8 @@ export default function SuccessPage() {
 
 function OrderStatus({ status = 0, orderNumber, totalPrice, orderData = {} }) {
   const [providerData, setProviderData] = React.useState(null);
+  const [currencySign, setCurrencySign] = React.useState("");
+  const [spCode, setSpCode] = React.useState("/");
 
   // get provider data from localstorage
 
@@ -163,6 +154,16 @@ function OrderStatus({ status = 0, orderNumber, totalPrice, orderData = {} }) {
     const stateFromLocalStorage = JSON.parse(
       window.localStorage.getItem("appState")
     );
+
+    // get Service provide coder from sessionStroge to route or go home
+    //
+    let spCode = window.sessionStorage.getItem("spCode") || "/";
+    let origin = window.location.origin;
+
+    setSpCode(`${origin}/sp/` + String(spCode));
+
+    setCurrencySign(stateFromLocalStorage?.currencySign || "");
+
     const provider = JSON.parse(stateFromLocalStorage?.provider?.configuration);
 
     setProviderData(provider);
@@ -183,15 +184,20 @@ function OrderStatus({ status = 0, orderNumber, totalPrice, orderData = {} }) {
           <Tbody>
             <Tr>
               <Td>Items</Td>
-              <Td isNumeric>25</Td>
+              <Td isNumeric>
+                {JSON.parse(orderData?.orderRows || "[]")?.length}
+              </Td>
             </Tr>
             <Tr>
               <Td>Total Price</Td>
-              <Td isNumeric>30.48</Td>
+              <Td isNumeric>
+                <chakra.small>{currencySign} </chakra.small>
+                <chakra.strong>{orderData?.totalPrice}</chakra.strong>
+              </Td>
             </Tr>
             <Tr>
               <Td>Order Number</Td>
-              <Td isNumeric>91444</Td>
+              <Td isNumeric>{orderData?.orderNumber}</Td>
             </Tr>
           </Tbody>
         </Table>
@@ -268,7 +274,7 @@ function OrderStatus({ status = 0, orderNumber, totalPrice, orderData = {} }) {
         </Flex>
       )}
 
-      <NextLink href="/">
+      <NextLink href={spCode}>
         <Link
           fontSize="md"
           border="1px"

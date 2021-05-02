@@ -72,6 +72,10 @@ export default function ServiceProviderPage({ serviceProviderData }) {
     function () {
       // Save service provider id to session for later use in order processing
       window.sessionStorage.setItem("spId", provider.guid);
+      window.sessionStorage.setItem(
+        "spCode",
+        window.location.pathname.split("/")[2]
+      );
 
       // Save also possible location information.
 

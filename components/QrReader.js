@@ -203,7 +203,7 @@ function TypeCodeBox() {
           placeholder="Type Restaurant Code"
           colorScheme="brand"
           errorBorderColor="red.300"
-          onChange={(e) => setCode(e.target.value)}
+          onChange={(e) => setCode(e.target.value.trim())}
           onKeyPress={(e) => {
             if (e.code === "Enter") {
               handleSubmit();
@@ -221,7 +221,7 @@ function TypeCodeBox() {
         <Input
           placeholder="Your Location or table number"
           errorBorderColor="red.300"
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => setLocation(e.target.value.trim())}
           value={location}
           size="md"
           borderColor="red.300"

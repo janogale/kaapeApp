@@ -27,6 +27,7 @@ import {
   Textarea,
   Spinner,
   useDisclosure,
+  useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 
@@ -234,7 +235,7 @@ function ConfirmOrder({ isOpen, onOpen, onClose, totalPrice }) {
         closeOnOverlayClick={false}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent color={useColorModeValue("gray.800", "white")}>
           <ModalHeader>Confirm Order</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={3}>
