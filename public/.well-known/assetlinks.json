@@ -1,5 +1,15 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target" : { "namespace": "android_app", "package_name": "com.kaabeapp.app.twa",
-                   "sha256_cert_fingerprints": ["73:4A:C9:56:7B:9E:27:11:DB:38:18:30:2C:4F:02:A8:21:32:3C:02:87:78:F5:E1:5A:8D:A2:5A:D8:28:28:CA"] }
-    }]
+[
+      {
+            "relation": [
+                  "delegate_permission/common.handle_all_urls"
+            ],
+            "target": {
+                  "namespace": "android_app",
+                  "package_name": "com.kaabeapp.app.twa",
+                  "sha256_cert_fingerprints": [
+                        "73:4A:C9:56:7B:9E:27:11:DB:38:18:30:2C:4F:02:A8:21:32:3C:02:87:78:F5:E1:5A:8D:A2:5A:D8:28:28:CA",
+                        "BA:E5:E1:59:60:ED:3E:8D:25:FF:60:BE:27:31:5B:44:33:6B:7F:43:80:37:5F:9D:46:3E:A5:9B:A1:21:61:F6"
+                  ]
+            }
+      }
+]
