@@ -1,5 +1,5 @@
 [{
       "relation": ["delegate_permission/common.handle_all_urls"],
       "target" : { "namespace": "android_app", "package_name": "com.kaabeapp.app.twa",
-                   "sha256_cert_fingerprints": ["B0:F4:C5:A0:9D:A4:2B:42:80:70:A0:08:B4:57:52:84:8D:6A:4D:34:7A:EB:15:35:81:70:D7:0B:17:5E:88:34"] }
+                   "sha256_cert_fingerprints": ["73:4A:C9:56:7B:9E:27:11:DB:38:18:30:2C:4F:02:A8:21:32:3C:02:87:78:F5:E1:5A:8D:A2:5A:D8:28:28:CA"] }
     }]
