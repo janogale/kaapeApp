@@ -9,8 +9,6 @@ module.exports = withPWA({
   images: {
     domains: ["kaabeapp.blob.core.windows.net"],
   },
-  future: { webpack5: true },
-
   env: {
     protosDir: path.join(__dirname, "Protos"),
   },
